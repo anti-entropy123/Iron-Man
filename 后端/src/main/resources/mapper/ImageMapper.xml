@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.ImageMapper">
+
+	<resultMap id="ImageMap" type="com.mbry.IronMan.entity.ImageEntity">
+		<result property="carId" column="card_id"/>
+		<result property="imageUrl" column="image_url"/>
+	</resultMap>
+	
+	<insert id="insertImage">
+		INSERT INTO
+			image(card_id, image_url)
+		VALUES(#{cardId}, #{imageUrl})
+	</insert>
+	
+	<select id="queryImageByCardId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT image_url FROM image
+		WHERE card_id = #{cardId}
+	</select>
+	
+	<select id="queryFirstImageByCardId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT image_url FROM image
+		WHERE card_id = #{cardId}
+		LIMIT 0,1 
+	</select>
+	
+	<delete id="deleteImageByCardId" parameterType="java.lang.String">
+		DELETE FROM image
+		WHERE card_id = #{cardId}
+	</delete>
+	
+</mapper>
