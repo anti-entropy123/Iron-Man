@@ -1,11 +1,15 @@
 package com.mbry.IronMan.Controller;
+
+import com.mbry.IronMan.RequestBody.BaseRequestBody.LoginCode;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/api/")
 class test_controller{
     @GetMapping("/")
-    String helloworld(){
+    String helloworld(@RequestBody LoginCode loginCode){
         return "hello world";
     }
 }

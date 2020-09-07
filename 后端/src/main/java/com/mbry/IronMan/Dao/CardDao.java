@@ -43,7 +43,7 @@ public interface CardDao {
      * @param unitType 户型, 不需要时为 -1
      * @return
      */
-    public RentCard[] queryRentCards(int page, String location, int[] priceRange, int unitType);
+    public RentCard[] queryRentCards(int page, String location, Double[] priceRange, int unitType);
     /**
      * 
      * @param page
@@ -52,7 +52,7 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public AskRentCard[] queryAskRentCards(int page, String location, int[] priceRange, int unitType);
+    public AskRentCard[] queryAskRentCards(int page, String location, Double[] priceRange, int unitType);
     /**
      * 
      * @param page
@@ -107,4 +107,11 @@ public interface CardDao {
      * @return
      */
     public boolean deleteUncompleteCardForUser(String userId, String cardId);
+
+    /**
+     * 当前端请求查询用户参与的未完成的订单时, 通过此接口查询用户所参与的未完成订单(不包括自己发起的).
+     * @param userId
+     * @return
+     */
+    public Card[] queryUncompleteCardsByUserId(String userId);
 }
