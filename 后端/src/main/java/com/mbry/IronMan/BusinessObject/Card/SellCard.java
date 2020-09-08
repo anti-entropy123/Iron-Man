@@ -14,15 +14,40 @@ public class SellCard extends Card{
         String title,
         String introduction,
         String location,
-        boolean unitType,
+        int unitType,
         double price,
         double square,
         String requirement,
         String[] images
     ){
         super(cardId, userId, status, date, title, introduction, location, unitType, images);
-        this.price = price;
-        this.square = square;
-        this.requirement = requirement;
+        this.setPrice(price);
+        this.setSquare(square);
+        this.setRequirement(requirement);
     }
+    
+	public double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	public double getSquare() {
+		return square;
+	}
+	
+	public void setSquare(double square) {
+		this.square = square;
+	}
+	
+	public String getRequirement() {
+		return requirement;
+	}
+	
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
+	}
+    
 }

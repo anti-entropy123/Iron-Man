@@ -1,14 +1,12 @@
-package com.mbry.IronMan.ResponseBody.HomeResponseBody;
+package com.mbry.IronMan.ResponseBody.OrdResponseBody;
 
 import java.io.Serializable;
 
-public class CardResponse implements Serializable {
+public class GetCompleteOrdRequest implements Serializable {
     /**
      *
      */
     private static final long serialVersionUID = -1038013217654236746L;
-
-
     public class Data implements Serializable {
         /**
          *
@@ -147,10 +145,9 @@ public class CardResponse implements Serializable {
     private String result;
     private String message;
 
-    public CardResponse() {
+    public GetCompleteOrdRequest() {
     }
-
-    public CardResponse(
+    public GetCompleteOrdRequest(
             Data data,
             String result,
             String message) {

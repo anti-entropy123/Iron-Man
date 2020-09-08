@@ -14,7 +14,7 @@ public class Card {
     private String title;
     private String introduction;
     private String location;
-    private boolean unitType;
+    private int unitType;
     private String[] images;
 
     public Card(){}
@@ -27,17 +27,90 @@ public class Card {
         String title,
         String introduction,
         String location,
-        boolean unitType,
+        int unitType,
         String[] images
         ){
-            this.cardId = cardId;
-            this.userId = userId;
-            this.status = status;
-            this.date = date;
-            this.title = title;
-            this.introduction = introduction;
-            this.location = location;
-            this.unitType = unitType;
-            this.images = images;
+            this.setCardId(cardId);
+            this.setUserId(userId);
+            this.setStatus(status);
+            this.setDate(date);
+            this.setTitle(title);
+            this.setIntroduction(introduction);
+            this.setLocation(location);
+            this.setUnitType(unitType);
+            this.setImages(images);
     }
+    
+	public String getCardId() {
+		return cardId;
+	}
+	
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	public boolean isStatus() {
+		return status;
+	}
+	
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getIntroduction() {
+		return introduction;
+	}
+	
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	public int isUnitType() {
+		return unitType;
+	}
+	
+	public void setUnitType(int unitType) {
+		this.unitType = unitType;
+	}
+	
+	public String[] getImages() {
+		return images;
+	}
+	
+	public void setImages(String[] images) {
+		this.images = images;
+	}
+	
 }

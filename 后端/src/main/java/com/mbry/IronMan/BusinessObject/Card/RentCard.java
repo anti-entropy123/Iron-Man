@@ -15,7 +15,7 @@ public class RentCard extends Card{
         String title,
         String introduction,
         String location,
-        boolean unitType,
+        int unitType,
         String requirement,
         int unionNum,
         double price,
@@ -23,9 +23,42 @@ public class RentCard extends Card{
         String[] images
         ){
             super(cardId, userId, status, date, title, introduction, location, unitType, images);
-            this.requirement = requirement;
-            this.unionNum = unionNum;
-            this.price = price;
-            this.Square = square;
+            this.setRequirement(requirement);
+            this.setUnionNum(unionNum);
+            this.setPrice(price);
+            this.setSquare(square);
     }
+    
+	public String getRequirement() {
+		return requirement;
+	}
+	
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
+	}
+	
+	public int getUnionNum() {
+		return unionNum;
+	}
+	
+	public void setUnionNum(int unionNum) {
+		this.unionNum = unionNum;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	public double getSquare() {
+		return Square;
+	}
+	
+	public void setSquare(double square) {
+		Square = square;
+	}
+	
 }

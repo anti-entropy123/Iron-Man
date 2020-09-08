@@ -8,7 +8,7 @@ public class DetailCardResponse implements Serializable {
      */
     private static final long serialVersionUID = -9044987965597297702L;
 
-    private class Data implements Serializable {
+    public class Data implements Serializable {
         /**
          *
          */
