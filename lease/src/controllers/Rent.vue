@@ -1,26 +1,122 @@
 <template>
-  <div>
-    home
-  </div>
+    <div>
+      <div class="shadow search" >
+        <div style="font-size: larger">查询</div>
+        <el-row :gutter="10" style="margin-top: 10px;margin-bottom:10px">
+          <el-col :span="5">
+            <el-input
+              placeholder="请输入内容"
+              v-model="search_input_resource"
+              clearable>
+            </el-input>
+          </el-col>
+          <el-col :span="2">
+            <div class="search_btn">搜索</div>
+          </el-col>
+          <el-col :span="8">
+            房屋类型:
+            <el-select v-model="value" multiple placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            <div class="search_btn">搜索</div>
+          </el-col>
+        </el-row>
+       </div>
+        <div class="shadow content">
+          <el-row class="inner-title">
+            房屋信息
+          </el-row>
+          <el-row>
+            <el-table
+              :data="tableData"
+              border
+              stripe
+              tooltip-effect="dark"
+              style="width: 100%"
+              @selection-change="handleSelectionChange">
+              >
+              <el-table-column
+                type="selection"
+                width="40">
+              </el-table-column>
+              <el-table-column
+                prop="cardId"
+                label="cardId"
+                align="center"
+                width="100">
+              </el-table-column>
+              <el-table-column
+                prop="userId"
+                label="userId"
+                align="center"
+                width="80">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                label="type"
+                prop="type"
+                width="60">
+                <template slot-scope="scope">
+                  <div>{{types[type]}}</div>
+                </template>
+              </el-table-column>
+
+
+              <el-table-column
+                prop="date"
+                label="日期"
+                align="center"
+                width="150">
+              </el-table-column>
+              <el-table-column
+                prop="title"
+                label="title"
+                align="center"
+                width="350">
+              </el-table-column>
+              <el-table-column
+                label="操作"
+                width="300"
+                align="center"
+              >
+                <template slot-scope="scope">
+                  <el-button
+                    size="mini"
+                    @click="handleView(scope.$index, scope.row)">查看</el-button>
+                  <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="block" style="margin-left:20%">
+              <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="8"
+                layout="prev, pager, next, jumper"
+                :total="100">
+              </el-pagination>
+            </div>
+          </el-row>
+      </div>
+    </div>
 </template>
 
 <script>
   export default {
-    name: "Home",
+    name: "Rent",
     data () {
       return {
-        search_input_nickname:'',
-        search_input_userId:'',
-        search_input_mobileNumber:'',
         search_input_resource:'',
-        choose:'user',
-        search: '',
-        login:false,
         currentPage: 1,
-        loginForm: {
-          inputUser:'',
-          inputPassword:''
-        },
         options: [{
           value: '选项1',
           label: '出售'
@@ -37,66 +133,9 @@
         ],
         types:new Array('出租','出售','求租','求购','找室友'),
         value: [],
-        tableData: [
-          {
-            "userId": "001",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "002",
-            "nickname": "yjn",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A114",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "003",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "004",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "005",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "006",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "007",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "008",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          ],
+
         multipleSelection: [],
-        tableData2: [{
+        tableData: [{
           cardId: "001",
           type: 1,
 
@@ -150,7 +189,7 @@
     },
     methods: {
       changeChoose (data) {
-          this.choose = data;
+        this.choose = data;
       },
       toggleSelection(rows) {
         if (rows) {
@@ -181,52 +220,10 @@
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
-      //登陆接口
-      Login (){
-        let _this = this;
-        if(this.loginForm.inputUser === '' || this.loginForm.inputPassword===''){
-          this.$message.warning('账号或密码不能为空')
-        } else {
-           this.login = true
-          // this.$http.post ('/api/adm/login',{
-          //   account: this.loginForm.inputUser,
-          //   password: this.loginForm.password
-          // }).then( res=>{
-          //   console.log(res);
-          //
-          //   if (res.response && res.response.status!=200){
-          //     let message = res.response.data.message
-          //     _this.$message.error(message)
-          //   } else {
-          //     sessionStorage.setItem('token', res.data.token)
-          //     _this.$message.success("登录成功，请手动刷新")
-          //     let a = this.$route.params.id
-          //     // window.location = a
-          //     _this.$router.push(a)
-          //   }
-          // }).catch(err=>{
-          //   _this.$message.error('系统出错')
-          // })
 
-        }
-
-      },
-      Logout (){
-        this.login=false;
-      },
-      goSearch(msg) {
-          console.log(msg)
-      }
     },
     computed : {
-      isShow () {
-        return (this.choose==='resource')&this.login;
 
-      },
-
-      isLogin() {
-          return !this.login;
-      }
     }
   }
 </script>
