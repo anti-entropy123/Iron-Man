@@ -9,10 +9,12 @@ import com.mbry.IronMan.ResponseBody.PublishResponseBody.PublishImageResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@RestController("/api/publish")
+@RestController
+@RequestMapping("/api/publish")
 public class PublishController {
     @PostMapping(value="/")
     public DefaultResponse publish(@RequestBody PublishRequest publishRequest) {

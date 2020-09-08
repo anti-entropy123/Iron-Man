@@ -2,7 +2,9 @@ package com.mbry.IronMan.ResponseBody.DetailResponseBody;
 
 import java.io.Serializable;
 
-public class DetailCardResponse implements Serializable {
+import com.mbry.IronMan.ResponseBody.DefaultResponse;
+
+public class DetailCardResponse extends DefaultResponse {
     /**
      *
      */
@@ -17,8 +19,8 @@ public class DetailCardResponse implements Serializable {
         private int type;
         private String title;
         private String cover;
-        private double[] price;
-        private double[] square;
+        private double[] prices;
+        private double[] squares;
         private String location;
         private boolean hasHouseRes;
         private String[] images;
@@ -39,8 +41,8 @@ public class DetailCardResponse implements Serializable {
                 int type,
                 String title,
                 String cover,
-                double[] price,
-                double[] square,
+                double[] prices,
+                double[] squares,
                 String location,
                 boolean hasHouseRes,
                 String[] images,
@@ -55,8 +57,8 @@ public class DetailCardResponse implements Serializable {
             this.type = type;
             this.title = title;
             this.cover = cover;
-            this.price = price;
-            this.square = square;
+            this.prices = prices;
+            this.squares = squares;
             this.location = location;
             this.hasHouseRes = hasHouseRes;
             this.images = images;
@@ -101,20 +103,20 @@ public class DetailCardResponse implements Serializable {
             this.cover = cover;
         }
 
-        public double[] getPrice() {
-            return this.price;
+        public double[] getPrices() {
+            return this.prices;
         }
 
-        public void setPrice(double[] price) {
-            this.price = price;
+        public void setPrices(double[] prices) {
+            this.prices = prices;
         }
 
-        public double[] getSquare() {
-            return this.square;
+        public double[] getSquares() {
+            return this.squares;
         }
 
-        public void setSquare(double[] square) {
-            this.square = square;
+        public void setSquares(double[] squares) {
+            this.squares = squares;
         }
 
         public String getLocation() {
@@ -208,9 +210,8 @@ public class DetailCardResponse implements Serializable {
             Data data,
             String result,
             String message) {
+        super(result, message);
         this.data = data;
-        this.result = result;
-        this.message = message;
     }
 
     public Data getData() {
@@ -219,21 +220,5 @@ public class DetailCardResponse implements Serializable {
 
     public void setData(Data data) {
         this.data = data;
-    }
-
-    public String getResult() {
-        return this.result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

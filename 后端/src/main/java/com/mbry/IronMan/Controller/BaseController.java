@@ -7,8 +7,10 @@ import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController("/api/base")
+@RestController
+@RequestMapping("/api/base")
 public class BaseController {
     @PostMapping("/getCheckCode/")
     public DefaultResponse getCheckCode(@RequestBody MobileNumber mobileNumber) {

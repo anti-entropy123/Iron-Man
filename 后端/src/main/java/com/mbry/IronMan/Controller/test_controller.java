@@ -4,9 +4,7 @@ import com.mbry.IronMan.RequestBody.BaseRequestBody.LoginCode;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/api/")
 class test_controller{
     @GetMapping("/")
     String helloworld(@RequestBody LoginCode loginCode){

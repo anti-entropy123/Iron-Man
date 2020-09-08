@@ -3,11 +3,13 @@ package com.mbry.IronMan.Controller;
 import com.mbry.IronMan.ResponseBody.HomeResponseBody.CardResponse;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@RestController("/api/home")
+@RestController
+@RequestMapping("/api/home")
 public class HomeController {
     @GetMapping("/getCards/")
     public CardResponse getMethodName(
