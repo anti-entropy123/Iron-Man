@@ -1,0 +1,67 @@
+
+# Server configuration
+server:
+  port: 8080
+ #contextPath:
+
+# Spring configuration
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+  datasource:  
+    url : jdbc:mysql://localhost:3306/iron_man?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username : root
+    password : root
+    driverClassName : com.mysql.cj.jdbc.Driver
+    
+  jpa:   
+    show-sql : true 
+    open-in-view : true
+   # hibernate:      
+   #   ddl-auto: update      
+   # naming:        
+   #     physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy    
+   #     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect 
+    
+  
+spring.thymeleaf.cache: false
+server.tomcat.access_log_enabled: true  
+server.tomcat.basedir: target/tomcat 
+
+ 
+# JWT
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  tokenHead: "Bearer "
+  supercode: "99999"
+  route:
+    authentication:
+      path: /api/login/
+      register: /api/user/register/
+#      refresh:
+
+# Logging configuration
+logging:
+  level:
+    org.springframework:
+      data: DEBUG
+      security: DEBUG
+#spring.boot.admin.url: http://localhost:8080
+
+#Mybatis
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: com.mbry.IronMan.entity
+
+# default balance
+default:
+  balance:
+    annualLeave: 7
+    maternityLeave: 90
+    homeLeave: 7
+    sickLeave: -1
+    absenceLeave: -1
