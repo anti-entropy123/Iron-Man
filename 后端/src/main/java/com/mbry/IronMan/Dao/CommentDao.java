@@ -41,4 +41,18 @@ public interface CommentDao {
      */
     public boolean deleteReply(String commentId);
 
+    /**
+     * 查询某个主楼评论的回复数量
+     * @param commentId
+     * @return
+     */
+    public int queryReplyNumberByCommentId(String commentId);
+
+    /**
+     * 
+     * @param commentId
+     * @return
+     */
+    public Comment queryCommentByCommentId(String commentId);
+
 }

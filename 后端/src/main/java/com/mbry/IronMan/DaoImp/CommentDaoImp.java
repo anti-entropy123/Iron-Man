@@ -111,4 +111,33 @@ public class CommentDaoImp implements CommentDao {
 		comment.setDate(commentEntity.getDate());
 	}
 
+	@Override
+	public int queryReplyNumberByCommentId(String commentId) {
+		return commentMapper.queryReplyNumberByBelongTo(commentId);
+	}
+
+	@Override
+	public Comment queryCommentByCommentId(String commentId) {
+		CommentEntity commentEntity = commentMapper.queryCommentById(commentId);
+		if (commentEntity.getBelongToId() == null) {
+			Comment comment = new Comment();
+			comment.setCommentId(commentEntity.getCommentId());
+			comment.setCardId(commentEntity.getCardId());
+			comment.setUserId(commentEntity.getUserId());
+			comment.setContent(commentEntity.getContent());
+			comment.setDate(commentEntity.getDate());
+			return comment;
+		} else {
+			Reply comment = new Reply();
+			comment.setCommentId(commentEntity.getCommentId());
+			comment.setCardId(commentEntity.getCardId());
+			comment.setUserId(commentEntity.getUserId());
+			comment.setContent(commentEntity.getContent());
+			comment.setDate(commentEntity.getDate());
+			comment.setBelongToId(commentEntity.getBelongToId());
+			comment.setReplyToId(commentEntity.getReplyToId());
+			return (Comment)comment;
+		}
+	}
+
 }

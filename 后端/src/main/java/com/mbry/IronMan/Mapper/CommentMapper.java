@@ -42,5 +42,19 @@ public interface CommentMapper {
 	 * @return
 	 */
 	public CommentEntity[] queryRepliesByBelongId(String belongToId);
+
+	/**
+	 * 返回指定评论的回复数
+	 * @param belongToId
+	 * @return
+	 */
+	public int queryReplyNumberByBelongTo(String belongToId);
+
+	/**
+	 * 查询指定comment
+	 * @param commentId
+	 * @return
+	 */
+	public CommentEntity queryCommentById(String commentId);
 	
 }
