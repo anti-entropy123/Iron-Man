@@ -2,48 +2,37 @@ package com.mbry.IronMan.RequestBody.BaseRequestBody;
 
 import java.io.Serializable;
 
-public class MobileAndCheckCode implements Serializable {
+public class MobileAndCheckCode implements Serializable{
     /**
      *
      */
     private static final long serialVersionUID = 8155855109148976237L;
-    private String mobile;
-    private String result;
-    private String message;
+    private String checkcode;
+    private String mobileNumber;
 
     public MobileAndCheckCode() {
     }
 
     public MobileAndCheckCode(
-            String mobile,
-            String result,
-            String message) {
-        this.mobile = mobile;
-        this.result = result;
-        this.message = message;
+            String checkcode,
+            String mobileNumber) {
+        this.checkcode = checkcode;
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getMobile() {
-        return this.mobile;
+    public String getMobileNumber() {
+        return this.mobileNumber;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getResult() {
-        return this.result;
+    public String getCheckcode() {
+        return this.checkcode;
     }
 
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCheckcode(String checkcode) {
+        this.checkcode = checkcode;
     }
 }

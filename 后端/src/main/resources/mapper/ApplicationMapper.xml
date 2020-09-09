@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	<insert id="insertApplication" parameterType="com.mbry.IronMan.entity.ApplicationEntity">
-		<selectKey keyProperty="applicantId" resultType="java.lang.String" order="BEFORE">
+		<selectKey keyProperty="applicationId" resultType="java.lang.String" order="BEFORE">
 			SELECT REPLACE(UUID(),'-','')
     	</selectKey>
 		INSERT INTO
@@ -25,7 +25,7 @@
 				target_user_id,
 				date)
 		VALUES(
-			#{applicantId},
+			#{applicationId},
 			#{cardId},
 			#{applicantId},
 			#{status},
@@ -53,9 +53,14 @@
 		WHERE application_id = #{applicationId}
 	</select>
 	
-	<select id="queryApplicationById" parameterType="com.mbry.IronMan.entity.ApplicationEntity" resultMap="ApplicationMap">
+	<select id="queryApplicationById" parameterType="java.lang.String" resultMap="ApplicationMap">
 		SELECT * FROM application
 		WHERE application_id = #{applicationId}
+	</select>
+
+	<select id="queryApplicationByCardId" parameterType="java.lang.String" resultMap="ApplicationMap">
+		SELECT * FROM application
+		WHERE card_id = #{cardId}
 	</select>
 	
 	<update id="updateStatusByApplicationId">

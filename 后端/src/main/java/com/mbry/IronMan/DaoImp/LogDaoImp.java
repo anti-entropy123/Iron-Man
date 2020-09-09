@@ -1,5 +1,8 @@
 package com.mbry.IronMan.DaoImp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mbry.IronMan.BusinessObject.Log;
 import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Mapper.LogMapper;
@@ -26,15 +29,19 @@ public class LogDaoImp implements LogDao {
     }
 
     @Override
-    public Log queryLogByAimUserId(String aimUserId) {
-        LogEntity logEntity = logMapper.queryLogEntityByAimUserId(aimUserId);
-        return new Log(logEntity.getLogId(),
-                       logEntity.getType(),
-                       logEntity.getCardId(),
-                       logEntity.getApplyId(),
-                       logEntity.getUserId(),
-                       logEntity.getAimUserId(),
-                       logEntity.getStatus());
+    public Log[] queryLogByAimUserId(String aimUserId) {
+        LogEntity[] logEntitys = logMapper.queryLogEntityByAimUserId(aimUserId);
+        List<Log> logs = new ArrayList<Log>();
+        for (LogEntity logEntity: logEntitys) {
+            logs.add(new Log(logEntity.getLogId(),
+                             logEntity.getType(),
+                             logEntity.getCardId(),
+                             logEntity.getApplyId(),
+                             logEntity.getUserId(),
+                             logEntity.getAimUserId(),
+                            logEntity.getStatus()));
+        }
+        return logs.toArray(new Log[logs.size()]);
     }
 
     @Override

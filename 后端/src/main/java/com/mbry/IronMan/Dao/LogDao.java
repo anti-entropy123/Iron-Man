@@ -18,7 +18,7 @@ public interface LogDao {
      * @param aimUserId
      * @return
      */
-    public Log queryLogByAimUserId(String aimUserId);
+    public Log[] queryLogByAimUserId(String aimUserId);
 
     /**
      * 将log置为已读

@@ -24,27 +24,17 @@ public class ApplicationDaoImp implements ApplicationDao {
 	private TeamApplicationMapper teamApplicationMapper;
 
 	@Override
-	public boolean createApplication(CardApplication app) {
-		try {
-			ApplicationEntity applicationEntity = this.getApplicationEntityFromBO(app);
-			applicationMapper.insertApplication(applicationEntity);
-			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	public String createApplication(CardApplication app) {
+		ApplicationEntity applicationEntity = this.getApplicationEntityFromBO(app);
+		applicationMapper.insertApplication(applicationEntity);
+		return applicationEntity.getApplicationId();
 	}
 
 	@Override
-	public boolean createApplication(TeamApplication app) {
-		try {
-			TeamApplicationEntity teamApplicationEntity = this.getTeamApplicationEntityFromBO(app);
-			teamApplicationMapper.insertTeamApplication(teamApplicationEntity);
-			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	public String createApplication(TeamApplication app) {
+		TeamApplicationEntity teamApplicationEntity = this.getTeamApplicationEntityFromBO(app);
+		teamApplicationMapper.insertTeamApplication(teamApplicationEntity);
+		return teamApplicationEntity.getApplicationId();
 	}
 
 	@Override
@@ -81,6 +71,26 @@ public class ApplicationDaoImp implements ApplicationDao {
 			applications.add(getApplicationFromEntity(teamApplicationEntitys[i]));
 		}
 		return applications.toArray(new Application[applications.size()]);
+	}
+
+	@Override
+	public Application[] queryCardApplicationsByCardId(String cardId) {
+		ApplicationEntity[] applicationEntitys = applicationMapper.queryApplicationByCardId(cardId);
+		List<Application> applications = new ArrayList<Application>();
+		for (ApplicationEntity ae: applicationEntitys) {
+			applications.add(this.getApplicationFromEntity(ae));
+		}
+		return applications.toArray(new Application[applications.size()]);
+	}
+
+	@Override
+	public Application queryApplicationByAppId(String applicationId) {
+		ApplicationEntity applicationEntity = applicationMapper.queryApplicationById(applicationId);
+		if (applicationEntity.getCardId() == null) {
+			return this.getApplicationFromEntity(teamApplicationMapper.queryApplicationById(applicationId));
+		} else {
+			return this.getApplicationFromEntity(applicationEntity);
+		}
 	}
 	
 	/**
@@ -145,5 +155,5 @@ public class ApplicationDaoImp implements ApplicationDao {
 		teamApplication.setDate(app.getDate());
 		return (Application)teamApplication;
 	}
-	
+
 }

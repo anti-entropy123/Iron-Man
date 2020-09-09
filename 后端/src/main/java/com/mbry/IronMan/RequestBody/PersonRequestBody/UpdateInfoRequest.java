@@ -9,7 +9,7 @@ public class UpdateInfoRequest implements Serializable {
     private static final long serialVersionUID = 5664774176283503006L;
     private String userId;
     private String name;
-    private String sex;
+    private Boolean sex;
     private String introduce;
     private String avatarUrl;
 
@@ -19,7 +19,7 @@ public class UpdateInfoRequest implements Serializable {
     public UpdateInfoRequest(
             String userId,
             String name,
-            String sex,
+            Boolean sex,
             String introduce,
             String avatarUrl) {
         this.userId = userId;
@@ -45,11 +45,11 @@ public class UpdateInfoRequest implements Serializable {
         this.name = name;
     }
 
-    public String getSex() {
+    public Boolean getSex() {
         return this.sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Boolean sex) {
         this.sex = sex;
     }
 

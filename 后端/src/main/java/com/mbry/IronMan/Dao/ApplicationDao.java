@@ -11,16 +11,16 @@ public interface ApplicationDao {
     /**
      * 
      * @param app
-     * @return
+     * @return 返回新建的application的主键
      */
-    public boolean createApplication(CardApplication app);
+    public String createApplication(CardApplication app);
 
     /**
      * 
      * @param app
-     * @return
+     * @return 返回新建的application的主键
      */
-    public boolean createApplication(TeamApplication app);
+    public String createApplication(TeamApplication app);
 
     /**
      * 修改申请的状态为完成
@@ -36,4 +36,19 @@ public interface ApplicationDao {
      * @return
      */
     public Application[] queryApplicationByUserId(String targetUserId);
+
+    /**
+     * 根据 cardId 查询该card对应的有关的CardId
+     * @param cardId 理论上 cardId 只能是租房的card的id
+     * @return Application[] 中的对象的实际类型应该是CardApplication
+     */
+    public Application[] queryCardApplicationsByCardId(String cardId);
+
+    /**
+     * 根据 appId 查询对应的申请
+     * @param ApplicationId
+     * @return 应返回真实类型, 并向上转型
+     */
+    public Application queryApplicationByAppId(String applicationId);
+    
 }

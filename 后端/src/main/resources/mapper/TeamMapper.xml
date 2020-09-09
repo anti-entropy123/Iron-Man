@@ -56,5 +56,10 @@
 		SELECT captain_id FROM team
 		WHERE team_id = #{teamId}
 	</select>
+
+	<select id="queryTeamByCapAndCard" resultMap="TeamMap">
+		SELECT * FROM team
+		WHERE captain_id = #{captainId} AND card_id = #{cardId}
+	</select>
 	
 </mapper>

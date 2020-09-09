@@ -12,7 +12,7 @@ public class PublishImageResponse extends DefaultResponse{
     public PublishImageResponse(){}
     public PublishImageResponse(
         String url, 
-        String result,
+        int result,
         String message
     ){
         super(result, message);

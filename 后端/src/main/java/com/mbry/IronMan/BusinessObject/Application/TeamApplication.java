@@ -21,7 +21,10 @@ public class TeamApplication extends Application{
 	}
 	
 	public void setTeamId(String teamId) {
-		this.teamId = teamId;
+        this.teamId = teamId;
+        if (teamId == "") {
+            teamId = null;
+        }
 	}
 	
 }

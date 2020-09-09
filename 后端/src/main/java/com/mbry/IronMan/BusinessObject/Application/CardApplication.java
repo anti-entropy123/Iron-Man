@@ -8,11 +8,12 @@ public class CardApplication extends Application{
     public CardApplication(
         String applicationId,
         String applicantId,
+        String targetUserId,
         Boolean status,
         String date,
         String cardId
     ){
-        super(applicationId, applicantId, cardId, status, date);
+        super(applicationId, applicantId, targetUserId, status, date);
         this.setCardId(cardId); 
     }
     
@@ -21,7 +22,10 @@ public class CardApplication extends Application{
 	}
 	
 	public void setCardId(String cardId) {
-		this.cardId = cardId;
+        this.cardId = cardId;
+        if (cardId == "") {
+            cardId = null;
+        }
 	}
 	
 }

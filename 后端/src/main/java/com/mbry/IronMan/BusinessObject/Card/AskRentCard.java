@@ -81,6 +81,9 @@ public class AskRentCard extends Card{
 	
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
+		if (requirement == "") {
+			requirement = null;
+		}
 	}
 
 }

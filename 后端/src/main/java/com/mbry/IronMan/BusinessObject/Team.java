@@ -31,6 +31,9 @@ public class Team {
 	
 	public void setTeamId(String teamId) {
 		this.teamId = teamId;
+		if (teamId == "") {
+			teamId = null;
+		}
 	}
 	
 	public String getCaptainId() {
@@ -39,6 +42,9 @@ public class Team {
 	
 	public void setCaptainId(String captainId) {
 		this.captainId = captainId;
+		if (captainId == "") {
+			captainId = null;
+		}
 	}
 	
 	public String getCardId() {
@@ -47,6 +53,9 @@ public class Team {
 	
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
+		if (cardId == "") {
+			cardId = null;
+		}
 	}
 	
 	public int getMaxNum() {
@@ -63,6 +72,9 @@ public class Team {
 	
 	public void setDate(String date) {
 		this.date = date;
+		if (date == "") {
+			date = null;
+		}
 	}
 	
 	public User[] getMembers() {

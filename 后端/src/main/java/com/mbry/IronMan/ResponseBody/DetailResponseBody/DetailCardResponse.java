@@ -18,7 +18,6 @@ public class DetailCardResponse extends DefaultResponse {
         private String cardId;
         private int type;
         private String title;
-        private String cover;
         private double[] prices;
         private double[] squares;
         private String location;
@@ -40,7 +39,7 @@ public class DetailCardResponse extends DefaultResponse {
                 String cardId,
                 int type,
                 String title,
-                String cover,
+                //String cover,
                 double[] prices,
                 double[] squares,
                 String location,
@@ -56,7 +55,7 @@ public class DetailCardResponse extends DefaultResponse {
             this.cardId = cardId;
             this.type = type;
             this.title = title;
-            this.cover = cover;
+            //this.cover = cover;
             this.prices = prices;
             this.squares = squares;
             this.location = location;
@@ -95,13 +94,13 @@ public class DetailCardResponse extends DefaultResponse {
             this.title = title;
         }
 
-        public String getCover() {
-            return this.cover;
-        }
+        // public String getCover() {
+        //     return this.cover;
+        // }
 
-        public void setCover(String cover) {
-            this.cover = cover;
-        }
+        // public void setCover(String cover) {
+        //     this.cover = cover;
+        // }
 
         public double[] getPrices() {
             return this.prices;
@@ -199,8 +198,6 @@ public class DetailCardResponse extends DefaultResponse {
             this.ownerId = ownerId;
         }
     }
-    private String result;
-    private String message;
     private Data data;
 
     public DetailCardResponse() {
@@ -208,7 +205,7 @@ public class DetailCardResponse extends DefaultResponse {
 
     public DetailCardResponse(
             Data data,
-            String result,
+            int result,
             String message) {
         super(result, message);
         this.data = data;

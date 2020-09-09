@@ -3,7 +3,7 @@ package com.mbry.IronMan.BusinessObject.Card;
 public class SellCard extends Card{
     private double price;
     private double square;
-    private String requirement;
+    // private String requirement;
     
     public SellCard(){}
     public SellCard(
@@ -17,13 +17,13 @@ public class SellCard extends Card{
         int unitType,
         double price,
         double square,
-        String requirement,
+        //String requirement,
         String[] images
     ){
         super(cardId, userId, status, date, title, introduction, location, unitType, images);
         this.setPrice(price);
         this.setSquare(square);
-        this.setRequirement(requirement);
+        //this.setRequirement(requirement);
     }
     
 	public double getPrice() {
@@ -42,12 +42,12 @@ public class SellCard extends Card{
 		this.square = square;
 	}
 	
-	public String getRequirement() {
-		return requirement;
-	}
+	// public String getRequirement() {
+	// 	return requirement;
+	// }
 	
-	public void setRequirement(String requirement) {
-		this.requirement = requirement;
-	}
+	// public void setRequirement(String requirement) {
+	// 	this.requirement = requirement;
+	// }
     
 }

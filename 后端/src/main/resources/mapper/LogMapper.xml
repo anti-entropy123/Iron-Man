@@ -35,17 +35,17 @@
         )
     </insert>
 
-    <delelte id="deleteLog" parameterType="java.lang.String">
+    <delete id="deleteLog" parameterType="java.lang.String">
         DELETE FROM log
         WHERE log_id = #{logId}
     </delete>
 
-    <delelte id="deleteLogByApplyId" parameterType="java.lang.String">
+    <delete id="deleteLogByApplyId" parameterType="java.lang.String">
         DELETE FROM log
         WHERE apply_id = #{applyId}
-    </delelte>
+    </delete>
 
-    <select id="queryLogEntityByAimUserId" parameterType="java.lang.String" resultMap="logMap">
+    <select id="queryLogEntityByAimUserId" parameterType="java.lang.String" resultMap="LogMap">
         SELECT * FROM log
         WHERE aim_user_id = #{aimUserId}
     </select>

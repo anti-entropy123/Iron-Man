@@ -7,24 +7,24 @@ public class DefaultResponse implements Serializable {
      *
      */
     private static final long serialVersionUID = 7406970292639605091L;
-    private String result;
+    private int result;
     private String message;
 
     public DefaultResponse() {
     }
 
     public DefaultResponse(
-            String result,
+            int result,
             String message) {
         this.result = result;
         this.message = message;
     }
 
-    public String getResult() {
+    public int getResult() {
         return this.result;
     }
 
-    public void setResult(String result) {
+    public void setResult(int result) {
         this.result = result;
     }
 

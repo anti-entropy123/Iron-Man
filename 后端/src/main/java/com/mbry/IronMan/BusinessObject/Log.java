@@ -51,6 +51,9 @@ public class Log {
 
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
+		if (cardId == "") {
+			cardId = null;
+		}
 	}
 
 	public String getApplyId() {
@@ -59,6 +62,9 @@ public class Log {
 
 	public void setApplyId(String applyId) {
 		this.applyId = applyId;
+		if (applyId == "") {
+			applyId = null;
+		}
 	}
 
 	public String getUserId() {
@@ -67,6 +73,9 @@ public class Log {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+		if (userId == "") {
+			userId = null;
+		}
 	}
 
 	public String getAimUserId() {

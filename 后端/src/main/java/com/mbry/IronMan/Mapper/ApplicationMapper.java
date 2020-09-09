@@ -47,6 +47,13 @@ public interface ApplicationMapper {
 	 * @return
 	 */
 	public ApplicationEntity queryApplicationById(String applicationId);
+
+	/**
+	 * 查询指向某cardId的全部申请
+	 * @param cardId
+	 * @return
+	 */
+	public ApplicationEntity[] queryApplicationByCardId(String cardId);
 	
 	/**
 	 * 将指定申请状态改为完成

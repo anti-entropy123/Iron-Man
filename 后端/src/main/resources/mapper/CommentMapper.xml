@@ -67,6 +67,6 @@
 	<select id="queryCommentById" parameterType="java.lang.String" resultMap="CommentMap">
 		SELECT * FROM comment
 		WHERE comment_id = #{commentId}
-	<select>
+	</select>
 		
 </mapper>

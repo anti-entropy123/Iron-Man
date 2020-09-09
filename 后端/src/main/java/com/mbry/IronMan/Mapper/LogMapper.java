@@ -30,7 +30,7 @@ public interface LogMapper {
      * @param aimUserId
      * @return
      */
-    public LogEntity queryLogEntityByAimUserId(String aimUserId);
+    public LogEntity[] queryLogEntityByAimUserId(String aimUserId);
 
     /**
      * 将log置为已读

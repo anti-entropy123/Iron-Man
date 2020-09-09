@@ -2,7 +2,7 @@
 # Server configuration
 server:
   port: 8080
- #contextPath:
+  contextPath:
 
 # Spring configuration
 spring:
@@ -11,10 +11,10 @@ spring:
       INDENT_OUTPUT: true
 
   datasource:  
-    url : jdbc:mysql://localhost:3306/iron_man?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url : jdbc:mysql://localhost:3306/mid_practice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username : root
     password : root
-    driverClassName : com.mysql.cj.jdbc.Driver
+    driverClassName : com.mysql.jdbc.Driver 
     
   jpa:   
     show-sql : true 
@@ -52,8 +52,11 @@ logging:
       security: DEBUG
 #spring.boot.admin.url: http://localhost:8080
 
-#Mybatis
-mybatis:
-  mapperLocations: classpath*:mapper/*.xml
-  typeAliasesPackage: com.mbry.IronMan.entity
-
+# default balance
+default:
+  balance:
+    annualLeave: 7
+    maternityLeave: 90
+    homeLeave: 7
+    sickLeave: -1
+    absenceLeave: -1

@@ -2,7 +2,6 @@ package com.mbry.IronMan.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.mbry.IronMan.BusinessObject.User;
-import com.mbry.IronMan.Dao.UserDao;
 import com.mbry.IronMan.Utils.JwtTokenUtil;
 
 @SuppressWarnings("SpringJavaAutowiringInspection")

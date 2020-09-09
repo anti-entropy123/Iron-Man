@@ -59,7 +59,7 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public Card[] queryALLCards(int page) {
 		int startIndex = (page - 1) * Global.pageSize;
-		CardEntity[] cardEntitys = cardMapper.queryCards(startIndex, Global.pageSize, 0, null, 0, 0, 0, 0, -1);
+		CardEntity[] cardEntitys = cardMapper.queryCards(startIndex, Global.pageSize, 0, null, 0, 0, 0, 0, -1, null);
 		List<Card> cards = new ArrayList<Card>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getCardBOByEntity(cardEntitys[i]));
@@ -79,7 +79,8 @@ public class CardDaoImp implements CardDao {
 				priceRange[1], 
 				0, 
 				0, 
-				unitType);
+				unitType,
+				null);
 		List<RentCard> cards = new ArrayList<RentCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getRentCard(cardEntitys[i]));
@@ -99,7 +100,8 @@ public class CardDaoImp implements CardDao {
 				priceRange[1], 
 				0, 
 				0, 
-				unitType);
+				unitType,
+				null);
 		List<AskRentCard> cards = new ArrayList<AskRentCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getAskRentCard(cardEntitys[i]));
@@ -119,7 +121,8 @@ public class CardDaoImp implements CardDao {
 				priceRange[1], 
 				0, 
 				0, 
-				unitType);
+				unitType,
+				null);
 		List<SellCard> cards = new ArrayList<SellCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getSellCard(cardEntitys[i]));
@@ -139,7 +142,8 @@ public class CardDaoImp implements CardDao {
 				priceRange[1], 
 				0, 
 				0, 
-				unitType);
+				unitType,
+				null);
 		List<AskSellCard> cards = new ArrayList<AskSellCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getAskSellCard(cardEntitys[i]));
@@ -280,7 +284,7 @@ public class CardDaoImp implements CardDao {
 	private SellCard getSellCard(CardEntity cardEntity) {
 		SellCard card = new SellCard();
 		this.setCardBase(cardEntity, card);
-		card.setRequirement(cardEntity.getRequirement());
+		//card.setRequirement(cardEntity.getRequirement());
 		card.setPrice(cardEntity.getMinPrice());
 		card.setSquare(cardEntity.getMinSquare());
 		return card;
@@ -421,7 +425,7 @@ public class CardDaoImp implements CardDao {
 	private CardEntity getCardEntityFromSell(SellCard card) {
 		CardEntity cardEntity = new CardEntity();
 		this.setCardEntityBase(cardEntity, card);
-		cardEntity.setRequirement(card.getRequirement());
+		//cardEntity.setRequirement(card.getRequirement());
 		cardEntity.setMinPrice(card.getPrice());
 		cardEntity.setMaxSquare(card.getSquare());
 		return cardEntity;
