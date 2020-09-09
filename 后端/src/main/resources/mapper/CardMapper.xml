@@ -87,7 +87,7 @@
 				AND type = #{type}
 			</if>
 			<if test="location != null">
-				AND location like #{location}
+				AND location like concat('%', #{location}, '%')
 			</if>
 			<if test="minPrice > 0">
 				AND min_price &gt;= #{minPrice}
@@ -104,7 +104,7 @@
 		LIMIT #{startIndex},#{pageSize}
 	</select>
 	
-	 <select id="queryUserIdById" parameterType="java.lang.String" resultType="java.lang.String">
+	<select id="queryUserIdById" parameterType="java.lang.String" resultType="java.lang.String">
     	SELECT user_id FROM card
     	WHERE card_id = #{cardId}
     </select>

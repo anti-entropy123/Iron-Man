@@ -57,11 +57,3 @@ mybatis:
   mapperLocations: classpath*:mapper/*.xml
   typeAliasesPackage: com.mbry.IronMan.entity
 
-# default balance
-default:
-  balance:
-    annualLeave: 7
-    maternityLeave: 90
-    homeLeave: 7
-    sickLeave: -1
-    absenceLeave: -1

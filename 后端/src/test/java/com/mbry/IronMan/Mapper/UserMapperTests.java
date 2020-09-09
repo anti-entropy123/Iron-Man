@@ -1,6 +1,5 @@
 package com.mbry.IronMan.Mapper;
 
-import org.apache.ibatis.annotations.Param;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,11 +46,11 @@ public class UserMapperTests {
 		System.out.println(u[0].getSex());
 	}
 	
-	@Test
-	public void insertUser() {
-		UserEntity u = new UserEntity("2","2","2",false,"2","2");
-		userMapper.insertUser(u);
-	}
+//	@Test
+//	public void insertUser() {
+//		UserEntity u = new UserEntity("2","2","2",false,"2","2");
+//		userMapper.insertUser(u);
+//	}
 	
 	@Test
 	public void updateUser() {
