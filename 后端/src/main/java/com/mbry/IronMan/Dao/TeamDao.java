@@ -35,4 +35,18 @@ public interface TeamDao {
      * @return
      */
     public boolean deleteUserFromTeam(String userId, String teamId);
+
+    /**
+     * 根据teamId查询该team所属的card的id
+     * @param teamId
+     * @return
+     */
+    public String queryCardIdFromTeamId(String teamId);
+
+    /**
+     * 根据teamId查询该team的队长的id
+     * @param teamIds
+     * @return
+     */
+    public String queryCaptainIdFromTeamId(String teamId);
 }

@@ -1,8 +1,11 @@
 package com.mbry.IronMan.Dao;
 
+import org.springframework.stereotype.Service;
+
 import com.mbry.IronMan.BusinessObject.Comment.Comment;
 import com.mbry.IronMan.BusinessObject.Comment.Reply;
 
+@Service
 public interface CommentDao {
     /**
      * 按页获取某帖子下主楼评论
@@ -37,5 +40,19 @@ public interface CommentDao {
      * @return
      */
     public boolean deleteReply(String commentId);
+
+    /**
+     * 查询某个主楼评论的回复数量
+     * @param commentId
+     * @return
+     */
+    public int queryReplyNumberByCommentId(String commentId);
+
+    /**
+     * 
+     * @param commentId
+     * @return
+     */
+    public Comment queryCommentByCommentId(String commentId);
 
 }

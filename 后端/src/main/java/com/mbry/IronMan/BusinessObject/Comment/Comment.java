@@ -17,10 +17,51 @@ public class Comment {
         String content,
         String date
         ){
-            this.commentId = commentId;
-            this.cardId = cardId;
-            this.userId = userId;
-            this.content = content;
-            this.date = date;
+            this.setCommentId(commentId);
+            this.setCardId(cardId);
+            this.setUserId(userId);
+            this.setContent(content);
+            this.setDate(date);
     }
+
+	public String getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(String commentId) {
+		this.commentId = commentId;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+    
 }

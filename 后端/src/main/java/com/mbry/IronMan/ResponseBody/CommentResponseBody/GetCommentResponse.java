@@ -2,6 +2,7 @@ package com.mbry.IronMan.ResponseBody.CommentResponseBody;
 
 import java.io.Serializable;
 
+import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 
 public class GetCommentResponse extends DefaultResponse {
@@ -46,6 +47,19 @@ public class GetCommentResponse extends DefaultResponse {
                 this.name = name;
                 this.avatarUrl = avatarUrl;
                 this.createDate = createDate;
+                this.replyNum = replyNum;
+            }
+
+            public Comment(
+                    com.mbry.IronMan.BusinessObject.Comment.Comment comment,
+                    com.mbry.IronMan.BusinessObject.User user,
+                    int replyNum){
+                this.commentId = comment.getCommentId();
+                this.content = comment.getContent();
+                this.userId = comment.getUserId();
+                this.name = user.getNickname();
+                this.avatarUrl = user.getAvatar();
+                this.createDate = comment.getDate();
                 this.replyNum = replyNum;
             }
         
@@ -111,8 +125,16 @@ public class GetCommentResponse extends DefaultResponse {
         }
     
         public Data(
-                Comment[] comments) {
-            this.comments = comments;
+                com.mbry.IronMan.BusinessObject.Comment.Comment[] comments,
+                User[] users,
+                int[] replyNums) {
+            this.comments = new Comment[comments.length];
+            for(int i = 0;i < comments.length; ++i){
+                this.comments[i] = new Comment(
+                                        comments[i],
+                                        users[i],
+                                        replyNums[i]);
+            }
         }
     
         public Comment[] getComments() {
@@ -130,7 +152,7 @@ public class GetCommentResponse extends DefaultResponse {
     }
 
     public GetCommentResponse(
-            String result,
+            int result,
             String message,
             Data data) {
         super(result, message);

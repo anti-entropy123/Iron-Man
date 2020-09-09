@@ -182,7 +182,7 @@ public class GetApplyResponse extends DefaultResponse {
     public GetApplyResponse(){}
     public GetApplyResponse(
             Data data,
-            String result,
+            int result,
             String message
     ){
         super(result, message);

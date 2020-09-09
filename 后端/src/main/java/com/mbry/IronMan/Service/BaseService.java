@@ -1,4 +1,4 @@
-package com.mbry.Service;
+package com.mbry.IronMan.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.Dao.UserDao;
-import com.mbry.IronMan.Security.JwtUser;
+import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.Utils.JwtTokenUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.net.URLConnection;
-import java.util.List;
-import java.util.Map;
-
 @Service
 public class BaseService {
     @Autowired
@@ -93,32 +90,26 @@ public class BaseService {
 
     public void register(String openId){
         String userId = openId;
-        String nickname;
-        String avatar;
-        String sex;
-        String mobile = "";
-        String introduction = "";
-        User newUser = new User(userId, nickname, avatar, sex, mobile, introduction);
+        User newUser = new User(userId, null, null, null, null, null);
+        userDao.registerUser(newUser);
+    }
 
-        int userId = memberDao.insertMember(member);
-        // 设置年假
-        applicationDao.insertHolidayBalance(new HolidayBalance(userId, configData.getAnnualLeave(), "annualLeave"));
-        // 设置产假
-        applicationDao.insertHolidayBalance(new HolidayBalance(
-                                                userId,
-                                                member.getSex().equals("male")? 0: configData.getMaternityLeave(),
-                                                "maternityLeave"));
-        // 设置探亲假
-        applicationDao.insertHolidayBalance(new HolidayBalance(
-            userId, configData.getHomeLeave(), "homeLeave"
-        ));
-        // 设置病假
-        applicationDao.insertHolidayBalance(new HolidayBalance(
-            userId, configData.getSickLeave(), "sickLeave"
-        ));
-        // 设置事假
-        applicationDao.insertHolidayBalance(new HolidayBalance(
-            userId, configData.getAbsenceLeave(), "absenceLeave"
-        ));
+    public DefaultResponse getCheckCode(String mobileNum){
+        // TODO 调短信接口
+        return new DefaultResponse(1, "");
+    }
+
+    public DefaultResponse bindMobile(String userId, String checkcode, String mobileNum){
+        String trueCode = "";
+        int result = 1;
+        String message = "";
+        if(checkcode.equals(trueCode)){
+            userDao.bindMobileNumberByUserId(userId, mobileNum);
+            result = 1;
+        }else{
+            result = 0;
+            message = "验证码错误";
+        }
+        return new DefaultResponse(result, message);
     }
 }

@@ -113,7 +113,7 @@ public class GetTeamResponse extends DefaultResponse {
 
     public GetTeamResponse(
             Data data,
-            String result,
+            int result,
             String message) {
         super(result, message);
         this.data = data;

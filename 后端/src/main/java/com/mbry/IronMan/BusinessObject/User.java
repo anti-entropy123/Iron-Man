@@ -4,7 +4,7 @@ public class User {
     private String userId;
     private String nickname;
     private String avatar;
-    private boolean sex;
+    private Boolean sex;
     private String mobile;
     private String introduction;
 
@@ -13,7 +13,7 @@ public class User {
         String userId,
         String nickname,
         String avatar,
-        boolean sex,
+        Boolean sex,
         String mobile,
         String introduction
         ){
@@ -28,6 +28,7 @@ public class User {
     public String getUserId(){
         return userId;
     }
+    
     public void setUserId(String userId){
         this.userId = userId;
     }
@@ -35,6 +36,7 @@ public class User {
     public String getNickname(){
         return nickname;
     }
+    
     public void setNickName(String nickname){
         this.nickname = nickname;
     }
@@ -42,20 +44,23 @@ public class User {
     public String getAvatar(){
         return avatar;
     }
+    
     public void setAvatar(String avatar){
         this.avatar = avatar;
     }
 
-    public boolean getSex(){
+    public Boolean getSex(){
         return sex;
     }
-    public void setSex(boolean sex){
+    
+    public void setSex(Boolean sex){
         this.sex = sex;
     }
 
     public String getMobile(){
         return this.mobile;
     }
+    
     public void setMobile(String mobile){
         this.mobile = mobile;
     }
@@ -66,4 +71,5 @@ public class User {
     public void setIntroduction(String introduction){
         this.introduction = introduction;
     }
+    
 }

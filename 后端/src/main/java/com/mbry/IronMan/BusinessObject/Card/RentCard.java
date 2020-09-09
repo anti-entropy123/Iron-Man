@@ -10,7 +10,7 @@ public class RentCard extends Card{
     public RentCard(
         String cardId,
         String userId,
-        boolean status,
+        Boolean status,
         String date,
         String title,
         String introduction,

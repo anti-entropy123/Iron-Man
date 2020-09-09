@@ -3,17 +3,17 @@ package com.mbry.IronMan.BusinessObject.Card;
 public class RoomMateCard extends Card{
     private String requirement;
     private int unionNum;
-    private boolean hasHouseResource;
+    private Boolean hasHouseResource;
     private double minPrice;
     private double maxPrice;
     private double minSquare;
     private double maxSquare;
 
-    RoomMateCard(){}
-    RoomMateCard(
+    public RoomMateCard(){}
+    public RoomMateCard(
         String cardId,
         String userId,
-        boolean status,
+        Boolean status,
         String date,
         String title,
         String introduction,
@@ -21,7 +21,7 @@ public class RoomMateCard extends Card{
         int unitType,
         String requirement,
         int unionNum,
-        boolean hasHouseResource,
+        Boolean hasHouseResource,
         double minPrice,
         double maxPrice,
         double minSquare,
@@ -54,11 +54,11 @@ public class RoomMateCard extends Card{
 		this.unionNum = unionNum;
 	}
 	
-	public boolean isHasHouseResource() {
+	public Boolean isHasHouseResource() {
 		return hasHouseResource;
 	}
 	
-	public void setHasHouseResource(boolean hasHouseResource) {
+	public void setHasHouseResource(Boolean hasHouseResource) {
 		this.hasHouseResource = hasHouseResource;
 	}
 	

@@ -14,13 +14,63 @@ public class Team {
         String captainId,
         String cardId,
         int maxNum,
-        String date
+        String date,
+        User[] members
         ){
-            this.teamId = teamId;
-            this.captainId = captainId;
-            this.cardId = cardId;
-            this.maxNum = maxNum;
-            this.date = date;
+            this.setTeamId(teamId);
+            this.setCaptainId(captainId);
+            this.setCardId(cardId);
+            this.setMaxNum(maxNum);
+            this.setDate(date);
+            this.setMembers(members);
     }
-
+    
+	public String getTeamId() {
+		return teamId;
+	}
+	
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
+	
+	public String getCaptainId() {
+		return captainId;
+	}
+	
+	public void setCaptainId(String captainId) {
+		this.captainId = captainId;
+	}
+	
+	public String getCardId() {
+		return cardId;
+	}
+	
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	
+	public int getMaxNum() {
+		return maxNum;
+	}
+	
+	public void setMaxNum(int maxNum) {
+		this.maxNum = maxNum;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public User[] getMembers() {
+		return members;
+	}
+	
+	public void setMembers(User[] members) {
+		this.members = members;
+	}
+    
 }

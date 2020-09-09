@@ -1,23 +1,26 @@
 package com.mbry.IronMan.Dao;
 
+import org.springframework.stereotype.Service;
+
 import com.mbry.IronMan.BusinessObject.Application.Application;
 import com.mbry.IronMan.BusinessObject.Application.CardApplication;
 import com.mbry.IronMan.BusinessObject.Application.TeamApplication;
 
+@Service
 public interface ApplicationDao {
     /**
      * 
      * @param app
-     * @return
+     * @return 返回新建的application的主键
      */
-    public boolean createApplication(CardApplication app);
+    public String createApplication(CardApplication app);
 
     /**
      * 
      * @param app
-     * @return
+     * @return 返回新建的application的主键
      */
-    public boolean createApplication(TeamApplication app);
+    public String createApplication(TeamApplication app);
 
     /**
      * 修改申请的状态为完成

@@ -6,12 +6,13 @@ public class AskRentCard extends Card{
     private double maxPrice;
     private double minSquare;
     private double maxSquare;
+    private String requirement;
 
     public AskRentCard(){}
     public AskRentCard(
         String cardId,
         String userId,
-        boolean status,
+        Boolean status,
         String date,
         String title,
         String introduction,
@@ -31,6 +32,7 @@ public class AskRentCard extends Card{
         this.setMaxPrice(maxPrice);
         this.setMinSquare(minSquare);
         this.setMaxSquare(maxSquare);
+        this.setRequirement(requirement);
     }
     
 	public int getUnionNum() {
@@ -71,6 +73,14 @@ public class AskRentCard extends Card{
 	
 	public void setMaxSquare(double maxSquare) {
 		this.maxSquare = maxSquare;
+	}
+	
+	public String getRequirement() {
+		return requirement;
+	}
+	
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
 	}
 
 }

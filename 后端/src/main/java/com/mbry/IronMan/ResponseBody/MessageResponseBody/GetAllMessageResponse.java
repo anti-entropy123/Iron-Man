@@ -25,6 +25,8 @@ public class GetAllMessageResponse extends DefaultResponse{
             private String cardId;
             private String applyId;
             private String userId;
+            private int logId;
+            private Boolean status;
 
             public Message() {
             }
@@ -71,6 +73,22 @@ public class GetAllMessageResponse extends DefaultResponse{
             public void setUserId(String userId) {
                 this.userId = userId;
             }
+
+            public int getLogId() {
+                return logId;
+            }
+
+            public void setLogId(int logId) {
+                this.logId = logId;
+            }
+
+            public Boolean getStatus() {
+                return status;
+            }
+
+            public void setStatus(Boolean status) {
+                this.status = status;
+            }
         }
 
         private Message[] messages;
@@ -95,7 +113,7 @@ public class GetAllMessageResponse extends DefaultResponse{
     public GetAllMessageResponse(){}
     public GetAllMessageResponse(
             Data data,
-            String result,
+            int result,
             String message){
         super(result, message);
         this.data = data;

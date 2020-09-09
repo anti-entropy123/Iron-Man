@@ -8,7 +8,7 @@ public class MobileNumber implements Serializable {
      */
     private static final long serialVersionUID = 1333986793385116669L;
     private String number;
-    private String result;
+    private int result;
     private String message;
 
     public MobileNumber() {
@@ -16,7 +16,7 @@ public class MobileNumber implements Serializable {
 
     public MobileNumber(
             String number,
-            String result,
+            int result,
             String message) {
         this.number = number;
         this.result = result;
@@ -31,11 +31,11 @@ public class MobileNumber implements Serializable {
         this.number = number;
     }
 
-    public String getResult() {
+    public int getResult() {
         return this.result;
     }
 
-    public void setResult(String result) {
+    public void setResult(int result) {
         this.result = result;
     }
 

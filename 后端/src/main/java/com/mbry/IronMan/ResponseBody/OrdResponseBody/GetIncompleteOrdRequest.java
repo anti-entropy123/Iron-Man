@@ -142,14 +142,14 @@ public class GetIncompleteOrdRequest implements Serializable {
     }
 
     private Data data;
-    private String result;
+    private int result;
     private String message;
 
     public GetIncompleteOrdRequest() {
     }
     public GetIncompleteOrdRequest(
             Data data,
-            String result,
+            int result,
             String message) {
         this.data = data;
         this.result = result;
@@ -164,11 +164,11 @@ public class GetIncompleteOrdRequest implements Serializable {
         this.data = data;
     }
 
-    public String getResult() {
+    public int getResult() {
         return this.result;
     }
 
-    public void setresult(String result) {
+    public void setresult(int result) {
         this.result = result;
     }
 

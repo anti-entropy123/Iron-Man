@@ -4,7 +4,7 @@ public class Application {
     private String applicationId;
     private String applicantId;
     private String targetId;
-    private boolean status;
+    private Boolean status;
     private String date;
 
     public Application(){
@@ -15,12 +15,53 @@ public class Application {
         String applicationId,
         String applicantId,
         String targetId,
-        boolean status,
+        Boolean status,
         String date
     ){
-        this.applicationId = applicationId;
-        this.applicantId = applicantId;
-        this.status = status;
-        this.date = date;
+        this.setApplicationId(applicationId);
+        this.setApplicantId(applicantId);
+        this.setStatus(status);
+        this.setDate(date);
     }
+
+	public String getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	public String getApplicantId() {
+		return applicantId;
+	}
+
+	public void setApplicantId(String applicantId) {
+		this.applicantId = applicantId;
+	}
+
+	public String getTargetId() {
+		return targetId;
+	}
+
+	public void setTargetId(String targetId) {
+		this.targetId = targetId;
+	}
+
+	public Boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+    
 }

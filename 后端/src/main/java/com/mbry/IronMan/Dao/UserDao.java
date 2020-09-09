@@ -19,6 +19,7 @@ public interface UserDao {
      * @return 
      */
     public User queryCaptainByTeamId(String teamId);
+    
     /**
      * 根据teamId, 查询该队伍下所有成员
      * @param teamId
@@ -28,10 +29,10 @@ public interface UserDao {
 
     /**
      * 根据applicationId查询该申请的发起人
-     * @param appliactionId
+     * @param applicationId
      * @return 
      */
-    public User queryUserByApplyId(String appliactionId);
+    public User queryUserByApplyId(String applicationId);
     /**
      * 根据cardId查帖子的发布者
      * @param cardId
