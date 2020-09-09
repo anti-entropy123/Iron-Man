@@ -42,12 +42,12 @@ public class DetailController {
     
     @GetMapping("/getApply/")
     public GetApplyResponse getApply(@RequestParam String cardId) {
-        return null;
+        return detailService.getApply(cardId);
     }
 
     @PostMapping("/processApply/")
     public DefaultResponse processApply(@RequestBody ProcessApplyRequest processApplyRequest) {
-        return null;
+        return detailService.processApply(processApplyRequest.getApplyId());
     }
-    
+
 }

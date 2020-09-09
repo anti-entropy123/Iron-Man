@@ -60,7 +60,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 
 	@Override
-	public Application[] queryApplicationByUserId(String targetUserId) {
+	public Application[] queryApplicationsByUserId(String targetUserId) {
 		ApplicationEntity[] applicationEntitys = applicationMapper.queryApplicationsByTargetUserId(targetUserId);
 		TeamApplicationEntity[] teamApplicationEntitys = teamApplicationMapper.queryTeamApplicationsByTargetUserId(targetUserId);
 		List<Application> applications = new ArrayList<Application>();
@@ -71,6 +71,26 @@ public class ApplicationDaoImp implements ApplicationDao {
 			applications.add(getApplicationFromEntity(teamApplicationEntitys[i]));
 		}
 		return applications.toArray(new Application[applications.size()]);
+	}
+
+	@Override
+	public Application[] queryCardApplicationsByCardId(String cardId) {
+		ApplicationEntity[] applicationEntitys = applicationMapper.queryApplicationByCardId(cardId);
+		List<Application> applications = new ArrayList<Application>();
+		for (ApplicationEntity ae: applicationEntitys) {
+			applications.add(this.getApplicationFromEntity(ae));
+		}
+		return applications.toArray(new Application[applications.size()]);
+	}
+
+	@Override
+	public Application queryApplicationByAppId(String applicationId) {
+		ApplicationEntity applicationEntity = applicationMapper.queryApplicationById(applicationId);
+		if (applicationEntity.getCardId() == null) {
+			return this.getApplicationFromEntity(teamApplicationMapper.queryApplicationById(applicationId));
+		} else {
+			return this.getApplicationFromEntity(applicationEntity);
+		}
 	}
 	
 	/**
@@ -135,5 +155,5 @@ public class ApplicationDaoImp implements ApplicationDao {
 		teamApplication.setDate(app.getDate());
 		return (Application)teamApplication;
 	}
-	
+
 }

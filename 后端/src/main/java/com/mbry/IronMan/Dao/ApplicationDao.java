@@ -35,5 +35,19 @@ public interface ApplicationDao {
      * @param userId
      * @return
      */
-    public Application[] queryApplicationByUserId(String targetUserId);
+    public Application[] queryApplicationsByUserId(String targetUserId);
+
+    /**
+     * 根据 cardId 查询该card对应的有关的CardId
+     * @param cardId 理论上 cardId 只能是租房的card的id
+     * @return Application[] 中的对象的实际类型应该是CardApplication
+     */
+    public Application[] queryCardApplicationsByCardId(String cardId);
+    
+    /**
+     * 根据 appId 查询对应的申请
+     * @param ApplicationId
+     * @return 应返回真实类型, 并向上转型
+     */
+    public Application queryApplicationByAppId(String applicationId);
 }

@@ -1,12 +1,14 @@
 package com.mbry.IronMan.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.mbry.IronMan.BusinessObject.Log;
+import com.mbry.IronMan.BusinessObject.Team;
+import com.mbry.IronMan.BusinessObject.User;
+import com.mbry.IronMan.BusinessObject.Application.Application;
 import com.mbry.IronMan.BusinessObject.Application.CardApplication;
 import com.mbry.IronMan.BusinessObject.Application.TeamApplication;
 import com.mbry.IronMan.BusinessObject.Card.AskRentCard;
@@ -24,6 +26,7 @@ import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.DetailCardResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.GetApplyResponse;
 import com.mbry.IronMan.Utils.DateUtil;
+import com.mbry.IronMan.Utils.WxMessageUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +50,9 @@ public class DetailService {
 
     @Autowired
     TeamDao teamDao;
+
+    @Autowired
+    WxMessageUtil wxMessageUtil;
 
     private static final Map<Class<? extends Card>, Integer> transCardToType;
     static{
@@ -131,7 +137,7 @@ public class DetailService {
         logDao.addLog(new Log(-1, 0, cardId, applyId, userId, targetUserId, Boolean.valueOf(false)));
         
         // todo 在这里发送微信模板消息
-
+        wxMessageUtil.sendMessage();
         return new DefaultResponse(1, "");
     }
 
@@ -144,7 +150,7 @@ public class DetailService {
         logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
 
         // todo 在这里发送微信模板消息
-
+        wxMessageUtil.sendMessage();
         return new DefaultResponse(1, "");
     }
 
@@ -153,8 +159,67 @@ public class DetailService {
         GetApplyResponse.Data data = response.new Data();
         List<GetApplyResponse.Data.Person> persons = new ArrayList<GetApplyResponse.Data.Person>();
         List<GetApplyResponse.Data.Team> teams = new ArrayList<GetApplyResponse.Data.Team>();
-
-        // todo 没写完呢
+        Application[] apps = applicationDao.queryCardApplicationsByCardId(cardId);
+        
+        for(Application app: apps){
+            if(!(app instanceof CardApplication)){
+                // 理论上这里只能是card application, 如果不是, 则先跳过
+                continue;
+            }
+            CardApplication cardApp = (CardApplication)app;
+            String applicant = cardApp.getApplicantId();
+            Team team = teamDao.queryTeamByCaptainIdAndCardId(applicant, cardId);
+            if(team == null){
+                // 没有匹配的队伍, 说明是个人整租
+                persons.add(data.new Person(
+                        userDao.queryUserByOpenId(applicant),
+                        cardApp.getApplicantId()));
+            }else{
+                ArrayList<GetApplyResponse.Data.Team.Member> paramsMembers = new ArrayList<>();
+                GetApplyResponse.Data.Team paramsTeam = data.new Team(team.getTeamId(), null, cardApp.getApplicantId());
+                // 有匹配的队伍, 说明是多人整租
+                for(User user: team.getMembers()){
+                    paramsMembers.add(paramsTeam.new Member(user.getUserId(), user.getAvatar()));
+                }
+                paramsTeam.setMembers(paramsMembers.toArray(new GetApplyResponse.Data.Team.Member[0]));
+                teams.add(paramsTeam);
+            }
+        }
+        data.setPerson(persons.toArray(new GetApplyResponse.Data.Person[0]));
+        data.setTeams(teams.toArray(new GetApplyResponse.Data.Team[0]));
+        response.setData(data);
+        response.setResult(1);
+        response.setMessage("");
         return response;
+    }
+
+    public DefaultResponse processApply(String applyId){
+        Application app = applicationDao.queryApplicationByAppId(applyId);
+        app.setStatus(true);
+        String cardId = "";
+        int type = -1;
+        // 先改变申请状态
+        if(app instanceof CardApplication){
+            CardApplication ca = (CardApplication)app;
+            applicationDao.processApplication(ca);
+            cardId = ca.getCardId();
+            // 你的申请被card主处理了
+            type = 5;
+        }else if(app instanceof TeamApplication){
+            TeamApplication ta = (TeamApplication)app;
+            applicationDao.processApplication(ta);
+            cardId = teamDao.queryCardIdFromTeamId(ta.getTeamId());
+            // 你的入队申请被处理了
+            type = 2;
+        }
+        // 改变log状态
+        logDao.setTrueByApplyId(applyId);
+        // 发送消息
+        // todo 通过微信模板消息发送提醒
+        wxMessageUtil.sendMessage();
+        // over
+        // 加入消息记录
+        logDao.addLog(new Log(-1, type, cardId, applyId, app.getTargetId(), app.getApplicantId(), false));
+        return new DefaultResponse(1, "");
     }
 }

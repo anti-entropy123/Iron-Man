@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/home")
 public class HomeController {
     @GetMapping("/getCards/")
-    public CardResponse getMethodName(
+    public CardResponse getCards(
             @RequestParam int type,
             @RequestParam int page,
             @RequestParam String location,
@@ -24,6 +24,5 @@ public class HomeController {
             @RequestParam double hasHouseResource) {
         return null;
     }
-    
-    
+
 }

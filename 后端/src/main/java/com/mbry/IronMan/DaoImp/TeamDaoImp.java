@@ -30,24 +30,7 @@ public class TeamDaoImp implements TeamDao {
 		TeamEntity[] teamEntitys = teamMapper.queryTeamsByCardId(cardId);
 		List<Team> teams = new ArrayList<Team>();
 		for (int i = 0; i < teamEntitys.length; i++) {
-			String[] members = teamMemberMapper.queryUserByTeamId(teamEntitys[i].getTeamId());
-			List<User> users = new ArrayList<User>();
-			for (int j = 0; j < members.length; j++) {
-				UserEntity userEntity = userMapper.queryUserByIdForTeam(members[j]);
-				User user = new User();
-				user.setUserId(userEntity.getUserId());
-				user.setNickName(userEntity.getNickName());
-				user.setAvatar(userEntity.getAvatar());
-				users.add(user);
-			}
-			Team team = new Team(
-					teamEntitys[i].getTeamId(),
-					teamEntitys[i].getCaptainId(),
-					teamEntitys[i].getCardId(),
-					teamEntitys[i].getMaxNum(),
-					teamEntitys[i].getDate(),
-					users.toArray(new User[users.size()]));
-			teams.add(team);
+			teams.add(this.setTeamByTeamEntity(teamEntitys[i]));
 		}
 		return teams.toArray(new Team[teams.size()]);
 	}
@@ -101,6 +84,38 @@ public class TeamDaoImp implements TeamDao {
 	@Override
 	public String queryCaptainIdFromTeamId(String teamId) {
 		return teamMapper.queryCaptainIdByTeamId(teamId);
+	}
+
+	@Override
+	public Team queryTeamByCaptainIdAndCardId(String captainId, String cardId) {
+		TeamEntity teamEntity = teamMapper.queryTeamByCapAndCard(captainId, cardId);
+		return this.setTeamByTeamEntity(teamEntity);
+	}
+
+	/**
+	 * 将一个TeamEntity转化为Team
+	 * @param teamEntity
+	 * @return
+	 */
+	private Team setTeamByTeamEntity(TeamEntity teamEntity) {
+		String[] members = teamMemberMapper.queryUserByTeamId(teamEntity.getTeamId());
+		List<User> users = new ArrayList<User>();
+		for (int j = 0; j < members.length; j++) {
+			UserEntity userEntity = userMapper.queryUserByIdForTeam(members[j]);
+			User user = new User();
+			user.setUserId(userEntity.getUserId());
+			user.setNickName(userEntity.getNickName());
+			user.setAvatar(userEntity.getAvatar());
+			users.add(user);
+		}
+		Team team = new Team(
+				teamEntity.getTeamId(),
+				teamEntity.getCaptainId(),
+				teamEntity.getCardId(),
+				teamEntity.getMaxNum(),
+				teamEntity.getDate(),
+				users.toArray(new User[users.size()]));
+		return team;
 	}
 
 }

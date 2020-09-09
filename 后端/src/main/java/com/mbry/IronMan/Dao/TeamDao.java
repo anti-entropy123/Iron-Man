@@ -49,4 +49,12 @@ public interface TeamDao {
      * @return
      */
     public String queryCaptainIdFromTeamId(String teamId);
+
+    /**
+     * 查询队长id和cardId与参数相符的队伍
+     * @param captainId 队长的userId
+     * @param cardId    cardId
+     * @return          若没有相应的team, 则返回null
+     */
+    public Team queryTeamByCaptainIdAndCardId(String captainId, String cardId);    
 }

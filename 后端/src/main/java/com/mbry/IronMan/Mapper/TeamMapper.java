@@ -41,5 +41,13 @@ public interface TeamMapper {
 	 * @return
 	 */
 	public String queryCaptainIdByTeamId(String teamId);
+
+	/**
+	 * 返回指定card下指定队长的队伍
+	 * @param captainId
+	 * @param cardId
+	 * @return
+	 */
+	public TeamEntity queryTeamByCapAndCard(@Param("captionId")String captainId, @Param("cardId")String cardId);
 	
 }
