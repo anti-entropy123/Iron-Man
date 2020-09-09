@@ -1,11 +1,14 @@
 package com.mbry.IronMan.Dao;
 
+import org.springframework.stereotype.Service;
+
 import com.mbry.IronMan.BusinessObject.Card.AskRentCard;
 import com.mbry.IronMan.BusinessObject.Card.AskSellCard;
 import com.mbry.IronMan.BusinessObject.Card.Card;
 import com.mbry.IronMan.BusinessObject.Card.RentCard;
 import com.mbry.IronMan.BusinessObject.Card.SellCard;
 
+@Service
 public interface CardDao {
     /**
      * 
@@ -61,7 +64,7 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public SellCard[] querySellCards(int page, String location, int[] priceRange, int unitType);
+    public SellCard[] querySellCards(int page, String location, Double[] priceRange, int unitType);
     /**
      * 
      * @param page
@@ -70,7 +73,7 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public AskSellCard[] queryAskSellCards(int page, String location, int[] priceRange, int unitType);
+    public AskSellCard[] queryAskSellCards(int page, String location, Double[] priceRange, int unitType);
     /**
      * 新建一个帖子
      * @param card

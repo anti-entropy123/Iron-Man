@@ -1,8 +1,11 @@
 package com.mbry.IronMan.Dao;
 
+import org.springframework.stereotype.Service;
+
 import com.mbry.IronMan.BusinessObject.Comment.Comment;
 import com.mbry.IronMan.BusinessObject.Comment.Reply;
 
+@Service
 public interface CommentDao {
     /**
      * 按页获取某帖子下主楼评论

@@ -9,7 +9,7 @@ package com.mbry.IronMan.BusinessObject.Card;
 public class Card {
     private String cardId;
     private String userId;
-    private boolean status;
+    private Boolean status;
     private String date;
     private String title;
     private String introduction;
@@ -22,7 +22,7 @@ public class Card {
     public Card(
         String cardId,
         String userId,
-        boolean status,
+        Boolean status,
         String date,
         String title,
         String introduction,
@@ -57,11 +57,11 @@ public class Card {
 		this.userId = userId;
 	}
 	
-	public boolean isStatus() {
+	public Boolean isStatus() {
 		return status;
 	}
 	
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 	
@@ -97,7 +97,7 @@ public class Card {
 		this.location = location;
 	}
 	
-	public int isUnitType() {
+	public int getUnitType() {
 		return unitType;
 	}
 	

@@ -1,9 +1,12 @@
 package com.mbry.IronMan.Dao;
 
+import org.springframework.stereotype.Service;
+
 import com.mbry.IronMan.BusinessObject.Application.Application;
 import com.mbry.IronMan.BusinessObject.Application.CardApplication;
 import com.mbry.IronMan.BusinessObject.Application.TeamApplication;
 
+@Service
 public interface ApplicationDao {
     /**
      * 

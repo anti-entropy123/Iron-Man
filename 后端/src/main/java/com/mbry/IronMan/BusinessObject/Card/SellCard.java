@@ -9,7 +9,7 @@ public class SellCard extends Card{
     public SellCard(
         String cardId,
         String userId,
-        boolean status,
+        Boolean status,
         String date,
         String title,
         String introduction,

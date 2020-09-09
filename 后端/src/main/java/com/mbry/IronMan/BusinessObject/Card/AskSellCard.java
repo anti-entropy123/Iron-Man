@@ -11,7 +11,7 @@ public class AskSellCard extends Card{
     public AskSellCard(
         String cardId,
         String userId,
-        boolean status,
+        Boolean status,
         String date,
         String title,
         String introduction,
