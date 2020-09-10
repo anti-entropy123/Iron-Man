@@ -11,10 +11,10 @@ spring:
       INDENT_OUTPUT: true
 
   datasource:  
-    url : jdbc:mysql://localhost:3306/mid_practice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url : jdbc:mysql://localhost:3306/iron_man?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username : root
     password : root
-    driverClassName : com.mysql.jdbc.Driver 
+    driverClassName : com.mysql.cj.jdbc.Driver
     
   jpa:   
     show-sql : true 
@@ -59,3 +59,8 @@ tencent:
     secretKey: "3pNCk11kDPL4uU6RSGo58uQebeqlSu5D"
     region: "ap-beijing"
     bucket:  "iron-man-1303131952"
+
+#Mybatis
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  typeAliasesPackage: com.mbry.IronMan.entity

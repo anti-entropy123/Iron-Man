@@ -21,6 +21,10 @@ public class GetTeamResponse extends DefaultResponse {
                     this.avatarUrl = avatarUrl;
                     this.userId = userId;
                 }
+                public Member(com.mbry.IronMan.BusinessObject.User user){
+                    this.avatarUrl = user.getAvatar();
+                    this.userId = user.getUserId();
+                }
 
                 public String getUserId() {
                     return this.userId;
@@ -49,6 +53,16 @@ public class GetTeamResponse extends DefaultResponse {
                 this.teamId = teamId;
                 this.maxTeamMem = maxTeamMem;
                 this.members = members;
+            }
+
+            public Team(com.mbry.IronMan.BusinessObject.Team team){
+                this.maxTeamMem = team.getMaxNum();
+                com.mbry.IronMan.BusinessObject.User[] _members = team.getMembers();
+                this.members = new Member[_members.length];
+                for(int i = 0;i < members.length;i++){
+                    this.members[i] = new Member(_members[i]);
+                }
+                this.teamId = team.getTeamId();
             }
 
             public String getTeamId() {
@@ -89,6 +103,16 @@ public class GetTeamResponse extends DefaultResponse {
             this.otherTeams = otherTeams;
         }
 
+        public Data(
+                com.mbry.IronMan.BusinessObject.Team myTeam,
+                com.mbry.IronMan.BusinessObject.Team[] otherTeams){
+            this.myTeam = myTeam==null? null: new Team(myTeam);
+            this.otherTeams = new Team[otherTeams.length];
+            for(int i=0;i < this.otherTeams.length; ++i){
+                this.otherTeams[i] = new Team(otherTeams[i]);
+            }
+        }
+
         public Team getMyTeam() {
             return this.myTeam;
         }
@@ -117,6 +141,15 @@ public class GetTeamResponse extends DefaultResponse {
             String message) {
         super(result, message);
         this.data = data;
+    }
+
+    public GetTeamResponse(
+            com.mbry.IronMan.BusinessObject.Team myTeam,
+            com.mbry.IronMan.BusinessObject.Team[] otherTeams,
+            int result,
+            String message){
+        super(result, message);
+        this.data = new Data(myTeam, otherTeams);
     }
 
     public Data getData() {

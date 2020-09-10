@@ -38,6 +38,13 @@ public class GetApplyResponse extends DefaultResponse {
                 this.name = name;
                 this.applyId = applyId;
             }
+
+            public Person(com.mbry.IronMan.BusinessObject.User user, String applyId){
+                this.userId = user.getUserId();
+                this.avatarUrl = user.getAvatar();
+                this.name = user.getNickname();
+                this.applyId = applyId;
+            }
         
             public String getUserId() {
                 return this.userId;
@@ -148,24 +155,24 @@ public class GetApplyResponse extends DefaultResponse {
             }
         }
 
-        private Person person;
+        private Person[] person;
         private Team[] teams;
 
         public Data() {
         }
     
         public Data(
-                Person person,
+                Person[] person,
                 Team[] teams) {
             this.person = person;
             this.teams = teams;
         }
     
-        public Person getPerson() {
+        public Person[] getPerson() {
             return this.person;
         }
     
-        public void setPerson(Person person) {
+        public void setPerson(Person[] person) {
             this.person = person;
         }
 

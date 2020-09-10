@@ -33,16 +33,15 @@ public class MessageController{
     public GetAllMessageResponse getMethodName(@RequestParam String userId) {
         GetAllMessageResponse response = new GetAllMessageResponse();
         GetAllMessageResponse.Data data = response.new Data();
-        try {
-            GetAllMessageResponse.Data.Message[] messages = messageService.getLogsByAimUser(userId);
+        GetAllMessageResponse.Data.Message[] messages = messageService.getLogsByAimUser(userId);
+        if (messages == null) {
+            response.setResult(0);
+            response.setMessage("server error");
+        } else {
             data.setMessages(messages);
             response.setData(data);
             response.setResult(1);
             response.setMessage("mbrynb");
-        } catch(Exception e) {
-            e.printStackTrace();
-            response.setResult(0);
-            response.setMessage("server error");
         }
         return response;
     }

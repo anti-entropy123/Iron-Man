@@ -49,16 +49,16 @@ public interface CardMapper {
 	 * @return
 	 */
 	public CardEntity[] queryCards(
-			@Param("startIndex")int startIndex, 
-			@Param("pageSize")int pageSize,
-			@Param("type")int type, 
-			@Param("location")String location, 
-			@Param("minPrice")double minPrice, 
-			@Param("maxPrice")double maxPrice,
-			@Param("minSquare")double minSquare,
-			@Param("maxSquare")double maxSquare,
-			@Param("unitType")int unitType,
-			@Param("hasHouseResource")Boolean hasHouseResource);
+		@Param("startIndex")int startIndex, 
+		@Param("pageSize")int pageSize,
+		@Param("type")int type, 
+		@Param("location")String location, 
+		@Param("minPrice")double minPrice, 
+		@Param("maxPrice")double maxPrice,
+		@Param("minSquare")double minSquare,
+		@Param("maxSquare")double maxSquare,
+		@Param("unitType")int unitType,
+		@Param("hasHouseResource")Boolean hasHouseResource);
 	
 	/**
 	 * 查询card的发起者
@@ -66,6 +66,20 @@ public interface CardMapper {
 	 * @return
 	 */
 	public String queryUserIdById(String cardId);
+
+	public CardEntity[] queryCardsForAdm(
+		@Param("startIndex")int startIndex, 
+		@Param("pageSize")int pageSize, 
+		@Param("userId")String userId, 
+		@Param("minDate")String minDate, 
+		@Param("maxDate")String maxDate);
+
+	public int queryCardsPagesForAdm(
+		@Param("startIndex")int startIndex, 
+		@Param("pageSize")int pageSize, 
+		@Param("userId")String userId, 
+		@Param("minDate")String minDate, 
+		@Param("maxDate")String maxDate);
 	
 	/**
 	 * 更新一条指定的Card
