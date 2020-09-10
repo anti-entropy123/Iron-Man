@@ -50,4 +50,18 @@ public interface ApplicationDao {
      * @return 应返回真实类型, 并向上转型
      */
     public Application queryApplicationByAppId(String applicationId);
+
+    /**
+     * 根据 UserId查询由该 User 发起的所有 Application
+     * @param applicantId 申请的发起者的Id
+     * @return     Application
+     */
+    public Application[] queryApplicationByApplicantUserId(String applicantId);
+
+    /**
+     * 根据 UserId查询由该 User 发起的所有 CardApplication
+     * @param applicantId 申请的发起者的Id
+     * @return    CardApplication
+     */
+    public CardApplication[] queryCardAppByApplicantUserId(String applicantId);
 }

@@ -46,7 +46,7 @@ public interface CardDao {
      * @param unitType 户型, 不需要时为 -1
      * @return
      */
-    public RentCard[] queryRentCards(int page, String location, Double[] priceRange, int unitType);
+    public RentCard[] queryRentCards(int page, String location, Double[] priceRange, Double[] squares, int unitType);
     /**
      * 
      * @param page
@@ -55,7 +55,7 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public AskRentCard[] queryAskRentCards(int page, String location, Double[] priceRange, int unitType);
+    public AskRentCard[] queryAskRentCards(int page, String location, Double[] priceRange, Double[] squares, int unitType);
     /**
      * 
      * @param page
@@ -64,7 +64,7 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public SellCard[] querySellCards(int page, String location, Double[] priceRange, int unitType);
+    public SellCard[] querySellCards(int page, String location, Double[] priceRange, Double[] squares, int unitType);
     /**
      * 
      * @param page
@@ -73,7 +73,19 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public AskSellCard[] queryAskSellCards(int page, String location, Double[] priceRange, int unitType);
+    public AskSellCard[] queryAskSellCards(int page, String location, Double[] priceRange, Double[] squares, int unitType);
+    
+    /**
+     * 
+     * @param page
+     * @param location
+     * @param priceRange
+     * @param unitType
+     * @return
+     */
+    public AskSellCard[] queryAskRoomMateCards(int page, String location, Double[] priceRange, Double[] squares, int unitType, Boolean hasHouseResource);
+    
+    
     /**
      * 新建一个帖子
      * @param card

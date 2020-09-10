@@ -217,8 +217,6 @@ public class CardResponse extends DefaultResponse {
     }
 
     private Data data;
-    private int result;
-    private String message;
 
     public CardResponse() {
     }
@@ -227,9 +225,8 @@ public class CardResponse extends DefaultResponse {
             Data data,
             int result,
             String message) {
+        super(result, message);
         this.data = data;
-        this.result = result;
-        this.message = message;
     } 
 
     public Data getData() {
@@ -238,21 +235,5 @@ public class CardResponse extends DefaultResponse {
 
     public void setData(Data data) {
         this.data = data;
-    }
-
-    public int getResult() {
-        return this.result;
-    }
-
-    public void setresult(int result) {
-        this.result = result;
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

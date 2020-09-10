@@ -1,7 +1,9 @@
 package com.mbry.IronMan.Controller;
 
 import com.mbry.IronMan.ResponseBody.HomeResponseBody.CardResponse;
+import com.mbry.IronMan.Service.HomeService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api/home")
 public class HomeController {
+    @Autowired
+    private HomeService homeService;
+
     @GetMapping("/getCards/")
     public CardResponse getCards(
             @RequestParam int type,
@@ -21,8 +26,20 @@ public class HomeController {
             @RequestParam double minSquare,
             @RequestParam double maxSquare,
             @RequestParam int unitType,
-            @RequestParam double hasHouseResource) {
-        return null;
+            @RequestParam boolean hasHouseResource) {
+        if(type == 0){
+            return homeService.getALLCards(page);
+        }else{
+            return homeService.getCardsWithCondtion(
+                type, 
+                page, 
+                location, 
+                minPrice, 
+                maxPrice, 
+                minSquare, 
+                maxSquare, 
+                unitType, 
+                hasHouseResource);
+        }
     }
-    
 }
