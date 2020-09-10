@@ -1,0 +1,145 @@
+
+.home.data-v-761fbcef {
+	height: 100vh;
+}
+.content.data-v-761fbcef {
+	text-align: center;
+}
+.weui-search-bar.data-v-761fbcef {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	box-sizing: border-box;
+	width: 550rpx;
+	background: transparent;
+	border-radius: 10rpx;
+	margin: 20rpx 20rpx 20rpx 20rpx;
+}
+.weui-icon-search_in-box.data-v-761fbcef {
+	position: absolute;
+	left: 10px;
+	top: 8px;
+}
+.weui-search-bar__form.data-v-761fbcef {
+	position: relative;
+	-webkit-box-flex: 1;
+	-webkit-flex: auto;
+	flex: auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	border-radius: 10rpx;
+	background: #F4F5FA;
+	opacity: 0.7;
+}
+.weui-search-bar__box.data-v-761fbcef {
+	text-align: left;
+	position: relative;
+	padding-left: 30px;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 1;
+}
+.weui-search-bar__input.data-v-761fbcef {
+	/* height: 76.38upx; */
+	height: 30px;
+	line-height: 30px;
+	font-size: 24rpx;
+	/* */
+}
+.weui-search-bar__cancel-btn.data-v-761fbcef {
+	margin-left: 10px;
+	line-height: 28px;
+	color: #09BB07;
+	white-space: nowrap;
+}
+.history.data-v-761fbcef {
+	margin: 20rpx 34rpx 20rpx 34rpx;
+}
+.historyTitle.data-v-761fbcef {
+	margin-left: 8rpx;
+	font-size: 24rpx;
+	color: #969595;
+}
+.historysearch.data-v-761fbcef {
+	padding: 0 5rpx 5rpx 5rpx;
+	margin-top: 20rpx;
+	border-bottom: 1px solid #F8F8F8;
+}
+.historysearch text.data-v-761fbcef {
+	font-size: 28rpx;
+	color: #969595;
+}
+.historydelete.data-v-761fbcef {
+	position: absolute;
+	right: 16rpx;
+	bottom: 10rpx;
+	width: 24rpx;
+}
+.sticky-box.data-v-761fbcef {
+	background: #FFFFFF;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	width: 720rpx;
+	z-index: 99;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	padding: 14rpx 15rpx 0 15rpx;
+}
+.tab.data-v-761fbcef {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	font-size: 24rpx;
+	font-family: PingFang SC;
+	white-space: nowrap;
+}
+.tab__item.data-v-761fbcef {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	padding: 0 20rpx;
+	text-align: center;
+	height: 60rpx;
+	line-height: 60rpx;
+	color: #969595;
+}
+.tab__item.active.data-v-761fbcef {
+	font-weight: bold;
+	font-size: 32rpx;
+	color: #10518e;
+}
+.tab__line.data-v-761fbcef {
+	display: block;
+	height: 6rpx;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	border-radius: 3rpx;
+	position: relative;
+	background: #10518e;
+}
+.scroll-view_H.data-v-761fbcef {
+	/* 文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。 */
+	white-space: nowrap;
+	width: 100%;
+}
+.data-v-761fbcef::-webkit-scrollbar {
+
+	width: 0;
+
+	height: 0;
+
+	color: transparent;
+}
+

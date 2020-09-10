@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "navigation": "/components/navigation/navigation",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
+  }
+}
