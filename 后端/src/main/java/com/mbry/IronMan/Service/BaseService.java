@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.fasterxml.jackson.databind.JsonNode;
+// import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.Dao.UserDao;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
@@ -65,15 +65,15 @@ public class BaseService {
     private String parseJsonToOpenId(String json) {
         String openId = "";
         String errmsg = "";
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode rootNode = mapper.readTree(json);
-            errmsg = rootNode.path("errmsg").asText();
-            openId = rootNode.path("openid").asText();
-        } catch (IOException e) {
-            System.out.println("json 格式不对");
-            openId = errmsg;
-        }
+        // try {
+        //     // ObjectMapper mapper = new ObjectMapper();
+        //     // JsonNode rootNode = mapper.readTree(json);
+        //     // errmsg = rootNode.path("errmsg").asText();
+        //     // openId = rootNode.path("openid").asText();
+        // } catch (IOException e) {
+        //     System.out.println("json 格式不对");
+        //     openId = errmsg;
+        // }
         return openId;
     }
 

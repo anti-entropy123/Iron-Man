@@ -57,7 +57,8 @@ public interface CardMapper {
 			@Param("maxPrice")double maxPrice,
 			@Param("minSquare")double minSquare,
 			@Param("maxSquare")double maxSquare,
-			@Param("unitType")int unitType);
+			@Param("unitType")int unitType,
+			@Param("hasHouseResource")Boolean hasHouseResource);
 	
 	/**
 	 * 查询card的发起者

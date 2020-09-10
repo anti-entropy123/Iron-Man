@@ -27,8 +27,8 @@ public class OrdController {
 
     @GetMapping(value="/incomplete/all/")
     public GetIncompleteOrdResponse getIncompleteOrd(
-        @RequestParam String userId,
-        @RequestParam int page) {
-        return null;
+            @RequestParam String userId,
+            @RequestParam int page) {
+        return orderService.getIncompleteOrd(userId, page);
     }
 }

@@ -43,7 +43,7 @@ public interface ApplicationDao {
      * @return Application[] 中的对象的实际类型应该是CardApplication
      */
     public Application[] queryCardApplicationsByCardId(String cardId);
-    
+
     /**
      * 根据 appId 查询对应的申请
      * @param ApplicationId
@@ -52,16 +52,10 @@ public interface ApplicationDao {
     public Application queryApplicationByAppId(String applicationId);
 
     /**
-     * 根据 UserId查询由该 User 发起的所有 Application
-     * @param applicantId 申请的发起者的Id
-     * @return     Application
-     */
-    public Application[] queryApplicationByApplicantUserId(String applicantId);
-
-    /**
      * 根据 UserId查询由该 User 发起的所有 CardApplication
      * @param applicantId 申请的发起者的Id
      * @return    CardApplication
      */
     public CardApplication[] queryCardAppByApplicantUserId(String applicantId);
+    
 }

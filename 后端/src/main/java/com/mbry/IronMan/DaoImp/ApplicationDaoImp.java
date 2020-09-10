@@ -156,4 +156,14 @@ public class ApplicationDaoImp implements ApplicationDao {
 		return (Application)teamApplication;
 	}
 
+	@Override
+	public CardApplication[] queryCardAppByApplicantUserId(String applicantId) {
+		ApplicationEntity[] applicationEntity = applicationMapper.queryApplicationsByApplicantId(applicantId);
+		List<CardApplication> applications = new ArrayList<CardApplication>();
+		for (ApplicationEntity ae: applicationEntity) {
+			applications.add((CardApplication)(this.getApplicationFromEntity(ae)));
+		}
+		return applications.toArray(new CardApplication[applications.size()]);
+	}
+
 }

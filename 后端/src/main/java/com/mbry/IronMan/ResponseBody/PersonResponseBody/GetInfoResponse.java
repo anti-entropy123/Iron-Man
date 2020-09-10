@@ -1,40 +1,36 @@
-package com.mbry.IronMan.RequestBody.PersonRequestBody;
+package com.mbry.IronMan.ResponseBody.PersonResponseBody;
 
-import java.io.Serializable;
+import com.mbry.IronMan.ResponseBody.DefaultResponse;
 
-public class UpdateInfoRequest implements Serializable {
+public class GetInfoResponse extends DefaultResponse {
+
+     /**
+    *
+    */
+    private static final long serialVersionUID = 1L;
     /**
      *
      */
-    private static final long serialVersionUID = 5664774176283503006L;
-    private String userId;
     private String name;
     private Boolean sex;
+    private String mobile;
     private String introduce;
     private String avatarUrl;
-
-    public UpdateInfoRequest() {
+    
+    public GetInfoResponse() {
     }
 
-    public UpdateInfoRequest(
-            String userId,
+    public GetInfoResponse(
             String name,
             Boolean sex,
+            String mobile,
             String introduce,
             String avatarUrl) {
-        this.userId = userId;
         this.name = name;
         this.sex = sex;
+        this.mobile = mobile;
         this.introduce = introduce;
         this.avatarUrl = avatarUrl;
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getName() {
@@ -53,6 +49,14 @@ public class UpdateInfoRequest implements Serializable {
         this.sex = sex;
     }
 
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getIntroduce() {
         return this.introduce;
     }
@@ -68,4 +72,5 @@ public class UpdateInfoRequest implements Serializable {
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
+    
 }

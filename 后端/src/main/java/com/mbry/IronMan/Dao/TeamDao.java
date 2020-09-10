@@ -56,5 +56,20 @@ public interface TeamDao {
      * @param cardId    cardId
      * @return          若没有相应的team, 则返回null
      */
-    public Team queryTeamByCaptainIdAndCardId(String captainId, String cardId);    
+    public Team queryTeamByCaptainIdAndCardId(String captainId, String cardId);
+
+    /**
+     * 返回该 teamId 对应的 Team
+     * @param teamId
+     * @return Team 中的 members 字段也应该被初始化
+     */
+    public Team queryTeamByTeamId(String teamId);
+
+    /**
+     * 删除队伍
+     * @param teamId
+     * @return
+     */
+    public boolean deleteTeamByTeamId(String teamId);
+
 }
