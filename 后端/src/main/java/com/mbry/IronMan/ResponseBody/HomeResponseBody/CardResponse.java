@@ -2,7 +2,14 @@ package com.mbry.IronMan.ResponseBody.HomeResponseBody;
 
 import java.io.Serializable;
 
-public class CardResponse implements Serializable {
+import com.mbry.IronMan.BusinessObject.Card.AskRentCard;
+import com.mbry.IronMan.BusinessObject.Card.AskSellCard;
+import com.mbry.IronMan.BusinessObject.Card.RentCard;
+import com.mbry.IronMan.BusinessObject.Card.RoomMateCard;
+import com.mbry.IronMan.BusinessObject.Card.SellCard;
+import com.mbry.IronMan.ResponseBody.DefaultResponse;
+
+public class CardResponse extends DefaultResponse {
     /**
      *
      */
@@ -132,6 +139,72 @@ public class CardResponse implements Serializable {
     
         public Data(Card[] cards) {
             this.cards = cards;
+        }
+
+        public Data(com.mbry.IronMan.BusinessObject.Card.Card[] cards){
+            this.cards = new Card[cards.length];
+            for(int i = 0; i < cards.length; ++i ){
+                int type = 0;
+                com.mbry.IronMan.BusinessObject.Card.Card _card = cards[i];
+                double[] prices;
+                double[] squares;
+                Boolean hasHouseResource = null;
+                if(_card instanceof RentCard){
+                    type = 1;
+                    RentCard rc = (RentCard)_card;
+                    prices = new double[1];
+                    prices[0] = rc.getPrice();
+                    squares = new double[1];
+                    squares[0] = rc.getSquare();
+                }else if(_card instanceof SellCard){
+                    type = 2;
+                    SellCard sc = (SellCard)_card;
+                    prices = new double[1];
+                    prices[0] = sc.getPrice();
+                    squares = new double[1];
+                    squares[0] = sc.getSquare();
+                }else if(_card instanceof AskRentCard){
+                    type = 3;
+                    AskRentCard arc = (AskRentCard)_card;
+                    prices = new double[2];
+                    prices[0] = arc.getMinPrice();
+                    prices[1] = arc.getMaxPrice();
+                    squares = new double[2];
+                    squares[0] = arc.getMinSquare();
+                    squares[1] = arc.getMaxPrice();
+                }else if(_card instanceof AskSellCard){
+                    type = 4;
+                    AskSellCard asc = (AskSellCard)_card;
+                    prices = new double[2];
+                    prices[0] = asc.getMinPrice();
+                    prices[1] = asc.getMaxPrice();
+                    squares = new double[2];
+                    squares[0] = asc.getMinSquare();
+                    squares[1] = asc.getMaxPrice();
+                }else{
+                    type = 5;
+                    RoomMateCard rmc = (RoomMateCard)_card;
+                    prices = new double[2];
+                    prices[0] = rmc.getMinPrice();
+                    prices[1] = rmc.getMaxPrice();
+                    squares = new double[2];
+                    squares[0] = rmc.getMinSquare();
+                    squares[1] = rmc.getMaxPrice();
+                    hasHouseResource = rmc.isHasHouseResource();
+                }
+                
+                this.cards[i] = new Card(
+                    _card.getCardId(), 
+                    type, 
+                    _card.getTitle(), 
+                    _card.getImages()[0],
+                    prices, 
+                    squares, 
+                    _card.getLocation(), 
+                    hasHouseResource, 
+                    _card.getIntroduction()
+                );
+            }
         }
     
         public Card[] getCards() {

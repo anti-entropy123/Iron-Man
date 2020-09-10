@@ -24,5 +24,5 @@ public class HomeController {
             @RequestParam double hasHouseResource) {
         return null;
     }
-
+    
 }
