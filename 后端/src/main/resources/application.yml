@@ -52,11 +52,10 @@ logging:
       security: DEBUG
 #spring.boot.admin.url: http://localhost:8080
 
-# default balance
-default:
-  balance:
-    annualLeave: 7
-    maternityLeave: 90
-    homeLeave: 7
-    sickLeave: -1
-    absenceLeave: -1
+# Tencent Cos
+tencent:
+  cos:
+    secretId: "AKIDkP5lHXzqcKl5RYFSH9k5NVO4TZR2hWw6"
+    secretKey: "3pNCk11kDPL4uU6RSGo58uQebeqlSu5D"
+    region: "ap-beijing"
+    bucket:  "iron-man-1303131952"

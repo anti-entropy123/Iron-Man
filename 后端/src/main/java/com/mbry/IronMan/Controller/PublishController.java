@@ -3,11 +3,13 @@ package com.mbry.IronMan.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mbry.IronMan.Dao.CardDao;
+import java.io.File;
+
 import com.mbry.IronMan.RequestBody.PublishRequestBody.PublishRequest;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.PublishResponseBody.PublishImageResponse;
 import com.mbry.IronMan.Service.CardService;
+import com.mbry.IronMan.Service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,9 @@ public class PublishController {
     @Autowired
     CardService cardService;
 
+    @Autowired
+    ImageService imageService;
+
     /**
      * 
      * @param publishRequest
@@ -31,14 +36,14 @@ public class PublishController {
     @PostMapping(value="/")
     public DefaultResponse publish(@RequestBody PublishRequest publishRequest) {
         DefaultResponse defaultResponse = new DefaultResponse();
-        if (cardService.publishCard(publishRequest) {
+        if (cardService.publishCard(publishRequest)) {
             defaultResponse.setResult(1);
             defaultResponse.setMessage("mbrynb");
         } else {
             defaultResponse.setResult(0);
             defaultResponse.setMessage("server error");
         } 
-        return null;
+        return defaultResponse;
     }
     
     /**
@@ -46,10 +51,38 @@ public class PublishController {
      * @param image
      * @return
      */
-    12
+    
     @PostMapping(value="/image")
     public PublishImageResponse postMethodName(
         @RequestParam("image") MultipartFile image ) {
-        return null;
+        
+        PublishImageResponse publishImageResponse = new PublishImageResponse();
+        String fileName = image.getOriginalFilename();
+        String suffix=fileName.substring(fileName.lastIndexOf("."));
+        try {
+            File  file = File.createTempFile(fileName, suffix);
+            try {
+                image.transferTo(file);
+                publishImageResponse.setUrl(imageService.saveImage(file));
+                publishImageResponse.setResult(1);
+                publishImageResponse.setMessage("mbrynb");
+                if (file.exists()) {
+                    file.delete();
+                }
+                return publishImageResponse;
+            } catch (Exception e) {
+                e.printStackTrace();
+                publishImageResponse.setResult(0);
+                publishImageResponse.setMessage("server error");
+                return publishImageResponse;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            publishImageResponse.setResult(0);
+            publishImageResponse.setMessage("server error");
+            return publishImageResponse;
+        } 
+        
     }
+
 }

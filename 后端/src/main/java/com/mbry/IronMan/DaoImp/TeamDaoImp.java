@@ -92,6 +92,24 @@ public class TeamDaoImp implements TeamDao {
 		return this.setTeamByTeamEntity(teamEntity);
 	}
 
+	@Override
+    public Team queryTeamByTeamId(String teamId) {
+		TeamEntity teamEntity = teamMapper.queryTeamByTeamId(teamId);
+		return this.setTeamByTeamEntity(teamEntity);
+	}
+
+    @Override
+    public boolean deleteTeamByTeamId(String teamId) {
+		try {
+			teamMapper.deleteTeam(teamId, null);
+			teamMemberMapper.deleteTeamMember(teamId, null);
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	/**
 	 * 将一个TeamEntity转化为Team
 	 * @param teamEntity

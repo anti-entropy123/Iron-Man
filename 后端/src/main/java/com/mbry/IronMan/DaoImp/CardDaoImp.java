@@ -68,7 +68,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public RentCard[] queryRentCards(int page, String location, Double[] priceRange, int unitType) {
+	public RentCard[] queryRentCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
 		CardEntity[] cardEntitys = cardMapper.queryCards(
 				startIndex, 
@@ -77,8 +77,8 @@ public class CardDaoImp implements CardDao {
 				location, 
 				priceRange[0], 
 				priceRange[1], 
-				0, 
-				0, 
+				squares[0], 
+				squares[1],
 				unitType,
 				null);
 		List<RentCard> cards = new ArrayList<RentCard>();
@@ -89,7 +89,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public AskRentCard[] queryAskRentCards(int page, String location, Double[] priceRange, int unitType) {
+	public AskRentCard[] queryAskRentCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
 		CardEntity[] cardEntitys = cardMapper.queryCards(
 				startIndex, 
@@ -98,8 +98,8 @@ public class CardDaoImp implements CardDao {
 				location, 
 				priceRange[0], 
 				priceRange[1], 
-				0, 
-				0, 
+				squares[0], 
+				squares[1],
 				unitType,
 				null);
 		List<AskRentCard> cards = new ArrayList<AskRentCard>();
@@ -110,7 +110,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public SellCard[] querySellCards(int page, String location, Double[] priceRange, int unitType) {
+	public SellCard[] querySellCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
 		CardEntity[] cardEntitys = cardMapper.queryCards(
 				startIndex, 
@@ -119,8 +119,8 @@ public class CardDaoImp implements CardDao {
 				location, 
 				priceRange[0], 
 				priceRange[1], 
-				0, 
-				0, 
+				squares[0], 
+				squares[1], 
 				unitType,
 				null);
 		List<SellCard> cards = new ArrayList<SellCard>();
@@ -131,7 +131,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public AskSellCard[] queryAskSellCards(int page, String location, Double[] priceRange, int unitType) {
+	public AskSellCard[] queryAskSellCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
 		CardEntity[] cardEntitys = cardMapper.queryCards(
 				startIndex, 
@@ -140,13 +140,34 @@ public class CardDaoImp implements CardDao {
 				location, 
 				priceRange[0], 
 				priceRange[1], 
-				0, 
-				0, 
+				squares[0], 
+				squares[1],
 				unitType,
 				null);
 		List<AskSellCard> cards = new ArrayList<AskSellCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getAskSellCard(cardEntitys[i]));
+		}
+		return cards.toArray(new AskSellCard[cards.size()]);
+	}
+
+	@Override
+    public AskSellCard[] queryAskRoomMateCards(int page, String location, Double[] priceRange, Double[] squares, int unitType, Boolean hasHouseResource){
+		int startIndex = (page - 1) * Global.pageSize;
+		CardEntity[] cardEntitys = cardMapper.queryCards(
+				startIndex, 
+				Global.pageSize, 
+				Global.roomMateCardType, 
+				location, 
+				priceRange[0], 
+				priceRange[1], 
+				squares[0], 
+				squares[1],
+				unitType,
+				hasHouseResource);
+		List<RoomMateCard> cards = new ArrayList<RoomMateCard>();
+		for (int i = 0; i < cardEntitys.length; i++) {
+			cards.add(this.getRoomMateCard(cardEntitys[i]));
 		}
 		return cards.toArray(new AskSellCard[cards.size()]);
 	}

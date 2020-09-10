@@ -3,6 +3,7 @@ package com.mbry.IronMan.Service;
 import com.mbry.IronMan.BusinessObject.Card.*;
 import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.RequestBody.PublishRequestBody.PublishRequest;
+import com.mbry.IronMan.Utils.DateUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Service;
 public class CardService {
     
     @Autowired
-    CardDao cardDao;
+	CardDao cardDao;
+	
+	@Autowired
+	DateUtil dateUtil;
 
     /**
      * 
@@ -154,7 +158,7 @@ public class CardService {
 		card.setCardId(null);
 		card.setUserId(publishRequest.getUserId());
 		card.setStatus(false);
-		card.setDate(DateUtil.getCurrentDate());
+		card.setDate(dateUtil.getDate());
 		card.setTitle(publishRequest.getTitle());
 		card.setIntroduction(publishRequest.getIntroduce());
 		card.setLocation(publishRequest.getLocation());
