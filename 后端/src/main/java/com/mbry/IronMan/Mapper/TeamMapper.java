@@ -48,6 +48,6 @@ public interface TeamMapper {
 	 * @param cardId
 	 * @return
 	 */
-	public TeamEntity queryTeamByCapAndCard(@Param("captionId")String captainId, @Param("cardId")String cardId);
+	public TeamEntity queryTeamByCapAndCard(@Param("captainId")String captainId, @Param("cardId")String cardId);
 	
 }

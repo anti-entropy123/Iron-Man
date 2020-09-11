@@ -11,6 +11,16 @@ public class UserMapperTests {
 
 	@Autowired
 	UserMapper userMapper;
+
+	@Test
+	void delete() {
+		userMapper.deleteUser("12314434");
+	}
+
+	@Test
+	void query() {
+		System.out.println(userMapper.queryUserPage(null, null, null));
+	}
 	
 	@Test
 	public void test() {

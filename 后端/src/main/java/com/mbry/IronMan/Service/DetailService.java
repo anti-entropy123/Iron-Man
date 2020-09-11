@@ -143,7 +143,13 @@ public class DetailService {
 
     public DefaultResponse orderTeamApply(String userId, String teamId){
         String date = dateUtil.getDate();
-        TeamApplication app = new TeamApplication(null, userId, false, date, teamId);
+        TeamApplication app = new TeamApplication(
+            null, 
+            userId, 
+            teamDao.queryCaptainIdFromTeamId(teamId),
+            false, 
+            date, 
+            teamId);
         String applyId = applicationDao.createApplication(app);
         String targetUserId = teamDao.queryCaptainIdFromTeamId(teamId);
 

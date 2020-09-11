@@ -15,6 +15,11 @@ public class LoginController {
     @Autowired
     private BaseService baseService;
 
+    /**
+     * 9.11 测试通过
+     * @param loginCode
+     * @return
+     */
     @PostMapping("/api/login/")
     public LoginToken commonUserLogin(@RequestBody LoginCode loginCode) {
         String token = baseService.login(loginCode.getCode());

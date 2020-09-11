@@ -3,7 +3,10 @@ package com.mbry.IronMan.Controller;
 import com.mbry.IronMan.RequestBody.AdmRequestBody.*;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.*;
+import com.mbry.IronMan.ResponseBody.HomeResponseBody.CardResponse;
 import com.mbry.IronMan.Service.AdmCardService;
+import com.mbry.IronMan.Service.HomeService;
+import com.mbry.IronMan.RequestBody.AdmRequestBody.DeleteUserRequestBody;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +20,9 @@ public class AdmController {
 
     @Autowired
     AdmCardService admCardService;
+
+    @Autowired
+    HomeService homeService;
 
     /**
      * 获得card列表
@@ -80,5 +86,50 @@ public class AdmController {
         }
         
     }
-    
+
+    @GetMapping("/api/adm/deleteCard/")
+    public CardResponse getCards(
+        @RequestParam int type,
+        @RequestParam int page,
+        @RequestParam String location,
+        @RequestParam double minPrice,
+        @RequestParam double maxPrice,
+        @RequestParam double minSquare,
+        @RequestParam double maxSquare,
+        @RequestParam int unitType,
+        @RequestParam boolean hasHouseResource) {
+        if(type == 0){
+            return homeService.getALLCards(page);
+        }else{
+            return homeService.getCardsWithCondtion(
+                type, 
+                page, 
+                location, 
+                minPrice, 
+                maxPrice, 
+                minSquare, 
+                maxSquare, 
+                unitType, 
+                hasHouseResource);
+        }
+    }
+
+    @GetMapping("/api/adm/getUser/")
+    public GetUserResponse getUser(
+        @RequestParam String nickname,
+        @RequestParam String userId,
+        @RequestParam String mobileNumber,
+        @RequestParam int page) {
+        return admCardService.getUser(
+            nickname,
+            userId,
+            mobileNumber,
+            page);
+    }
+
+    @DeleteMapping("/api/adm/deleteUser")
+    public DefaultResponse deleteUser(@RequestBody DeleteUserRequestBody deleteUserRequestBody) {
+        return admCardService.deleteUser(deleteUserRequestBody.getUserIds());
+    }
+
 }

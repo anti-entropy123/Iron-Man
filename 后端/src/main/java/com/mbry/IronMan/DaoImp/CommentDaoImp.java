@@ -23,6 +23,9 @@ public class CommentDaoImp implements CommentDao {
 	public Comment[] queryCommentsByCardId(String cardId, int page) {
 		int startIndex = (page - 1) * Global.pageSize;
 		CommentEntity[] commentEntitys = commentMapper.queryCommentByCardId(cardId, startIndex, Global.pageSize);
+		if (commentEntitys == null) {
+			return null;
+		}
 		List<Comment> comments = new ArrayList<Comment>();
 		for (int i = 0; i < commentEntitys.length; i++) {
 			if (commentEntitys[i].getReplyToId() !=  null) {
@@ -43,6 +46,9 @@ public class CommentDaoImp implements CommentDao {
 	@Override
 	public Reply[] queryRepliesByCommentId(String commentId) {
 		CommentEntity[] commentEntitys = commentMapper.queryRepliesByBelongId(commentId);
+		if (commentEntitys == null) {
+			return null;
+		}
 		List<Reply> replies = new ArrayList<Reply>();
 		for (int i = 0; i < commentEntitys.length; i++) {
 			Reply reply = new Reply();
@@ -119,6 +125,9 @@ public class CommentDaoImp implements CommentDao {
 	@Override
 	public Comment queryCommentByCommentId(String commentId) {
 		CommentEntity commentEntity = commentMapper.queryCommentById(commentId);
+		if (commentEntity == null) {
+			return null;
+		}
 		if (commentEntity.getBelongToId() == null) {
 			Comment comment = new Comment();
 			comment.setCommentId(commentEntity.getCommentId());

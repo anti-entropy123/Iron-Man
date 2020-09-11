@@ -31,6 +31,9 @@ public class LogDaoImp implements LogDao {
     @Override
     public Log[] queryLogByAimUserId(String aimUserId) {
         LogEntity[] logEntitys = logMapper.queryLogEntityByAimUserId(aimUserId);
+        if (logEntitys == null) {
+            return null;
+        }
         List<Log> logs = new ArrayList<Log>();
         for (LogEntity logEntity: logEntitys) {
             logs.add(new Log(logEntity.getLogId(),

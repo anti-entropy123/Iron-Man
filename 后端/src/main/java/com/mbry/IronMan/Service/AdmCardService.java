@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mbry.IronMan.Mapper.CardMapper;
+import com.mbry.IronMan.Mapper.UserMapper;
+import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetCardResponse;
+import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetUserResponse;
 import com.mbry.IronMan.Utils.DateUtil;
 import com.mbry.IronMan.entity.CardEntity;
+import com.mbry.IronMan.entity.UserEntity;
 import com.mbry.IronMan.global.Global;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,18 @@ public class AdmCardService {
     @Autowired
     DateUtil dateUtil;
 
+    @Autowired
+    UserMapper userMapper;
+
+    /**
+     * 获取需要的Cards列表
+     * @param type
+     * @param userId
+     * @param minDate
+     * @param maxDate
+     * @param page
+     * @return
+     */
     public GetCardResponse.Data[] getCardsByRequire(
         int type,
         String userId,
@@ -47,6 +63,15 @@ public class AdmCardService {
         return datas.toArray(new GetCardResponse.Data[datas.size()]);
     }
 
+    /**
+     * 获取所需的Crads页数
+     * @param type
+     * @param userId
+     * @param minDate
+     * @param maxDate
+     * @param page
+     * @return
+     */
     public int getCardsPagesByRequire(
         int type,
         String userId,
@@ -65,9 +90,77 @@ public class AdmCardService {
         return pages;
     }
 
+    /**
+     * 删除指定card
+     * @param cardIds
+     */
     public void deleteCards(String[] cardIds) {
         for (String cardId: cardIds) {
             cardMapper.deleteCardById(cardId);
         }
     }
+
+    /**
+     * 获取user信息表
+     * @param nickname
+     * @param userId
+     * @param mobileNumber
+     * @param page
+     * @return
+     */
+    public GetUserResponse getUser(
+        String nickname,
+        String userId,
+        String mobileNumber,
+        int page) {
+        int startIndex = (page - 1) * Global.pageSize;
+        try {
+            UserEntity[] userEntitys = userMapper.queryUsers(startIndex, Global.pageSize, nickname, userId, mobileNumber);
+            if (userEntitys == null) {
+                return new GetUserResponse(null, 0, 0, "no users");
+            } 
+            GetUserResponse getUserResponse = new GetUserResponse();
+            List<GetUserResponse.Data> datas = new ArrayList<GetUserResponse.Data>();
+            for (UserEntity userEntity: userEntitys) {
+                GetUserResponse.Data data = getUserResponse.new Data(
+                    userEntity.getUserId(),
+                    userEntity.getNickName(),
+                    userEntity.getAvatar(),
+                    userEntity.getSex(),
+                    userEntity.getIntroduction(),
+                    userEntity.getNickName()
+                );
+                datas.add(data);
+            }
+            GetUserResponse.Data[] datasA = datas.toArray(new GetUserResponse.Data[datas.size()]);
+            int totalPage = userMapper.queryUserPage(nickname, userId, mobileNumber);
+            if ((totalPage % Global.pageSize) > 0) {
+                totalPage = totalPage / Global.pageSize + 1;
+            } else {
+                totalPage = totalPage / Global.pageSize;
+            }
+            return new GetUserResponse(datasA, totalPage, 1, "mbrynb");
+        } catch (Exception e){
+            e.printStackTrace();
+            return new GetUserResponse(null, 0, 0, "server error");
+        }
+    }
+
+    /**
+     * 删除指定user
+     * @param userIds
+     * @return
+     */
+    public DefaultResponse deleteUser(String[] userIds) {
+        try {
+            for (String userId: userIds) {
+                userMapper.deleteUser(userId);
+            }
+            return new DefaultResponse(1, "mbrynb");
+        } catch(Exception e) {
+            e.printStackTrace();
+            return new DefaultResponse(0, "server error");
+        }
+    }
+    
 }

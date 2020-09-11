@@ -9,6 +9,7 @@ import com.mbry.IronMan.Utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,12 +29,14 @@ public class BaseController {
     private String tokenHead;
 
     @PostMapping("/getCheckCode/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse getCheckCode(
             @RequestBody MobileNumber mobileNumber) {
         return baseService.getCheckCode(mobileNumber.getNumber());
     }
 
     @PostMapping("/bindMobile/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse bindMobile(
             @RequestBody MobileAndCheckCode mobileAndCheckCode,
             @RequestHeader HttpHeaders headers){

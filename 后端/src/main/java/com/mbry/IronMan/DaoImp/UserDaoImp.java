@@ -37,12 +37,23 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public User queryUserByOpenId(String openId) {
 		UserEntity userEntity = userMapper.queryUserById(openId);
+		if (userEntity == null) {
+			return null;
+		}
 		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
 	public User queryCaptainByTeamId(String teamId) {
-		return this.getUserFromEntity(userMapper.queryUserById(teamMapper.queryCaptainIdByTeamId(teamId)));
+		String captainId = teamMapper.queryCaptainIdByTeamId(teamId);
+		if (captainId == null) {
+			return null;
+		}
+		UserEntity userEntity = userMapper.queryUserById(captainId);
+		if (userEntity == null) {
+			return null;
+		}
+		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
@@ -55,7 +66,10 @@ public class UserDaoImp implements UserDao {
 		userIdList.add(0, captainId);
 		List<User> users = new ArrayList<User>();
 		for(String s: userIdList) {
-			users.add(this.getUserFromEntity(userMapper.queryUserById(s)));
+			UserEntity userEntity = userMapper.queryUserById(s);
+			if (userEntity != null) {
+				users.add(this.getUserFromEntity(userEntity));
+			}
 		}
 		return users.toArray(new User[users.size()]);
 	}
@@ -66,12 +80,21 @@ public class UserDaoImp implements UserDao {
 		if (userId == null) {
 			userId = teamApplicationMapper.queryApplicantIdById(applicationId);
 		}
-		return this.getUserFromEntity(userMapper.queryUserById(userId));
+		UserEntity userEntity = userMapper.queryUserById(userId);
+		if (userEntity == null) {
+			return null;
+		}
+		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
 	public User queryUserByCardId(String cardId) {
-		return this.getUserFromEntity(userMapper.queryUserById(cardMapper.queryUserIdById(cardId)));
+		String userId = cardMapper.queryUserIdById(cardId);
+		UserEntity userEntity = userMapper.queryUserById(userId);
+		if (userEntity == null) {
+			return null;
+		}
+		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override

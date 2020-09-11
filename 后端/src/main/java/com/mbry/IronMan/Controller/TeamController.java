@@ -13,6 +13,7 @@ import com.mbry.IronMan.Utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class TeamController{
     private String tokenHead;
 
     @GetMapping(value="/getTeam/")
+    @PreAuthorize("hasRole('common')")
     public GetTeamResponse getTeam(
             @RequestParam String cardId,
             @RequestHeader HttpHeaders headers) {
@@ -44,6 +46,7 @@ public class TeamController{
     }
     
     @PostMapping(value="/createTeam/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse createTeam(@RequestBody CreateTeamRequest createTeamRequest) {
         return teamService.createTeam(
             createTeamRequest.getUserId(), 
@@ -52,6 +55,7 @@ public class TeamController{
     }
     
     @PostMapping(value="/joinTeam/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse joinTeam(@RequestBody JoinTeamRequest joinTeamRequest) {
         return teamService.joinTeam(
             joinTeamRequest.getTeamId(), 
@@ -59,6 +63,7 @@ public class TeamController{
     }
 
     @PostMapping(value="/leaveTeam/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse leaveTeam(@RequestBody LeaveTeamRequest leaveTeamRequest) {
         return teamService.leaveTeam(leaveTeamRequest.getTeamId(), leaveTeamRequest.getUserId());
     }

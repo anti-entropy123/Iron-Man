@@ -67,6 +67,7 @@ public class TeamService {
         String applyId = applicationDao.createApplication(new TeamApplication(
             null, 
             userId, 
+            teamDao.queryCaptainIdFromTeamId(teamId),
             false, 
             dateUtil.getDate(), 
             teamId));

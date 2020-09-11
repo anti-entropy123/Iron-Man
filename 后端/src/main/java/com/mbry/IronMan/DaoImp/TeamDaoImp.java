@@ -28,6 +28,9 @@ public class TeamDaoImp implements TeamDao {
 	@Override
 	public Team[] getTeamsByCardId(String cardId) {
 		TeamEntity[] teamEntitys = teamMapper.queryTeamsByCardId(cardId);
+		if (teamEntitys == null) {
+			return null;
+		}
 		List<Team> teams = new ArrayList<Team>();
 		for (int i = 0; i < teamEntitys.length; i++) {
 			teams.add(this.setTeamByTeamEntity(teamEntitys[i]));
@@ -39,13 +42,13 @@ public class TeamDaoImp implements TeamDao {
 	public boolean createTeam(Team team) {
 		try {
 			TeamEntity teamEntity = new TeamEntity();
-			teamEntity.setTeamId(team.getTeamId());
 			teamEntity.setCaptainId(team.getCaptainId());
 			teamEntity.setCardId(team.getCardId());
 			teamEntity.setMaxNum(team.getMaxNum());
 			teamEntity.setDate(team.getDate());
+			teamMapper.insertTeam(teamEntity);
 			for (int i = 0; i < team.getMembers().length; i++) {
-				teamMemberMapper.insertTeamMember(team.getTeamId(), team.getMembers()[i].getUserId());
+				teamMemberMapper.insertTeamMember(teamEntity.getTeamId(), team.getMembers()[i].getUserId());
 			}
 			return true;
 		} catch(Exception e) {
@@ -78,7 +81,11 @@ public class TeamDaoImp implements TeamDao {
 
 	@Override
 	public String queryCardIdFromTeamId(String teamId) {
-		return teamMapper.queryTeamByTeamId(teamId).getCardId();
+		TeamEntity teamEntity = teamMapper.queryTeamByTeamId(teamId);
+		if (teamEntity == null) {
+			return null;
+		}
+		return teamEntity.getCardId();
 	}
 
 	@Override
@@ -89,12 +96,18 @@ public class TeamDaoImp implements TeamDao {
 	@Override
 	public Team queryTeamByCaptainIdAndCardId(String captainId, String cardId) {
 		TeamEntity teamEntity = teamMapper.queryTeamByCapAndCard(captainId, cardId);
+		if (teamEntity == null) {
+			return null;
+		}
 		return this.setTeamByTeamEntity(teamEntity);
 	}
 
 	@Override
     public Team queryTeamByTeamId(String teamId) {
 		TeamEntity teamEntity = teamMapper.queryTeamByTeamId(teamId);
+		if (teamEntity == null) {
+			return null;
+		}
 		return this.setTeamByTeamEntity(teamEntity);
 	}
 
@@ -120,11 +133,13 @@ public class TeamDaoImp implements TeamDao {
 		List<User> users = new ArrayList<User>();
 		for (int j = 0; j < members.length; j++) {
 			UserEntity userEntity = userMapper.queryUserByIdForTeam(members[j]);
-			User user = new User();
-			user.setUserId(userEntity.getUserId());
-			user.setNickName(userEntity.getNickName());
-			user.setAvatar(userEntity.getAvatar());
-			users.add(user);
+			if (userEntity != null) {
+				User user = new User();
+				user.setUserId(userEntity.getUserId());
+				user.setNickName(userEntity.getNickName());
+				user.setAvatar(userEntity.getAvatar());
+				users.add(user);
+			}
 		}
 		Team team = new Team(
 				teamEntity.getTeamId(),

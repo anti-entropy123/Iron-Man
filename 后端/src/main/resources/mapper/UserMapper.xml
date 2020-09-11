@@ -35,6 +35,11 @@
 			#{mobile},
 			#{introduction})
 	</insert>
+
+	<delete id="deleteUser" parameterType="java.lang.String">
+		DELETE FROM user
+		WHERE user_id = #{userId}
+	</delete>
 	
 	<select id="queryUserByIdForTeam" parameterType="java.lang.String" resultMap="MinUserMap">
 		SELECT user_id, nickname, avatar FROM user
@@ -48,6 +53,22 @@
 	
 	<select id="queryUsers" resultMap="UserMap">
 		SELECT * FROM user
+		<where>
+			<if test="nickName != null">
+				AND nickname = #{nickName}
+			</if>
+			<if test="userId != null">
+				AND user_id = #{userId}
+			</if>
+			<if test="mobile != null">
+				AND mobile = #{mobile}
+			</if>
+		</where>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+
+	<select id="queryUserPage" resultType="int">
+		SELECT count(*) FROM user
 		<where>
 			<if test="nickName != null">
 				AND nickname = #{nickName}

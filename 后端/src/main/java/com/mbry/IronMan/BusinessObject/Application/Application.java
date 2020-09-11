@@ -19,7 +19,8 @@ public class Application {
         String date
     ){
         this.setApplicationId(applicationId);
-        this.setApplicantId(applicantId);
+		this.setApplicantId(applicantId);
+		this.setTargetId(targetId);
         this.setStatus(status);
         this.setDate(date);
     }

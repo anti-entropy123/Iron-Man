@@ -14,8 +14,7 @@ public interface TeamDao {
 
     /**
      * 
-     * @param userId
-     * @param cardId
+     * @param team
      * @return
      */
     public boolean createTeam(Team team);

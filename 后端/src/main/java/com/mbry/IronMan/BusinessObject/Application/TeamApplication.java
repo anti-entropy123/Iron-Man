@@ -8,11 +8,12 @@ public class TeamApplication extends Application{
     public TeamApplication(
         String applicationId,
         String applicantId,
+        String targetUserId,
         Boolean status,
         String date,
         String teamId
     ){
-        super(applicationId, applicantId, teamId, status, date);
+        super(applicationId, applicantId, targetUserId, status, date);
         this.setTeamId(teamId);
     }
     

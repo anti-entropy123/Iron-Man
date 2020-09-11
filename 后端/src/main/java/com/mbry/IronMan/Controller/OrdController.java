@@ -2,9 +2,12 @@ package com.mbry.IronMan.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetCompleteOrdRequest;
-import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetIncompleteOrdRequest;
+import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetCompleteOrdResponse;
+import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetIncompleteOrdResponse;
+import com.mbry.IronMan.Service.OrderService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,17 +16,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api")
 public class OrdController {
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping(value="/complete/all/")
-    public GetCompleteOrdRequest getCompleteOrd(
+    @PreAuthorize("hasRole('common')")
+    public GetCompleteOrdResponse getCompleteOrd(
             @RequestParam String userId,
             @RequestParam int page) {
-        return null;
+        return orderService.getCompleteOrd(userId, page);
     }
 
     @GetMapping(value="/incomplete/all/")
-    public GetIncompleteOrdRequest getMethodName(
-        @RequestParam String userId,
-        @RequestParam int page) {
-        return null;
+    @PreAuthorize("hasRole('common')")
+    public GetIncompleteOrdResponse getIncompleteOrd(
+            @RequestParam String userId,
+            @RequestParam int page) {
+        return orderService.getIncompleteOrd(userId, page);
     }
 }

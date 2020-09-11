@@ -10,6 +10,7 @@ import com.mbry.IronMan.ResponseBody.CommentResponseBody.GetRepliesResponse;
 import com.mbry.IronMan.Service.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping(value="/getComments/")
+    @PreAuthorize("hasRole('common')")
     public GetCommentResponse getComments(
             @RequestParam String cardId,
             @RequestParam int pageNum) {
@@ -31,16 +33,19 @@ public class CommentController {
     }
 
     @GetMapping(value="/getReplies/")
+    @PreAuthorize("hasRole('common')")
     public GetRepliesResponse getReplies(@RequestParam String commentId) {
         return commentService.getReplies(commentId);
     }
     
     @PostMapping(value="/addComment/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse addComment(@RequestBody AddCommentRequest addCommentRequest) {
         return commentService.addComment(addCommentRequest);
     }
     
     @PostMapping(value="/deleteComment/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse deleteComment(@RequestBody DeleteCommentRequest deleteCommentRequest) {
         return commentService.deleteComment(deleteCommentRequest);
     }
