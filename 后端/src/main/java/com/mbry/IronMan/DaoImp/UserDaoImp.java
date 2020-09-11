@@ -37,18 +37,29 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public User queryUserByOpenId(String openId) {
 		UserEntity userEntity = userMapper.queryUserById(openId);
+		if (userEntity == null) {
+			return null;
+		}
 		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
 	public User queryCaptainByTeamId(String teamId) {
-		return this.getUserFromEntity(userMapper.queryUserById(teamMapper.queryCaptainIdByTeamId(teamId)));
+		String captainId = teamMapper.queryCaptainIdByTeamId(teamId);
+		UserEntity userEntity = userMapper.queryUserById(captainId);
+		if (userEntity == null) {
+			return null;
+		}
+		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
 	public User[] queryUsersByTeamId(String teamId) {
 		String captainId = teamMapper.queryCaptainIdByTeamId(teamId);
 		String[] userIds = teamMemberMapper.queryUserByTeamId(teamId);
+		if (userIds == null) {
+			return null;
+		}
 		List<String> userIdList = new ArrayList<String>();
 		Collections.addAll(userIdList, userIds);
 		userIdList.remove(captainId);
@@ -66,12 +77,21 @@ public class UserDaoImp implements UserDao {
 		if (userId == null) {
 			userId = teamApplicationMapper.queryApplicantIdById(applicationId);
 		}
-		return this.getUserFromEntity(userMapper.queryUserById(userId));
+		UserEntity userEntity = userMapper.queryUserById(userId);
+		if (userEntity == null) {
+			return null;
+		}
+		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
 	public User queryUserByCardId(String cardId) {
-		return this.getUserFromEntity(userMapper.queryUserById(cardMapper.queryUserIdById(cardId)));
+		String userId = cardMapper.queryUserIdById(cardId);
+		UserEntity userEntity = userMapper.queryUserById(userId);
+		if (userEntity == null) {
+			return null;
+		}
+		return this.getUserFromEntity(userEntity);
 	}
 
 	@Override
@@ -111,6 +131,9 @@ public class UserDaoImp implements UserDao {
 	public User[] queryUsers(int page, String name, String userId, String mobileNumber) {
 		int startIndex = (page - 1) * Global.pageSize;
 		UserEntity[] userEntitys = userMapper.queryUsers(startIndex,  Global.pageSize, name, userId, mobileNumber);
+		if (userEntitys == null) {
+			return null;
+		}
 		List<User> users = new ArrayList<User>();
 		for (UserEntity userEntity: userEntitys) {
 			users.add(this.getUserFromEntity(userEntity));

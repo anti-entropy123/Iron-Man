@@ -1,5 +1,7 @@
 package com.mbry.IronMan;
 
+import com.mbry.IronMan.Security.JwtAuthenticationTokenFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
@@ -28,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
-    // @Bean
-    // public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-    //     return new JwtAuthenticationTokenFilter();
-    // }
+    @Bean
+    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtAuthenticationTokenFilter();
+    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -50,7 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,
-                        "/api/detail/getCardDetail/",
                         "/",
                         "/*.html",
                         "/favicon.ico",
@@ -67,8 +71,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .anyRequest().authenticated();
 
         // // 添加JWT filter
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
         // httpSecurity
-        //         .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        //         .addFilterBefore(authenticationTokenFilterBean(), SecurityContextHolderAwareRequestFilter.class);
 
         // 禁用缓存
         httpSecurity.headers().cacheControl();

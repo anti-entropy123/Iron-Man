@@ -1,14 +1,15 @@
 package com.mbry.IronMan.Service;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import com.alibaba.fastjson.JSON;
 // import com.fasterxml.jackson.databind.JsonNode;
 // import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.Dao.UserDao;
+import com.mbry.IronMan.JsonBean.JscodeToSession;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.Utils.JwtTokenUtil;
 
@@ -28,7 +29,8 @@ public class BaseService {
     JwtTokenUtil jwtTokenUtil;
 
     private static String getOpenIdByCode(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session";
+        //String url = "https://api.weixin.qq.com/sns/jscode2session";
+        String url = "http://127.0.0.1:9331";
         String param = "appid=wx41443c3caff6ac73&secret=a60e5a537d06c742310228e5f9cacc19&js_code=" + code
                 + "&grant_type=authorization_code";
         String result = "";
@@ -59,12 +61,11 @@ public class BaseService {
             System.out.println("发送GET请求出现异常" + e);
             e.printStackTrace();
         }
-        return result;
+        int i = result.lastIndexOf("\n\n");
+        return result.substring(i+2);
     }
 
     private String parseJsonToOpenId(String json) {
-        String openId = "";
-        String errmsg = "";
         // try {
         //     // ObjectMapper mapper = new ObjectMapper();
         //     // JsonNode rootNode = mapper.readTree(json);
@@ -74,12 +75,15 @@ public class BaseService {
         //     System.out.println("json 格式不对");
         //     openId = errmsg;
         // }
-        return openId;
+        JscodeToSession jscodeToSession = JSON.parseObject(json, JscodeToSession.class);
+        return jscodeToSession.getOpenId();
     }
 
     public String login(String code) {
-        String result = getOpenIdByCode(code);
-        String openId = parseJsonToOpenId(result);
+        // String result = getOpenIdByCode(code);
+        // String result = "{\"open_id\": \"youjianing\", \"session_key\":\"123456\"}";
+        // String openId = parseJsonToOpenId(result);
+        String openId = "youjianing";
         final UserDetails userDetails = userDetailsService.loadUserByUsername(openId);
         if (userDetails == null) {
             register(openId);

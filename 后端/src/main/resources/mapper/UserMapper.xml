@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.UserMapper">
+
+	<resultMap id="MinUserMap" type="com.mbry.IronMan.entity.UserEntity">
+		<result property="userId" column="user_id"/>
+		<result property="nickName" column="nickname"/>
+		<result property="avatar" column="avatar"/>
+	</resultMap>
+	
+	<resultMap id="UserMap" type="com.mbry.IronMan.entity.UserEntity">
+		<result property="userId" column="user_id"/>
+		<result property="nickName" column="nickname"/>
+		<result property="avatar" column="avatar"/>
+		<result property="sex" column="sex"/>
+		<result property="mobile" column="mobile"/>
+		<result property="introduction" column="introduction"/>
+	</resultMap>
+	
+	<insert id="insertUser" parameterType="com.mbry.IronMan.entity.UserEntity">
+		INSERT INTO
+			user(
+				user_id,
+				nickname,
+				avatar,
+				sex,
+				mobile,
+				introduction)
+		VALUES(
+			#{userId},
+			#{nickName},
+			#{avatar},
+			#{sex},
+			#{mobile},
+			#{introduction})
+	</insert>
+	
+	<select id="queryUserByIdForTeam" parameterType="java.lang.String" resultMap="MinUserMap">
+		SELECT user_id, nickname, avatar FROM user
+		WHERE user_id = #{userId}
+	</select>
+	
+	<select id="queryUserById" parameterType="java.lang.String" resultMap="UserMap">
+		SELECT * FROM user
+		WHERE user_id = #{userId}
+	</select>
+	
+	<select id="queryUsers" resultMap="UserMap">
+		SELECT * FROM user
+		<where>
+			<if test="nickName != null">
+				AND nickname = #{nickName}
+			</if>
+			<if test="userId != null">
+				AND user_id = #{userId}
+			</if>
+			<if test="mobile != null">
+				AND mobile = #{mobile}
+			</if>
+		</where>
+	</select>
+	 
+	<update id="updateUser" parameterType="com.mbry.IronMan.entity.UserEntity">
+		UPDATE user
+		<set>
+			<if test="nickName != null">
+				nickname = #{nickName},
+			</if>
+			<if test="avatar != null">
+				avatar = #{avatar},
+			</if>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction},
+			</if>
+		</set>
+		WHERE user_id = #{userId}
+	</update>
+	
+	<update id="updateUserMobile" >
+		UPDATE user
+		set mobile = #{mobile}
+		WHERE user_id = #{userId}
+	</update>
+	
+</mapper>

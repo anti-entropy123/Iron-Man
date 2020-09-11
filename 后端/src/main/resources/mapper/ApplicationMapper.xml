@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.ApplicationMapper">
+	
+	<resultMap id="ApplicationMap" type="com.mbry.IronMan.entity.ApplicationEntity">
+		<result property="applicationId" column="application_id"/>
+		<result property="cardId" column="card_id"/>
+		<result property="applicantId" column="applicant_id"/>
+		<result property="status" column="status"/>
+		<result property="targetUserId" column="target_user_id"/>
+		<result property="date" column="date"/>
+	</resultMap>
+	
+	<insert id="insertApplication" parameterType="com.mbry.IronMan.entity.ApplicationEntity">
+		<selectKey keyProperty="applicationId" resultType="java.lang.String" order="BEFORE">
+			SELECT REPLACE(UUID(),'-','')
+    	</selectKey>
+		INSERT INTO
+			application(
+				application_id,
+				card_id,
+				applicant_id,
+				status,
+				target_user_id,
+				date)
+		VALUES(
+			#{applicationId},
+			#{cardId},
+			#{applicantId},
+			#{status},
+			#{targetUserId},
+			#{date})
+	</insert>
+	
+	<delete id="deleteApplicationById" parameterType="java.lang.String">
+		DELETE FROM application
+		WHERE application_id = #{applicationId}
+	</delete>
+	
+	<select id="queryApplicationsByTargetUserId" parameterType="java.lang.String" resultMap="ApplicationMap">
+		SELECT * FROM application
+		WHERE target_user_id = #{targetUserId}
+	</select>
+	
+	<select id="queryApplicationsByApplicantId" parameterType="java.lang.String" resultMap="ApplicationMap">
+		SELECT * FROM application
+		WHERE applicant_id = #{applicantId}
+	</select>
+	
+	<select id="queryApplicantIdById" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT applicant_id FROM application
+		WHERE application_id = #{applicationId}
+	</select>
+	
+	<select id="queryApplicationById" parameterType="java.lang.String" resultMap="ApplicationMap">
+		SELECT * FROM application
+		WHERE application_id = #{applicationId}
+	</select>
+
+	<select id="queryApplicationByCardId" parameterType="java.lang.String" resultMap="ApplicationMap">
+		SELECT * FROM application
+		WHERE card_id = #{cardId}
+	</select>
+	
+	<update id="updateStatusByApplicationId">
+		UPDATE application 
+		SET status = #{status}
+		WHERE application_id = #{applicationId}
+	</update>
+	
+</mapper>

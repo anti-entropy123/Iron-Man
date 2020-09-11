@@ -4,6 +4,7 @@ import com.mbry.IronMan.ResponseBody.HomeResponseBody.CardResponse;
 import com.mbry.IronMan.Service.HomeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class HomeController {
     private HomeService homeService;
 
     @GetMapping("/getCards/")
+    @PreAuthorize("hasRole('common')")
     public CardResponse getCards(
             @RequestParam int type,
             @RequestParam int page,

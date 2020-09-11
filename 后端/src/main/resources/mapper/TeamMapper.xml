@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.TeamMapper">
+
+	<resultMap id="TeamMap" type="com.mbry.IronMan.entity.TeamEntity">
+		<result property="teamId" column="team_id"/>
+		<result property="captainId" column="captain_id"/>
+		<result property="cardId" column="card_id"/>
+		<result property="maxNum" column="max_num"/>
+		<result property="date" column="date"/>
+	</resultMap>
+	
+	<insert id="insertTeam" parameterType="com.mbry.IronMan.entity.TeamEntity">
+		<selectKey keyProperty="teamId" resultType="java.lang.String" order="BEFORE">
+			SELECT REPLACE(UUID(),'-','')
+    	</selectKey>
+		INSERT INTO
+			team(
+				team_id,
+				captain_id,
+				card_id,
+				max_num,
+				date)
+		VALUES(
+			#{teamId},
+			#{captainId},
+			#{cardId},
+			#{maxNum},
+			#{date})
+	</insert>
+	
+	<delete id="deleteTeam">
+		DELETE FROM team
+		<where>
+			<if test="teamId != null">
+				AND team_id = #{teamId}
+			</if>
+			<if test="cardId != null">
+				AND card_id = #{cardId}
+			</if>
+		</where>
+	</delete>
+	
+	<select id="queryTeamsByCardId" parameterType="java.lang.String" resultMap="TeamMap">
+		SELECT * FROM team
+		WHERE card_id = #{cardId}
+	</select>
+	
+	<select id="queryTeamByTeamId" parameterType="java.lang.String" resultMap="TeamMap">
+		SELECT * From team
+		WHERE team_id = #{teamId}
+	</select>
+	
+	<select id="queryCaptainIdByTeamId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT captain_id FROM team
+		WHERE team_id = #{teamId}
+	</select>
+
+	<select id="queryTeamByCapAndCard" resultMap="TeamMap">
+		SELECT * FROM team
+		WHERE captain_id = #{captainId} AND card_id = #{cardId}
+	</select>
+	
+</mapper>

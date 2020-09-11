@@ -27,7 +27,7 @@ public class JwtUser implements UserDetails {
         this.openId = openId;
         this.username = username;
         List<String> temp = new ArrayList<>();
-        temp.add("common");
+        temp.add("ROLE_common");
         this.anthorities = temp.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 

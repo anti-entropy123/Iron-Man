@@ -9,6 +9,7 @@ import com.mbry.IronMan.ResponseBody.DetailResponseBody.GetApplyResponse;
 import com.mbry.IronMan.Service.DetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,11 +24,13 @@ public class DetailController {
     private DetailService detailService;
     
     @GetMapping("/getCardDetail/")
+    @PreAuthorize("hasRole('common')")
     public DetailCardResponse getCardDetail(@RequestParam String cardId) {
         return detailService.getCardDetail(cardId);
     }
     
     @PostMapping("/orderApply/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse orderApply(@RequestBody OrderApplyRequest orderApplyRequest) {
         return detailService.orderApply(
             orderApplyRequest.getUserId(), 
@@ -35,17 +38,20 @@ public class DetailController {
     }
 
     @PostMapping("/orderTeamApply/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse orderTeamApply(@RequestBody OrderTeamApplyRequest orderTeamApplyRequest) {
         return detailService.orderTeamApply(
             orderTeamApplyRequest.getUserId(), orderTeamApplyRequest.getTeamId());
     }
     
     @GetMapping("/getApply/")
+    @PreAuthorize("hasRole('common')")
     public GetApplyResponse getApply(@RequestParam String cardId) {
         return detailService.getApply(cardId);
     }
 
     @PostMapping("/processApply/")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse processApply(@RequestBody ProcessApplyRequest processApplyRequest) {
         return detailService.processApply(processApplyRequest.getApplyId());
     }

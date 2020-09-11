@@ -28,6 +28,9 @@ public class TeamDaoImp implements TeamDao {
 	@Override
 	public Team[] getTeamsByCardId(String cardId) {
 		TeamEntity[] teamEntitys = teamMapper.queryTeamsByCardId(cardId);
+		if (teamEntitys == null) {
+			return null;
+		}
 		List<Team> teams = new ArrayList<Team>();
 		for (int i = 0; i < teamEntitys.length; i++) {
 			teams.add(this.setTeamByTeamEntity(teamEntitys[i]));

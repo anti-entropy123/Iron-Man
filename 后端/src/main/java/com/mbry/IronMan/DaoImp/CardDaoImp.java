@@ -33,12 +33,16 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public Card queryCardByCardId(String cardId) {
 		CardEntity cardEntity = cardMapper.queryCardByCardId(cardId);
+		if (cardEntity == null) return null;
 		return this.getCardBOByEntity(cardEntity);
 	}
 
 	@Override
 	public Card[] queryCardsByUserId(String userId) {
 		CardEntity[] cardEntitys = cardMapper.queryCardByUserIdAndStatus(userId, null);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<Card> cards = new ArrayList<Card>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getCardBOByEntity(cardEntitys[i]));
@@ -49,6 +53,9 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public Card[] queryFinishCardsByUserId(String userId) {
 		CardEntity[] cardEntitys = cardMapper.queryCardByUserIdAndStatus(userId, true);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<Card> cards = new ArrayList<Card>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getCardBOByEntity(cardEntitys[i]));
@@ -60,6 +67,9 @@ public class CardDaoImp implements CardDao {
 	public Card[] queryALLCards(int page) {
 		int startIndex = (page - 1) * Global.pageSize;
 		CardEntity[] cardEntitys = cardMapper.queryCards(startIndex, Global.pageSize, 0, null, 0, 0, 0, 0, -1, null);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<Card> cards = new ArrayList<Card>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getCardBOByEntity(cardEntitys[i]));
@@ -81,6 +91,9 @@ public class CardDaoImp implements CardDao {
 				squares[1],
 				unitType,
 				null);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<RentCard> cards = new ArrayList<RentCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getRentCard(cardEntitys[i]));
@@ -102,6 +115,9 @@ public class CardDaoImp implements CardDao {
 				squares[1],
 				unitType,
 				null);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<AskRentCard> cards = new ArrayList<AskRentCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getAskRentCard(cardEntitys[i]));
@@ -123,6 +139,9 @@ public class CardDaoImp implements CardDao {
 				squares[1], 
 				unitType,
 				null);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<SellCard> cards = new ArrayList<SellCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getSellCard(cardEntitys[i]));
@@ -144,6 +163,9 @@ public class CardDaoImp implements CardDao {
 				squares[1],
 				unitType,
 				null);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<AskSellCard> cards = new ArrayList<AskSellCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getAskSellCard(cardEntitys[i]));
@@ -165,6 +187,9 @@ public class CardDaoImp implements CardDao {
 				squares[1],
 				unitType,
 				hasHouseResource);
+		if (cardEntitys == null) {
+			return null;
+		}
 		List<RoomMateCard> cards = new ArrayList<RoomMateCard>();
 		for (int i = 0; i < cardEntitys.length; i++) {
 			cards.add(this.getRoomMateCard(cardEntitys[i]));
@@ -230,6 +255,9 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public Card[] queryUncompleteCardsByUserId(String userId) {
 		String[] cardIds = uncompleteCardMapper.selectCardByUserId(userId);
+		if (cardIds == null) {
+			return null;
+		}
 		List<Card> cards = new ArrayList<Card>();
 		for (int i = 0; i < cardIds.length; i++) {
 			CardEntity cardEntity = cardMapper.queryCardByCardId(cardIds[i]);

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.CardMapper">
+	
+	<resultMap id="CardMap" type="com.mbry.IronMan.entity.CardEntity">
+		<result property="cardId" column="card_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="type" column="type"/>
+		<result property="date" column="date"/>
+		<result property="title" column="title"/>
+		<result property="introduction" column="introduction"/>
+		<result property="location" column="location"/>
+		<result property="minPrice" column="min_price"/>
+		<result property="maxPrice" column="max_price"/>
+		<result property="minSquare" column="min_square"/>
+		<result property="maxSquare" column="max_square"/>
+		<result property="unitType" column="unit_type"/>
+		<result property="requirement" column="requirement"/>
+		<result property="unionNum" column="union_num"/>
+		<result property="hasHouseResource" column="has_house_resource"/>
+	</resultMap>
+	
+	<insert id="insertCard" parameterType="com.mbry.IronMan.entity.CardEntity">
+		<selectKey keyProperty="cardId" resultType="java.lang.String" order="BEFORE">
+			select REPLACE(UUID(),'-','')
+    	</selectKey>
+    	INSERT INTO
+    		card(
+    			card_id,
+    			user_id,
+    			type,
+    			status,
+    			date,
+    			title,
+    			introduction,
+    			location,
+    			min_price,
+    			max_price,
+    			min_square,
+    			max_square,
+    			unit_type,
+    			requirement,
+    			union_num,
+    			has_house_resource)
+    	VALUES(
+    		#{cardId},
+    		#{userId},
+    		#{type},
+    		#{status},
+    		#{date},
+    		#{title},
+    		#{introduction},
+    		#{location},
+    		#{minPrice},
+    		#{maxPrice},
+    		#{minSquare},
+    		#{maxSquare},
+    		#{unitType},
+    		#{requirement},
+    		#{unionNum},
+    		#{hasHouseResource})
+    </insert>
+    
+    <delete id="deleteCardById" parameterType="java.lang.String">
+    	DELETE FROM card
+    	WHERE card_id = #{cardId}
+    </delete>
+	
+	<select id="queryCardByCardId" parameterType="java.lang.String" resultMap="CardMap">
+		SELECT * FROM card
+		WHERE card_id = #{cardId}
+	</select>
+	
+	<select id="queryCardByUserIdAndStatus" resultMap="CardMap">
+		SELECT * FROM card
+		WHERE user_id = #{userId}
+		<if test="status != null">
+			AND status = #{status}
+		</if>
+	</select>
+	
+	<select id="queryCards" resultMap="CardMap">
+		SELECT * FROM card
+		<where> 
+			<if test="type > 0">
+				AND type = #{type}
+			</if>
+			<if test="location != null">
+				AND location like concat('%', #{location}, '%')
+			</if>
+			<if test="minPrice > 0">
+				AND min_price &gt;= #{minPrice}
+				AND max_price &lt;= #{maxPrice}
+			</if>	
+			<if test="minSquare > 0">
+				AND min_square &gt;= #{minSquare}
+				AND max_square &lt;= #{maxSquare}
+			</if>
+			<if test="unitType >= 0">
+				AND unitType = #{unitType}
+			</if>
+		</where>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	
+	<select id="queryUserIdById" parameterType="java.lang.String" resultType="java.lang.String">
+    	SELECT user_id FROM card
+    	WHERE card_id = #{cardId}
+    </select>
+	
+    <update id="updateCard" parameterType="com.mbry.IronMan.entity.CardEntity">
+    	UPDATE card
+    	<set>
+    		<if test="title != null">
+    			title = #{title},
+    		</if>
+    		<if test="introduction != null">
+    			introduction = #{introduction},
+    		</if>
+    		<if test="location != null">
+    			location = #{location},
+    		</if>
+    		<if test="minPrice > 0">
+    			min_price = #{minPrice},
+    		</if>
+    		<if test="maxPrice > 0">
+    			max_price = #{maxPrice},
+    		</if>
+    		<if test="minSquare >0">
+    			min_square = #{minSquare},
+    		</if>
+    		<if test="maxSquare >0">
+    			max_square = #{maxSquare},
+    		</if>
+    		<if test="unitType >= 0">
+    			unit_type = #{unitType},
+    		</if>
+    		<if test="requirement != null">
+    			requirement = #{requirement},
+    		</if>
+    		<if test="unionNum > 0">
+    			union_num = #{unionNum},
+    		</if>
+    		<if test="hasHouseResource != null">
+    			has_house_resource = #{hasHouseResource},
+    		</if>
+    	</set>
+    	WHERE card_id = #{cardId}
+    </update>
+    
+    <update id="finsihCard" parameterType="java.lang.String">
+    	UPDATE card
+    	SET status = 1
+    	WHERE card_id = #{cardId}
+    </update>
+    
+</mapper>
