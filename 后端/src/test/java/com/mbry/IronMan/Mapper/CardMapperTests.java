@@ -1,4 +1,4 @@
-package com.mbry.IronMan.Mapper;
+ package com.mbry.IronMan.Mapper;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,22 +59,22 @@ class CardMapperTests {
 	@Test
 	void updateCard() {
 		CardEntity ce = new CardEntity(
-				"7",
-				"11",
-				10,
+				"a04bc8ddf3f311ea80305dd7211e33a5",
+				null,
+				-1,
 				true,
-				"12222",
-				"12222",
-				"12222",
-				"12222",
-				12,
-				12,
-				12,
-				12,
-				12,
-				"11222",
-				11222,
-				false);
+				null,
+				null,
+				null,
+				null,
+				0.0,
+				0,
+				0,
+				0,
+				0,
+				null,
+				0,
+				null);
 		cardMapper.updateCard(ce);
 	}
 	

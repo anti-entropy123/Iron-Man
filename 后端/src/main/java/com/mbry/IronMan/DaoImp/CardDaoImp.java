@@ -279,6 +279,7 @@ public class CardDaoImp implements CardDao {
 		try {
 			cardMapper.updateCard(this.getCardEntityFromBO(card));
 			imageMapper.deleteImageByCardId(card.getCardId());
+			
 			for (int i = 0; i < card.getImages().length; i++) {
 				imageMapper.insertImage(card.getCardId(), card.getImages()[i]);
 			}

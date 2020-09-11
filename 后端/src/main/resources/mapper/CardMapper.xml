@@ -159,10 +159,10 @@
     		<if test="maxPrice > 0">
     			max_price = #{maxPrice},
     		</if>
-    		<if test="minSquare >0">
+    		<if test="minSquare > 0">
     			min_square = #{minSquare},
     		</if>
-    		<if test="maxSquare >0">
+    		<if test="maxSquare > 0">
     			max_square = #{maxSquare},
     		</if>
     		<if test="unitType >= 0">
@@ -177,6 +177,9 @@
     		<if test="hasHouseResource != null">
     			has_house_resource = #{hasHouseResource},
     		</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
     	</set>
     	WHERE card_id = #{cardId}
     </update>
