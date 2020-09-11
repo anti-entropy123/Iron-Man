@@ -211,12 +211,14 @@ public class DetailService {
             cardId = ca.getCardId();
             // 你的申请被card主处理了
             type = 5;
+            cardDao.updateCard(new Card(cardId, null, true, null, null, null, null, -1, null));
         }else if(app instanceof TeamApplication){
             TeamApplication ta = (TeamApplication)app;
             applicationDao.processApplication(ta);
             cardId = teamDao.queryCardIdFromTeamId(ta.getTeamId());
             // 你的入队申请被处理了
             type = 2;
+            // fixme
         }
         // 改变log状态
         logDao.setTrueByApplyId(applyId);
