@@ -6,6 +6,7 @@ import com.mbry.IronMan.ResponseBody.MessageResponseBody.GetAllMessageResponse;
 import com.mbry.IronMan.Service.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,7 @@ public class MessageController{
      * @return
      */
     @GetMapping(value="/getAll/")
+    @PreAuthorize("hasRole('common')")
     public GetAllMessageResponse getMethodName(@RequestParam String userId) {
         GetAllMessageResponse response = new GetAllMessageResponse();
         GetAllMessageResponse.Data data = response.new Data();

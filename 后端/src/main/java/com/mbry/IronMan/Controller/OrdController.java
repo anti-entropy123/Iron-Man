@@ -7,6 +7,7 @@ import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetIncompleteOrdResponse;
 import com.mbry.IronMan.Service.OrderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ public class OrdController {
     private OrderService orderService;
 
     @GetMapping(value="/complete/all/")
+    @PreAuthorize("hasRole('common')")
     public GetCompleteOrdResponse getCompleteOrd(
             @RequestParam String userId,
             @RequestParam int page) {
@@ -26,6 +28,7 @@ public class OrdController {
     }
 
     @GetMapping(value="/incomplete/all/")
+    @PreAuthorize("hasRole('common')")
     public GetIncompleteOrdResponse getIncompleteOrd(
             @RequestParam String userId,
             @RequestParam int page) {

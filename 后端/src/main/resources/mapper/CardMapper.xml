@@ -108,6 +108,38 @@
     	SELECT user_id FROM card
     	WHERE card_id = #{cardId}
     </select>
+		
+	<select id="queryCardsForAdm" resultMap="CardMap">
+		SELECT * FROM card
+		<where> 
+			<if test="userId != null">
+				AND user_id = #{userId}
+			</if>
+			<if test="minDate != null">
+				AND date &gt;= #{minDate}
+			</if>
+			<if test="maxDate != null">
+				AND date &lt;= #{maxDate}
+			</if>
+		</where>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+
+	<select id="queryCardsPagesForAdm" resultType="int">
+		SELECT count(*) FROM card
+		<where> 
+			<if test="userId != null">
+				AND user_id = #{userId}
+			</if>
+			<if test="minDate != null">
+				AND date &gt;= #{minDate}
+			</if>
+			<if test="maxDate != null">
+				AND date &lt;= #{maxDate}
+			</if>
+		</where>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
 	
     <update id="updateCard" parameterType="com.mbry.IronMan.entity.CardEntity">
     	UPDATE card

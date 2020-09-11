@@ -26,6 +26,9 @@ public class ApplicationDaoImp implements ApplicationDao {
 	@Override
 	public String createApplication(CardApplication app) {
 		ApplicationEntity applicationEntity = this.getApplicationEntityFromBO(app);
+		if (applicationEntity == null) {
+			return null;
+		}
 		applicationMapper.insertApplication(applicationEntity);
 		return applicationEntity.getApplicationId();
 	}
@@ -33,6 +36,9 @@ public class ApplicationDaoImp implements ApplicationDao {
 	@Override
 	public String createApplication(TeamApplication app) {
 		TeamApplicationEntity teamApplicationEntity = this.getTeamApplicationEntityFromBO(app);
+		if (teamApplicationEntity == null) {
+			return null;
+		}
 		teamApplicationMapper.insertTeamApplication(teamApplicationEntity);
 		return teamApplicationEntity.getApplicationId();
 	}
@@ -102,6 +108,18 @@ public class ApplicationDaoImp implements ApplicationDao {
 		}
 	}
 	
+	@Override
+	public CardApplication[] queryCardAppByApplicantUserId(String applicantId) {
+		ApplicationEntity[] applicationEntitys = applicationMapper.queryApplicationsByApplicantId(applicantId);
+		if (applicationEntitys == null) {
+			return null;
+		}
+		List<CardApplication> applications = new ArrayList<CardApplication>();
+		for (ApplicationEntity ae: applicationEntitys) {
+			applications.add((CardApplication)(this.getApplicationFromEntity(ae)));
+		}
+		return applications.toArray(new CardApplication[applications.size()]);
+	}
 	/**
 	 * 将CardApplication转为ApplicationEntity
 	 * @param app
@@ -113,6 +131,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 		applicationEntity.setApplicantId(app.getApplicantId());
 		applicationEntity.setStatus(app.isStatus());
 		applicationEntity.setTargetUserId(app.getTargetId());
+		System.out.println(applicationEntity.getTargetUserId());
 		applicationEntity.setDate(app.getDate());
 		return applicationEntity;
 	}
@@ -163,16 +182,6 @@ public class ApplicationDaoImp implements ApplicationDao {
 		teamApplication.setTargetId(app.getTargetUserId());
 		teamApplication.setDate(app.getDate());
 		return (Application)teamApplication;
-	}
-
-	@Override
-	public CardApplication[] queryCardAppByApplicantUserId(String applicantId) {
-		ApplicationEntity[] applicationEntity = applicationMapper.queryApplicationsByApplicantId(applicantId);
-		List<CardApplication> applications = new ArrayList<CardApplication>();
-		for (ApplicationEntity ae: applicationEntity) {
-			applications.add((CardApplication)(this.getApplicationFromEntity(ae)));
-		}
-		return applications.toArray(new CardApplication[applications.size()]);
 	}
 
 }

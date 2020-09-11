@@ -31,6 +31,9 @@ public class User {
     
     public void setUserId(String userId){
         this.userId = userId;
+        if (userId == "") {
+            userId = null;
+        }
     }
 
     public String getNickname(){
@@ -39,6 +42,9 @@ public class User {
     
     public void setNickName(String nickname){
         this.nickname = nickname;
+        if (nickname == "") {
+            nickname = null;
+        }
     }
 
     public String getAvatar(){
@@ -47,6 +53,9 @@ public class User {
     
     public void setAvatar(String avatar){
         this.avatar = avatar;
+        if (avatar == "") {
+            avatar = null;
+        }
     }
 
     public Boolean getSex(){
@@ -63,13 +72,20 @@ public class User {
     
     public void setMobile(String mobile){
         this.mobile = mobile;
+        if (mobile == "") {
+            mobile = null;
+        }
     }
 
     public String getIntroduction(){
         return introduction;
     }
+
     public void setIntroduction(String introduction){
         this.introduction = introduction;
+        if (introduction == "") {
+            introduction = null;
+        }
     }
     
 }

@@ -16,10 +16,10 @@
 	<delete id="deleteTeamMember">
 		DELETE FROM team_member
 		<where>
-			<if test="team_id != null">
+			<if test="teamId != null">
 				AND team_id = #{teamId}
 			</if>
-			<if test="user_id != null">
+			<if test="userId != null">
 				AND user_id = #{userId}
 			</if>
 		</where>

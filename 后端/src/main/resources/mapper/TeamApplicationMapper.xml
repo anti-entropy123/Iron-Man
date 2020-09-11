@@ -38,13 +38,13 @@
 		WHERE application_id = #{applicationId}
 	</delete>
 	
-	<select id="queryApplicationsByTargetUserId" parameterType="java.lang.String" resultMap="TeamApplicationMap">
-		SELECT * FROM application
+	<select id="queryTeamApplicationsByTargetUserId" parameterType="java.lang.String" resultMap="TeamApplicationMap">
+		SELECT * FROM team_application
 		WHERE target_user_id = #{targetUserId}
 	</select>
 	
-	<select id="queryApplicationsByApplicantId" parameterType="java.lang.String" resultMap="TeamApplicationMap">
-		SELECT * FROM application
+	<select id="queryTeamApplicationsByApplicantId" parameterType="java.lang.String" resultMap="TeamApplicationMap">
+		SELECT * FROM team_application
 		WHERE applicant_id = #{applicantId}
 	</select>
 	
@@ -59,7 +59,7 @@
 	</select>
 	
 	<update id="updateStatusByTeamApplicationId">
-		UPDATE application 
+		UPDATE team_application 
 		SET status = #{status}
 		WHERE application_id = #{applicationId}
 	</update>

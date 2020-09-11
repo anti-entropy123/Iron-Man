@@ -28,17 +28,19 @@ public class CommentDaoImp implements CommentDao {
 		}
 		List<Comment> comments = new ArrayList<Comment>();
 		for (int i = 0; i < commentEntitys.length; i++) {
-			if (commentEntitys[i].getReplyToId() !=  null) {
-				Reply reply = new Reply();
-				this.setCommentBase(reply, commentEntitys[i]);
-				reply.setReplyToId(commentEntitys[i].getReplyToId());
-				reply.setBelongToId(commentEntitys[i].getBelongToId());
-				comments.add(reply);
-			} else {
+			if (commentEntitys[i].getReplyToId() ==  null) {
+				
 				Comment comment = new Comment();
 				this.setCommentBase(comment, commentEntitys[i]);
 				comments.add(comment);
-			}
+			} 
+			// else {
+			// 	Reply reply = new Reply();
+			// 	this.setCommentBase(reply, commentEntitys[i]);
+			// 	reply.setReplyToId(commentEntitys[i].getReplyToId());
+			// 	reply.setBelongToId(commentEntitys[i].getBelongToId());
+			// 	comments.add(reply);
+			// }
 		}
 		return comments.toArray(new Comment[comments.size()]);
 	}
@@ -125,6 +127,9 @@ public class CommentDaoImp implements CommentDao {
 	@Override
 	public Comment queryCommentByCommentId(String commentId) {
 		CommentEntity commentEntity = commentMapper.queryCommentById(commentId);
+		if (commentEntity == null) {
+			return null;
+		}
 		if (commentEntity.getBelongToId() == null) {
 			Comment comment = new Comment();
 			comment.setCommentId(commentEntity.getCommentId());

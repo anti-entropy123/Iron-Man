@@ -47,6 +47,9 @@ public class Card {
 	
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
+		if (cardId == "") {
+			cardId = null;
+		}
 	}
 	
 	public String getUserId() {
@@ -55,6 +58,9 @@ public class Card {
 	
 	public void setUserId(String userId) {
 		this.userId = userId;
+		if (userId == "") {
+			userId = null;
+		}
 	}
 	
 	public Boolean isStatus() {
@@ -71,6 +77,9 @@ public class Card {
 	
 	public void setDate(String date) {
 		this.date = date;
+		if (date == "") {
+			date = null;
+		}
 	}
 	
 	public String getTitle() {
@@ -79,6 +88,9 @@ public class Card {
 	
 	public void setTitle(String title) {
 		this.title = title;
+		if (title == "") {
+			title = null;
+		}
 	}
 	
 	public String getIntroduction() {
@@ -87,6 +99,9 @@ public class Card {
 	
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
+		if (introduction == "") {
+			introduction = null;
+		}
 	}
 	
 	public String getLocation() {
@@ -95,6 +110,9 @@ public class Card {
 	
 	public void setLocation(String location) {
 		this.location = location;
+		if (location == "") {
+			location = null;
+		}
 	}
 	
 	public int getUnitType() {

@@ -9,7 +9,7 @@ public class GetRepliesResponse extends DefaultResponse{
     /**
      *
      */
-    private static final long serialVersionUID = -3054505272820071476L;
+    public static final long serialVersionUID = -3054505272820071476L;
 
     public class Data implements Serializable {
         /**
@@ -19,14 +19,14 @@ public class GetRepliesResponse extends DefaultResponse{
             /**
              *
              */
-            private static final long serialVersionUID = -5147083686244566133L;
-            private String name;
-            private String replyId;
-            private String content;
-            private String createDate;
-            private String replyToUserId;
-            private String replyToUserName;
-            private String userId;
+            public static final long serialVersionUID = -5147083686244566133L;
+            public String name;
+            public String replyId;
+            public String content;
+            public String createDate;
+            public String replyToUserId;
+            public String replyToUserName;
+            public String userId;
             public Reply() {
             }
         
@@ -99,7 +99,7 @@ public class GetRepliesResponse extends DefaultResponse{
                 this.userId = userId;
             }
         }
-        private static final long serialVersionUID = 7268033372438758459L;
+        public static final long serialVersionUID = 7268033372438758459L;
         Reply[] replies;
 
         public Data() {
@@ -118,8 +118,16 @@ public class GetRepliesResponse extends DefaultResponse{
                     replyToUsers[i]);
             }
         }
+
+        public Reply[] getReplies(){
+            return this.replies;
+        }
+
+        public void setReplies(Reply[] replies){
+            this.replies = replies;
+        }
     }
-    private Data data;
+    public Data data;
 
     public GetRepliesResponse(){}
     public GetRepliesResponse(

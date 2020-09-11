@@ -7,6 +7,7 @@ import com.mbry.IronMan.RequestBody.PublishRequestBody.PublishRequest;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.PublishResponseBody.PublishImageResponse;
 import com.mbry.IronMan.Service.CardService;
+import com.mbry.IronMan.Service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,14 +24,16 @@ public class PublishController {
     @Autowired
     CardService cardService;
 
+    @Autowired
+    ImageService imageService;
+
     /**
-     * 
+     * 9/11 通过测试
      * @param publishRequest
      * @return
      */
     @PostMapping(value="/")
     @PreAuthorize("hasRole('common')")
-    // @PreAuthorize("commom")
     public DefaultResponse publish(@RequestBody PublishRequest publishRequest) {
         DefaultResponse defaultResponse = new DefaultResponse();
         if (cardService.publishCard(publishRequest)) {
@@ -44,13 +47,19 @@ public class PublishController {
     }
     
     /**
-     * 待实现
+     * 9月11日通过测试
      * @param image
      * @return
      */
+    
     @PostMapping(value="/image")
+    @PreAuthorize("hasRole('common')")
     public PublishImageResponse postMethodName(
         @RequestParam("image") MultipartFile image ) {
-        return null;
+        if(image == null){
+            return new PublishImageResponse(null, 0, "请设置上传文件");
+        }
+        return imageService.saveImage(image);
     }
+
 }

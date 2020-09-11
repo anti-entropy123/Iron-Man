@@ -22,8 +22,7 @@ public class LoginController {
      */
     @PostMapping("/api/login/")
     public LoginToken commonUserLogin(@RequestBody LoginCode loginCode) {
-        String token = baseService.login(loginCode.getCode());
-        return new LoginToken(token, 1, "");
+        return baseService.login(loginCode.getCode());
     }
 }
 

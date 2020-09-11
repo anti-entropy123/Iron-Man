@@ -46,6 +46,9 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public User queryCaptainByTeamId(String teamId) {
 		String captainId = teamMapper.queryCaptainIdByTeamId(teamId);
+		if (captainId == null) {
+			return null;
+		}
 		UserEntity userEntity = userMapper.queryUserById(captainId);
 		if (userEntity == null) {
 			return null;
@@ -57,16 +60,16 @@ public class UserDaoImp implements UserDao {
 	public User[] queryUsersByTeamId(String teamId) {
 		String captainId = teamMapper.queryCaptainIdByTeamId(teamId);
 		String[] userIds = teamMemberMapper.queryUserByTeamId(teamId);
-		if (userIds == null) {
-			return null;
-		}
 		List<String> userIdList = new ArrayList<String>();
 		Collections.addAll(userIdList, userIds);
 		userIdList.remove(captainId);
 		userIdList.add(0, captainId);
 		List<User> users = new ArrayList<User>();
 		for(String s: userIdList) {
-			users.add(this.getUserFromEntity(userMapper.queryUserById(s)));
+			UserEntity userEntity = userMapper.queryUserById(s);
+			if (userEntity != null) {
+				users.add(this.getUserFromEntity(userEntity));
+			}
 		}
 		return users.toArray(new User[users.size()]);
 	}
@@ -131,9 +134,6 @@ public class UserDaoImp implements UserDao {
 	public User[] queryUsers(int page, String name, String userId, String mobileNumber) {
 		int startIndex = (page - 1) * Global.pageSize;
 		UserEntity[] userEntitys = userMapper.queryUsers(startIndex,  Global.pageSize, name, userId, mobileNumber);
-		if (userEntitys == null) {
-			return null;
-		}
 		List<User> users = new ArrayList<User>();
 		for (UserEntity userEntity: userEntitys) {
 			users.add(this.getUserFromEntity(userEntity));

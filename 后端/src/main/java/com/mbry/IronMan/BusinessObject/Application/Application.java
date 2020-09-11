@@ -19,7 +19,8 @@ public class Application {
         String date
     ){
         this.setApplicationId(applicationId);
-        this.setApplicantId(applicantId);
+		this.setApplicantId(applicantId);
+		this.setTargetId(targetId);
         this.setStatus(status);
         this.setDate(date);
     }
@@ -30,6 +31,9 @@ public class Application {
 
 	public void setApplicationId(String applicationId) {
 		this.applicationId = applicationId;
+		if (applicationId == "") {
+			applicationId = null;
+		}
 	}
 
 	public String getApplicantId() {
@@ -38,6 +42,9 @@ public class Application {
 
 	public void setApplicantId(String applicantId) {
 		this.applicantId = applicantId;
+		if (applicantId == "") {
+			applicantId = null;
+		}
 	}
 
 	public String getTargetId() {
@@ -46,6 +53,9 @@ public class Application {
 
 	public void setTargetId(String targetId) {
 		this.targetId = targetId;
+		if (targetId == "") {
+			targetId = null;
+		}
 	}
 
 	public Boolean isStatus() {
@@ -62,6 +72,9 @@ public class Application {
 
 	public void setDate(String date) {
 		this.date = date;
+		if (date == "") {
+			date = null;
+		}
 	}
     
 }

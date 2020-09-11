@@ -22,7 +22,10 @@ public class CardApplication extends Application{
 	}
 	
 	public void setCardId(String cardId) {
-		this.cardId = cardId;
+        this.cardId = cardId;
+        if (cardId == "") {
+            cardId = null;
+        }
 	}
 	
 }

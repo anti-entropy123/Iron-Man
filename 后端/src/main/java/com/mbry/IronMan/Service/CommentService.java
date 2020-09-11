@@ -1,5 +1,6 @@
 package com.mbry.IronMan.Service;
 
+import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.Dao.CommentDao;
 import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Dao.UserDao;
@@ -35,6 +36,10 @@ public class CommentService {
     @Autowired
     private LogDao logDao;
 
+    @Autowired
+    private CardDao cardDao;
+
+
     public GetCommentResponse getComments(String cardId, int pageNum){
         Comment[] comments = commentDao.queryCommentsByCardId(cardId, pageNum);
         User[] users = new User[comments.length];
@@ -56,6 +61,13 @@ public class CommentService {
         Reply[] replies = commentDao.queryRepliesByCommentId(commentId);
         User[] users = new User[replies.length];
         User[] replyToUsers = new User[replies.length];
+        for(int i=0;i < users.length; ++i){
+            String userId = replies[i].getUserId();
+            String replyToId = replies[i].getReplyToId();
+            String replyToUserId = commentDao.queryCommentByCommentId(replyToId).getUserId();
+            users[i] = userDao.queryUserByOpenId(userId);
+            replyToUsers[i] = userDao.queryUserByOpenId(replyToUserId);
+        }
         GetRepliesResponse getRepliesResponse = new GetRepliesResponse();
         GetRepliesResponse.Data data = getRepliesResponse.new Data(
             replies, 
@@ -72,11 +84,13 @@ public class CommentService {
         Comment comment;
         String date = dateUtil.getDate();
         int type = -1;
+        String replyToUser;
         if(replyToId != null && replyToId.length() > 0){
             // 这是一个Reply
             type = 6;
             Comment replyToComment = commentDao.queryCommentByCommentId(replyToId);
             String belongToId;
+            replyToUser = commentDao.queryCommentByCommentId(replyToId).getUserId();
             if(replyToComment instanceof Reply){
                 // 这是回复某条回复的
                 belongToId = ((Reply)replyToComment).getBelongToId();
@@ -102,12 +116,13 @@ public class CommentService {
                                 addCommentRequest.getUserId(),
                                 addCommentRequest.getContent(),
                                 date);
+            replyToUser = cardDao.queryCardByCardId(addCommentRequest.getCardId()).getUserId();
         }
         commentDao.createComment(comment);
         // todo 微信消息提醒
         wxMessageUtil.sendMessage();
-        String targetUserId = commentDao.queryCommentByCommentId(replyToId).getUserId();
-        logDao.addLog(new Log(-1, type, addCommentRequest.getCardId(), "", addCommentRequest.getUserId(), targetUserId, false));
+        // 通过此reply的replyTOId找到需要被通知的用户
+        logDao.addLog(new Log(-1, type, addCommentRequest.getCardId(), "", addCommentRequest.getUserId(), replyToUser, false));
         return new DefaultResponse(1, "");
     }
 

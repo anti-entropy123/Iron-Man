@@ -34,7 +34,10 @@ public class RentCard extends Card{
 	}
 	
 	public void setRequirement(String requirement) {
-		this.requirement = requirement;
+        this.requirement = requirement;
+        if (requirement == "") {
+            requirement = null;
+        }
 	}
 	
 	public int getUnionNum() {

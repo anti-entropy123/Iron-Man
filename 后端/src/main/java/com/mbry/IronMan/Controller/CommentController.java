@@ -24,6 +24,12 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 9.11 测试通过
+     * @param cardId
+     * @param pageNum
+     * @return
+     */
     @GetMapping(value="/getComments/")
     @PreAuthorize("hasRole('common')")
     public GetCommentResponse getComments(
@@ -38,6 +44,11 @@ public class CommentController {
         return commentService.getReplies(commentId);
     }
     
+    /**
+     * 9.11 测试通过
+     * @param addCommentRequest
+     * @return
+     */
     @PostMapping(value="/addComment/")
     @PreAuthorize("hasRole('common')")
     public DefaultResponse addComment(@RequestBody AddCommentRequest addCommentRequest) {

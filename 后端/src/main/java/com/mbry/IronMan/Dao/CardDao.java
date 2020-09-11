@@ -6,6 +6,7 @@ import com.mbry.IronMan.BusinessObject.Card.AskRentCard;
 import com.mbry.IronMan.BusinessObject.Card.AskSellCard;
 import com.mbry.IronMan.BusinessObject.Card.Card;
 import com.mbry.IronMan.BusinessObject.Card.RentCard;
+import com.mbry.IronMan.BusinessObject.Card.RoomMateCard;
 import com.mbry.IronMan.BusinessObject.Card.SellCard;
 
 @Service
@@ -83,7 +84,7 @@ public interface CardDao {
      * @param unitType
      * @return
      */
-    public AskSellCard[] queryAskRoomMateCards(int page, String location, Double[] priceRange, Double[] squares, int unitType, Boolean hasHouseResource);
+    public RoomMateCard[] queryAskRoomMateCards(int page, String location, Double[] priceRange, Double[] squares, int unitType, Boolean hasHouseResource);
     
     
     /**

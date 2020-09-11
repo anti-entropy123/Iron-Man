@@ -44,6 +44,9 @@ public class RoomMateCard extends Card{
 	
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
+		if (requirement == "") {
+            requirement = null;
+        }
 	}
 	
 	public int getUnionNum() {

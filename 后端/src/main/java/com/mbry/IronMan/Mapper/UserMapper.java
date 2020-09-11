@@ -13,6 +13,12 @@ public interface UserMapper {
 	 * @param userEntity
 	 */
 	public void insertUser(UserEntity userEntity);
+
+	/**
+	 * 删除指定user
+	 * @param userId
+	 */
+	public void deleteUser(String userId);
 	
 	/**
 	 * 根据id查询user信息
@@ -41,8 +47,19 @@ public interface UserMapper {
 			@Param("pageSize")int pageSize,
 			@Param("nickName")String nickName, 
 			@Param("userId")String userId, 
-			@Param("mobile")String mobile
-			);
+			@Param("mobile")String mobile);
+
+	/**
+	 * 
+	* @param nickName
+	* @param userId
+	* @param mobile
+	* @return
+	 */
+	public int queryUserPage(
+			@Param("nickName")String nickName, 
+			@Param("userId")String userId, 
+			@Param("mobile")String mobile);
 	
 	/**
 	 * 更新一条user信息

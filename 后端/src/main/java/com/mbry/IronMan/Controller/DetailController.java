@@ -23,12 +23,22 @@ public class DetailController {
     @Autowired
     private DetailService detailService;
     
+    /**
+     * 9/11 通过测试
+     * @param cardId
+     * @return
+     */
     @GetMapping("/getCardDetail/")
     @PreAuthorize("hasRole('common')")
     public DetailCardResponse getCardDetail(@RequestParam String cardId) {
         return detailService.getCardDetail(cardId);
     }
     
+    /**
+     * 
+     * @param orderApplyRequest
+     * @return
+     */
     @PostMapping("/orderApply/")
     @PreAuthorize("hasRole('common')")
     public DefaultResponse orderApply(@RequestBody OrderApplyRequest orderApplyRequest) {
