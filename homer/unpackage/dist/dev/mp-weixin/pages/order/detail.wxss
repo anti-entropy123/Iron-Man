@@ -1,6 +1,6 @@
 
 .detail.data-v-57d42baa {
-	width:100vw;
+	width: 100vw;
 	background: rgb(245, 245, 245);
 }
 .swiper-box.data-v-57d42baa {
@@ -30,12 +30,12 @@
 	height: 550rpx;
 	width: 100vw;
 }
-.top.data-v-57d42baa{
+.top.data-v-57d42baa {
 	z-index: 9;
 	position: fixed;
 	left: 0;
 	top: 0;
-	width:100vw;
+	width: 100vw;
 	background: #10518e;
 }
 .backicon.data-v-57d42baa {

@@ -98,7 +98,7 @@
 				<view style="clear: both;"></view>
 			</view>
 		</view>
-		
+
 		<view class="box" v-if="myTeam">
 			<view class="title">我的合租</view>
 			<view class="applybox">
@@ -108,7 +108,7 @@
 				<view style="clear: both;"></view>
 			</view>
 		</view>
-		
+
 		<view class="box" v-if="otherTeams.length>0">
 			<view class="title">合租队列</view>
 			<view class="applybox" v-for="(team,index) in otherTeams" :key="index">
@@ -118,12 +118,12 @@
 				<view style="clear: both;"></view>
 			</view>
 		</view>
-		
+
 		<view class="box">
 			<view class="title">评论区</view>
 		</view>
 		<view style="height:100upx;width:100vw;background: #ffffff;"></view>
-		
+
 	</view>
 </template>
 
@@ -195,39 +195,43 @@
 					teamId: "",
 					maxTeamMem: 3,
 					members: [{
-						userId: "125",
-						avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
-					},
-					{
-						userId: "125",
-						avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
-					},]
+							userId: "125",
+							avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+						},
+						{
+							userId: "125",
+							avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+						},
+					]
 				},
 				otherTeams: [{
-					teamId: "",
-					maxTeamMem: 3,
-					members: [{
-						userId: "125",
-						avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+						teamId: "",
+						maxTeamMem: 3,
+						members: [{
+								userId: "125",
+								avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+							},
+							{
+								userId: "125",
+								avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+							},
+						]
 					},
 					{
-						userId: "125",
-						avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
-					},]
-				},
-				{
-					teamId: "",
-					maxTeamMem: 3,
-					members: [{
-						userId: "125",
-						avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
-					},
-					{
-						userId: "125",
-						avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
-					},]
-				}],
-				scrolltotitle:false,
+						teamId: "",
+						maxTeamMem: 3,
+						members: [{
+								userId: "125",
+								avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+							},
+							{
+								userId: "125",
+								avatarUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg"
+							},
+						]
+					}
+				],
+				scrolltotitle: false,
 				scrollTop: 0,
 				current: 0,
 				mode: 'round',
@@ -250,9 +254,9 @@
 				return height + 38 + "px"
 			},
 		},
-		watch:{
-			scrollTop(newVal,oldVal){
-				if(newVal>240){
+		watch: {
+			scrollTop(newVal, oldVal) {
+				if (newVal > 240) {
 					this.scrolltotitle = true;
 				} else {
 					this.scrolltotitle = false;
@@ -317,7 +321,7 @@
 
 <style scoped>
 	.detail {
-		width:100vw;
+		width: 100vw;
 		background: rgb(245, 245, 245);
 	}
 
@@ -342,12 +346,12 @@
 		width: 100vw;
 	}
 
-	.top{
+	.top {
 		z-index: 9;
 		position: fixed;
 		left: 0;
 		top: 0;
-		width:100vw;
+		width: 100vw;
 		background: #10518e;
 	}
 

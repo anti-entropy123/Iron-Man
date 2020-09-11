@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/my/my",
+    "pages/my/editMine",
+    "pages/home/home",
     "pages/my/finishOrder",
     "pages/my/unfinishOrder",
-    "pages/my/editMine",
     "pages/add/add",
     "pages/add/addDetail",
     "pages/home/map",
@@ -44,5 +44,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap44.json"
 }

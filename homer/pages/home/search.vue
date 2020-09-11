@@ -74,12 +74,12 @@
 			this.gethistory();
 		},
 		watch: {
-		  	listActive(newVal) {     // 监听当前选中项
-		  		this.setTabList()
-		  	}
+			listActive(newVal) { // 监听当前选中项
+				this.setTabList()
+			}
 		},
-		mounted () {
-		      this.setTabList()
+		mounted() {
+			this.setTabList()
 		},
 		methods: {
 			customConduct() {

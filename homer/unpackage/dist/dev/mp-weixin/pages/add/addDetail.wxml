@@ -1,1 +1,1 @@
-<view class="data-v-2a399a8a">addDetail</view>
+<view class="data-v-2a399a8a"><view style="text-align:center;" class="data-v-2a399a8a"><navigation vue-id="7183a5ab-1" config="{{config}}" data-event-opts="{{[['^customConduct',[['customConduct']]]]}}" bind:customConduct="__e" class="data-v-2a399a8a" bind:__l="__l"></navigation></view><view class="data-v-2a399a8a">addDetail</view></view>

@@ -40,74 +40,83 @@
 
 
 
-/* pages/publish/publish.wxss */
+
+
+
+
+
+
+
+	/* pages/publish/publish.wxss */
 .publish-title.data-v-f869476c {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	height: 100rpx;
-	font-size: xx-large;
-	margin-top: 20rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		height: 100rpx;
+		font-size: xx-large;
+		margin-top: 20rpx;
 }
 .publish-container.data-v-f869476c {
-	display: grid;
-	grid-template-columns: 50% 50%;
-	grid-template-rows: 100px 100px 100px;
-	grid-row-gap: 20rpx;
-	grid-column-gap: 20rpx;
-	padding: 20px;
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-template-rows: 100px 100px 100px;
+		grid-row-gap: 20rpx;
+		grid-column-gap: 20rpx;
+		padding: 20px;
 }
 .publish-item.data-v-f869476c {
-	border-radius: 10rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	box-shadow: 6rpx 6rpx 6rpx #c0c0c0;
+		border-radius: 10rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		box-shadow: 6rpx 6rpx 6rpx #c0c0c0;
+		color: #fff;
 }
 .chuzu.data-v-f869476c {
-	background-color: #c1bb11;
+		background-color: #F56C6C;
 }
 .chuzu.data-v-f869476c:active {
-	background-color: #f0ec77;
+		background-color: #f0ec77;
 }
 .zufang.data-v-f869476c {
-	background-color: #1e9617;
+		background-color: #00aaff;
 }
-.zufang.data-v-f869476c:active {
-	background-color: #6ace65;
-}
+	/* 	.zufang:active {
+		background-color: #6ace65;
+	} */
 .chushou.data-v-f869476c {
-	background-color: #385fb5;
+		background-color: #E6A23C;
 }
-.chushou.data-v-f869476c:active {
-	background-color: #759ae9;
-}
+	/* 	.chushou:active {
+		background-color: #759ae9;
+	}
+ */
 .maifang.data-v-f869476c {
-	background-color: #9533da;
+		background-color: #67C23A;
 }
-.maifang.data-v-f869476c:active {
-	background-color: #b870eb;
-}
+	/* 	.maifang:active {
+		background-color: #b870eb;
+	} */
 .find-friends.data-v-f869476c {
-	background-color: #9b6a39;
-	grid-column-start: 1;
-	grid-column-end: 3;
+		background-color: #aa55ff;
+		grid-column-start: 1;
+		grid-column-end: 3;
 }
-.find-friends.data-v-f869476c:active {
-	background-color: #eea358;
-	grid-column-start: 1;
-	grid-column-end: 3;
-}
+	/* 	.find-friends:active {
+		background-color: #eea358;
+		grid-column-start: 1;
+		grid-column-end: 3;
+	} */
 

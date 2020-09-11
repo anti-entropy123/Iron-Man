@@ -7,16 +7,17 @@
 			发布类型
 		</view>
 		<view class="publish-container">
-			<view class="chuzu publish-item" @tap="goPublishDetail" data-index="0">我要出租</view>
-			<view class="zufang publish-item" @tap="goPublishDetail" data-index="1">我要租房</view>
-			<view class="chushou publish-item" @tap="goPublishDetail" data-index="2">我要出售</view>
-			<view class="maifang publish-item" @tap="goPublishDetail" data-index="3">我要买房</view>
-			<view class="find-friends publish-item" @tap="goPublishDetail" data-index="4">我要找室友</view>
+			<view class="chuzu publish-item" @tap="goPublishDetail('出租')">我要出租</view>
+			<view class="zufang publish-item" @tap="goPublishDetail('租房')">我要租房</view>
+			<view class="chushou publish-item" @tap="goPublishDetail('出售')">我要出售</view>
+			<view class="maifang publish-item" @tap="goPublishDetail('买房')">我要买房</view>
+			<view class="find-friends publish-item" @tap="goPublishDetail('找室友')">我要找室友</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import navigation from '../../components/navigation/navigation';
 	export default {
 		data() {
 			return {
@@ -27,10 +28,16 @@
 				},
 			}
 		},
+		components: {
+			navigation,
+		},
 		methods: {
-			goPublishDetail(event) {
-				wx.navigateTo({
-					url: 'publishDetail?num=' + JSON.stringify(event.currentTarget.dataset.index)
+			customConduct() {
+				uni.navigateBack({});
+			},
+			goPublishDetail(e) {
+				uni.navigateTo({
+					url: '../add/addDetail?type=' + e
 				})
 
 			},
@@ -65,10 +72,11 @@
 		justify-content: center;
 		align-items: center;
 		box-shadow: 6rpx 6rpx 6rpx #c0c0c0;
+		color: #fff;
 	}
 
 	.chuzu {
-		background-color: #c1bb11;
+		background-color: #F56C6C;
 	}
 
 	.chuzu:active {
@@ -76,38 +84,38 @@
 	}
 
 	.zufang {
-		background-color: #1e9617;
+		background-color: #00aaff;
 	}
 
-	.zufang:active {
+	/* 	.zufang:active {
 		background-color: #6ace65;
-	}
+	} */
 
 	.chushou {
-		background-color: #385fb5;
+		background-color: #E6A23C;
 	}
 
-	.chushou:active {
+	/* 	.chushou:active {
 		background-color: #759ae9;
 	}
-
+ */
 	.maifang {
-		background-color: #9533da;
+		background-color: #67C23A;
 	}
 
-	.maifang:active {
+	/* 	.maifang:active {
 		background-color: #b870eb;
-	}
+	} */
 
 	.find-friends {
-		background-color: #9b6a39;
+		background-color: #aa55ff;
 		grid-column-start: 1;
 		grid-column-end: 3;
 	}
 
-	.find-friends:active {
+	/* 	.find-friends:active {
 		background-color: #eea358;
 		grid-column-start: 1;
 		grid-column-end: 3;
-	}
+	} */
 </style>
