@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSON;
 import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.Dao.UserDao;
 import com.mbry.IronMan.JsonBean.JscodeToSession;
+import com.mbry.IronMan.Mapper.AdmInfoMapper;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.BaseResponseBody.LoginToken;
 import com.mbry.IronMan.Utils.HttpRequestUtil;
 import com.mbry.IronMan.Utils.JwtTokenUtil;
+import com.mbry.IronMan.entity.AdmInfoEntity;
 import com.mbry.IronMan.global.Global;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +28,39 @@ public class BaseService {
     JwtTokenUtil jwtTokenUtil;
     @Autowired
     HttpRequestUtil httpRequestUtil;
-
-    private String parseJsonToOpenId(String json) {
-        JscodeToSession jscodeToSession = JSON.parseObject(json, JscodeToSession.class);
-        return jscodeToSession.getOpenId();
-    }
+    @Autowired
+    private AdmInfoMapper admInfoMapper; 
 
     public LoginToken login(String code) {
-         String result = httpRequestUtil.getOpenIdByCode(code);
+        String result = httpRequestUtil.getOpenIdByCode(code);
         //String result = "{\"open_id\": \"youjianing\", \"session_key\":\"123456\"}";
-         String openId = parseJsonToOpenId(result);
+        JscodeToSession jscodeToSession = JSON.parseObject(result, JscodeToSession.class);
+        String openId = jscodeToSession.getOpenId();
         //String openId = "youjianing";
+        if(openId == null){
+            String errmsg = result;
+            return new LoginToken(null, false, 0, errmsg, null);
+        }
         boolean firstTime = false;
         final UserDetails userDetails = userDetailsService.loadUserByUsername(openId);
         if (userDetails == null) {
             register(openId);
             firstTime = true;
         }
-        final String token = jwtTokenUtil.generateToken(openId);
-        return new LoginToken(token, firstTime, 1, "");
+        final String token = jwtTokenUtil.generateToken(openId, null);
+        return new LoginToken(token, firstTime, 1, "", openId);
+    }
+
+    public LoginToken superLogin(String userName, String password){
+        String token;
+        AdmInfoEntity adm = admInfoMapper.queryAdm(userName);
+        if(adm != null && adm.getPassword().equals(password)){
+            // 账号密码正确
+            token = jwtTokenUtil.generateToken(adm.getAdmId(), "super");
+        }else{
+            return new LoginToken(null, false, 0, "账户或密码错误", null);
+        }
+        return new LoginToken(token, true, 0, "登录成功", null);
     }
 
     public void register(String openId){

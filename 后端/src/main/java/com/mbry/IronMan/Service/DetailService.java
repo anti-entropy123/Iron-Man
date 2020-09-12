@@ -22,6 +22,7 @@ import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Dao.TeamDao;
 import com.mbry.IronMan.Dao.UserDao;
+import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.DetailCardResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.GetApplyResponse;
@@ -137,7 +138,10 @@ public class DetailService {
         logDao.addLog(new Log(-1, 0, cardId, applyId, userId, targetUserId, Boolean.valueOf(false)));
         
         // todo 在这里发送微信模板消息
-        wxMessageUtil.sendMessage();
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetUserId
+        );
         return new DefaultResponse(1, "");
     }
 
@@ -156,7 +160,10 @@ public class DetailService {
         logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
 
         // todo 在这里发送微信模板消息
-        wxMessageUtil.sendMessage();
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetUserId
+        );
         return new DefaultResponse(1, "");
     }
 
@@ -227,16 +234,19 @@ public class DetailService {
             cardId = teamDao.queryCardIdFromTeamId(ta.getTeamId());
             type = 2;
             teamDao.addUserToTeam(ta.getApplicantId(), ta.getTeamId());
-            // FIXME
         }
         // 改变log状态
         logDao.setTrueByApplyId(applyId);
         // 发送消息
         // todo 通过微信模板消息发送提醒
-        wxMessageUtil.sendMessage();
+        String targetId = app.getTargetId();
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetId
+        );
         // over
         // 加入消息记录
-        logDao.addLog(new Log(-1, type, cardId, applyId, app.getTargetId(), app.getApplicantId(), false));
+        logDao.addLog(new Log(-1, type, cardId, applyId, targetId, app.getApplicantId(), false));
         return new DefaultResponse(1, "");
     }
 }

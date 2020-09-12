@@ -36,8 +36,18 @@ public class AdmCardService {
         int page) {
 
         int startIndex = (page - 1) * Global.pageSize;
-        String minDateS = dateUtil.getDateFromLong(minDate);
-        String maxDateS = dateUtil.getDateFromLong(maxDate);
+        String minDateS;
+        String maxDateS;
+        if (minDate > 0) {
+            minDateS = dateUtil.getDateFromLong(minDate);
+        } else {
+            minDateS = null;
+        }
+        if (maxDate > 0) {
+            maxDateS = dateUtil.getDateFromLong(maxDate);
+        } else {
+            maxDateS = null;
+        }
         CardEntity[] cardEntitys = cardMapper.queryCardsForAdm(startIndex, Global.pageSize, userId, minDateS, maxDateS);
 
         GetCardResponse getCardResponse = new GetCardResponse();
@@ -49,6 +59,7 @@ public class AdmCardService {
             data.setUserId(cardEntity.getUserId());
             data.setDate(cardEntity.getDate());
             data.setTitle(cardEntity.getTitle());
+            datas.add(data);
         }
 
         return datas.toArray(new GetCardResponse.Data[datas.size()]);

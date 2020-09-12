@@ -5,10 +5,18 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HttpRequestUtil {
+
+    @Value("${tencent.wx.secret}")
+    private String secret;
+
+    @Value("${tencent.wx.appid}")
+    private String appid;
+
     private String sendHttpRequest(String url, String param){
         String result = "";
         String urlName = url + "?" + param;
@@ -43,11 +51,10 @@ public class HttpRequestUtil {
 
     public String getOpenIdByCode(String code) {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
-        String param = "appid=wx41443c3caff6ac73&secret=a60e5a537d06c742310228e5f9cacc19&js_code=" + code
+        String param = "appid=" + appid + "&secret=" + secret + "&js_code=" + code
                 + "&grant_type=authorization_code";
         String result = sendHttpRequest(url, param);
-        int i = result.lastIndexOf("\n\n");
-        return result.substring(i+2);
+        return result;
     }
 
     public boolean sendSMSMessage(
@@ -60,4 +67,9 @@ public class HttpRequestUtil {
         return true;
     }
 
+    public String getAccessToken(){
+        String url = "https://api.weixin.qq.com/cgi-bin/token";
+        String param = "grant_type=client_credential&appid=" + appid + "&secret=" + secret;    
+        return sendHttpRequest(url, param);
+    }
 }

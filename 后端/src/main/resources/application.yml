@@ -59,6 +59,9 @@ tencent:
     secretKey: "3pNCk11kDPL4uU6RSGo58uQebeqlSu5D"
     region: "ap-beijing"
     bucket:  "iron-man-1303131952"
+  wx:
+    appid: "wx41443c3caff6ac73"
+    secret: "a60e5a537d06c742310228e5f9cacc19"
 
 #Mybatis
 mybatis:
