@@ -29,6 +29,7 @@ public class MessageController{
      * type = 5 user的申请被处理
      * @param userId
      * @return
+     * 9.12 通过测试
      */
     @GetMapping(value="/getAll/")
     @PreAuthorize("hasRole('common')")

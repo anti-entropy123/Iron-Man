@@ -24,5 +24,11 @@ public interface LogDao {
      * @param applyId
      */
     public void setTrueByApplyId(String applyId);
+
+    /**
+     * 将指定log置为已读
+     * @param logId
+     */
+    public void setTrueByLogId(int logId);
     
 }

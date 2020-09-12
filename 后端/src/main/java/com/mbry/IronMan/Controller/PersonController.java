@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 9月12号 通过测试
+ */
 @RestController
 @RequestMapping("/api/person")
 public class PersonController {
@@ -23,7 +26,7 @@ public class PersonController {
     UserService userService;
 
     /**
-     * 
+     * 9月12日 测试通过
      * @param userId
      * @return
      */
@@ -34,7 +37,7 @@ public class PersonController {
     }
     
     /**
-     * 
+     * 9月12日 测试通过
      * @param updateInfoRequest
      * @return
      */

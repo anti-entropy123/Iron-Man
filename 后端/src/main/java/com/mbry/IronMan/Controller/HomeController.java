@@ -17,6 +17,19 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
+    /**
+     * 9.12 测试完成
+     * @param type
+     * @param page
+     * @param location
+     * @param minPrice
+     * @param maxPrice
+     * @param minSquare
+     * @param maxSquare
+     * @param unitType
+     * @param hasHouseResource
+     * @return
+     */
     @GetMapping("/getCards/")
     @PreAuthorize("hasRole('common')")
     public CardResponse getCards(

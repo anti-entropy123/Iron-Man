@@ -64,14 +64,18 @@ public class TeamService {
     }
 
     public DefaultResponse joinTeam(String teamId, String userId){
+        Team team = teamDao.queryTeamByTeamId(teamId);
+        if(team.isMaxMember()){
+            return new DefaultResponse(0, "该合租队伍已满");
+        }    
         String applyId = applicationDao.createApplication(new TeamApplication(
             null, 
             userId, 
-            teamDao.queryCaptainIdFromTeamId(teamId),
+            team.getCaptainId(),
             false, 
             dateUtil.getDate(), 
             teamId));
-        logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, teamDao.queryCaptainIdFromTeamId(teamId), false));
+        logDao.addLog(new Log(-1, 1, team.getCardId(), applyId, userId, team.getCaptainId(), false));
         // 发送微信通知
         wxMessageUtil.sendMessage();
         return new DefaultResponse(1, "");

@@ -33,7 +33,7 @@ public class CardResponse extends DefaultResponse {
             private double[] prices;
             private double[] squares;
             private String location;
-            private boolean hasHouseResource;
+            private Boolean hasHouseResource;
             private String introduction;
     
             public Card() {
@@ -47,7 +47,7 @@ public class CardResponse extends DefaultResponse {
                     double[] prices,
                     double[] squares,
                     String location,
-                    boolean hasHouseResource,
+                    Boolean hasHouseResource,
                     String introduction) {
                 this.cardId = cardId;
                 this.type = type;
@@ -116,11 +116,11 @@ public class CardResponse extends DefaultResponse {
                 this.location = location;
             }
     
-            public boolean getHasHouseResource() {
+            public Boolean getHasHouseResource() {
                 return this.hasHouseResource;
             }
         
-            public void setHasHouseResource(boolean hasHouseResource) {
+            public void setHasHouseResource(Boolean hasHouseResource) {
                 this.hasHouseResource = hasHouseResource;
             }
     
@@ -197,7 +197,7 @@ public class CardResponse extends DefaultResponse {
                     _card.getCardId(), 
                     type, 
                     _card.getTitle(), 
-                    _card.getImages()[0],
+                    _card.getImages().length > 0? _card.getImages()[0]:null,
                     prices, 
                     squares, 
                     _card.getLocation(), 

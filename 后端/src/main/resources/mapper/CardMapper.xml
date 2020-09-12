@@ -82,25 +82,33 @@
 	
 	<select id="queryCards" resultMap="CardMap">
 		SELECT * FROM card
-		<where> 
-			<if test="type > 0">
-				AND type = #{type}
-			</if>
-			<if test="location != null">
-				AND location like concat('%', #{location}, '%')
-			</if>
-			<if test="minPrice > 0">
-				AND min_price &gt;= #{minPrice}
-				AND max_price &lt;= #{maxPrice}
-			</if>	
-			<if test="minSquare > 0">
-				AND min_square &gt;= #{minSquare}
-				AND max_square &lt;= #{maxSquare}
-			</if>
-			<if test="unitType >= 0">
-				AND unitType = #{unitType}
-			</if>
-		</where>
+		WHERE status = 0
+		<if test="type > 0">
+			AND type = #{type}
+		</if>
+		<if test="location != null">
+			AND location like concat('%', #{location}, '%')
+		</if>
+		<if test="minPrice >= 0">
+			AND min_price &gt;= #{minPrice}
+		</if>
+		<if test="maxPrice > 0">
+			AND max_price &lt;= #{maxPrice}
+			AND min_price &lt;= #{maxPrice}
+		</if>	
+		<if test="minSquare >= 0">
+			AND min_square &gt;= #{minSquare}
+		</if>
+		<if test="maxSquare > 0">
+			AND max_square &lt;= #{maxSquare}
+			AND min_square &lt;= #{maxSquare}
+		</if>
+		<if test="unitType >= 0">
+			AND unit_type = #{unitType}
+		</if>
+		<if test="hasHouseResource != null">
+			AND has_house_resource = #{hasHouseResource}
+		</if>
 		LIMIT #{startIndex},#{pageSize}
 	</select>
 	

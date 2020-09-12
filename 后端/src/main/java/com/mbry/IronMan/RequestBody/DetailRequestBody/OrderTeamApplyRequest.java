@@ -8,7 +8,7 @@ public class OrderTeamApplyRequest implements Serializable {
      */
     private static final long serialVersionUID = -612243529517260295L;
     private String teamId;
-    private String userId;
+    private String cardId;
     // private int result;
     // private String message;
 
@@ -17,9 +17,9 @@ public class OrderTeamApplyRequest implements Serializable {
 
     public OrderTeamApplyRequest(
             String teamId,
-            String userId) {
+            String cardId) {
         this.teamId = teamId;
-        this.userId = userId;
+        this.cardId = cardId;
         // this.result = result;
         // this.message = message;
     }
@@ -32,12 +32,12 @@ public class OrderTeamApplyRequest implements Serializable {
         this.teamId = teamId;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getCardId() {
+        return this.cardId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
 
     // public int getResult() {

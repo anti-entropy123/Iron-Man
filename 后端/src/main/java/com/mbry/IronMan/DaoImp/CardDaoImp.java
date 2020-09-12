@@ -277,7 +277,8 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public boolean updateCard(Card card) {
 		try {
-			cardMapper.updateCard(this.getCardEntityFromBO(card));
+			CardEntity cardEntity = this.getCardEntityFromBO(card);
+			cardMapper.updateCard(cardEntity);
 			imageMapper.deleteImageByCardId(card.getCardId());
 			if (card.getImages() != null) {
 				for (int i = 0; i < card.getImages().length; i++) {
@@ -339,6 +340,10 @@ public class CardDaoImp implements CardDao {
 			cards.add(this.getCardBOByEntity(cardEntity));
 		}
 		return cards.toArray(new Card[cards.size()]);
+	}
+
+	public void setStatusTrue(String cardId) {
+		cardMapper.finsihCard(cardId);
 	}
 
 	/**
@@ -553,7 +558,7 @@ public class CardDaoImp implements CardDao {
 		cardEntity.setType(2);
 		//cardEntity.setRequirement(card.getRequirement());
 		cardEntity.setMinPrice(card.getPrice());
-		cardEntity.setMaxSquare(card.getSquare());
+		cardEntity.setMinSquare(card.getSquare());
 		return cardEntity;
 	}
 	

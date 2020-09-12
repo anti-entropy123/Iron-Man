@@ -39,7 +39,10 @@ public class OrderService {
             );
         }
         int pageNum = Global.pageSize;
-        return new GetCompleteOrdResponse(cards.subList((page-1)*pageNum, page*pageNum).toArray(new Card[0]), 1, "");
+        return new GetCompleteOrdResponse(
+            cards.subList((page-1)*pageNum, Math.min(page*pageNum, cards.size())).toArray(new Card[0]), 
+            1, 
+            "");
     }
 
     public GetIncompleteOrdResponse getIncompleteOrd(String userId, int page){
@@ -60,6 +63,9 @@ public class OrderService {
             );
         }
         int pageNum = Global.pageSize;
-        return new GetIncompleteOrdResponse(cards.subList((page-1)*pageNum, page*pageNum).toArray(new Card[0]), 1, "");
+        return new GetIncompleteOrdResponse(
+            cards.subList((page-1)*pageNum, Math.min(page*pageNum, cards.size())).toArray(new Card[0]), 
+            1, 
+            "");
     }
 }

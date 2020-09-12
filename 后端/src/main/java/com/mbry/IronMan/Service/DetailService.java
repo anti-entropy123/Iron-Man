@@ -141,16 +141,16 @@ public class DetailService {
         return new DefaultResponse(1, "");
     }
 
-    public DefaultResponse orderTeamApply(String userId, String teamId){
+    public DefaultResponse orderTeamApply(String userId, String cardId, String teamId){
         String date = dateUtil.getDate();
-        TeamApplication app = new TeamApplication(
+        CardApplication cardApplication = new CardApplication(
             null, 
             userId, 
-            teamDao.queryCaptainIdFromTeamId(teamId),
+            cardDao.queryCardByCardId(cardId).getUserId(), 
             false, 
             date, 
-            teamId);
-        String applyId = applicationDao.createApplication(app);
+            cardId);
+        String applyId = applicationDao.createApplication(cardApplication);
         String targetUserId = teamDao.queryCaptainIdFromTeamId(teamId);
 
         logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
@@ -172,6 +172,10 @@ public class DetailService {
                 // 理论上这里只能是card application, 如果不是, 则先跳过
                 continue;
             }
+            if(app.isStatus()){
+                // 如果该申请被处理过了, 则不需要再返回给前端.
+                continue;
+            }
             CardApplication cardApp = (CardApplication)app;
             String applicant = cardApp.getApplicantId();
             Team team = teamDao.queryTeamByCaptainIdAndCardId(applicant, cardId);
@@ -182,7 +186,7 @@ public class DetailService {
                         cardApp.getApplicantId()));
             }else{
                 ArrayList<GetApplyResponse.Data.Team.Member> paramsMembers = new ArrayList<>();
-                GetApplyResponse.Data.Team paramsTeam = data.new Team(team.getTeamId(), null, cardApp.getApplicantId());
+                GetApplyResponse.Data.Team paramsTeam = data.new Team(team.getTeamId(), null, cardApp.getApplicationId());
                 // 有匹配的队伍, 说明是多人整租
                 for(User user: team.getMembers()){
                     paramsMembers.add(paramsTeam.new Member(user.getUserId(), user.getAvatar()));
@@ -206,19 +210,24 @@ public class DetailService {
         int type = -1;
         // 先改变申请状态
         if(app instanceof CardApplication){
+            // 你的申请被card主处理了
             CardApplication ca = (CardApplication)app;
             applicationDao.processApplication(ca);
             cardId = ca.getCardId();
-            // 你的申请被card主处理了
             type = 5;
-            cardDao.updateCard(new Card(cardId, null, true, null, null, null, null, -1, null));
+            cardDao.setStatusTrue(cardId);
         }else if(app instanceof TeamApplication){
+            // 你的入队申请被处理了
             TeamApplication ta = (TeamApplication)app;
+            Team team = teamDao.queryTeamByTeamId(ta.getTeamId());
+            if(team.isMaxMember()){
+                return new DefaultResponse(0, "该合租队伍已满");
+            }
             applicationDao.processApplication(ta);
             cardId = teamDao.queryCardIdFromTeamId(ta.getTeamId());
-            // 你的入队申请被处理了
             type = 2;
-            // fixme
+            teamDao.addUserToTeam(ta.getApplicantId(), ta.getTeamId());
+            // FIXME
         }
         // 改变log状态
         logDao.setTrueByApplyId(applyId);

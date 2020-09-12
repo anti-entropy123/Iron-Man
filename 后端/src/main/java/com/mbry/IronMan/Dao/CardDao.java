@@ -130,4 +130,6 @@ public interface CardDao {
      * @return
      */
     public Card[] queryUncompleteCardsByUserId(String userId);
+
+    public void setStatusTrue(String cardId);
 }

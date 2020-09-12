@@ -51,5 +51,10 @@ public class LogDaoImp implements LogDao {
     public void setTrueByApplyId(String applyId) {
         logMapper.setTrueByApplyId(applyId);
     }
+
+    @Override
+    public void setTrueByLogId(int logId) {
+        logMapper.setTrueByLogId(logId);
+    }
     
 }

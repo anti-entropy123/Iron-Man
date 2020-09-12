@@ -32,6 +32,9 @@ public class MessageService {
             message.setLogId(log.getLogId());
             message.setStatus(log.getStatus());
             messages.add(message);
+            if(log.getType() > 1){
+                logDao.setTrueByLogId(log.getLogId());
+            }
         }
 
         return messages.toArray(new GetAllMessageResponse.Data.Message[messages.size()]);
