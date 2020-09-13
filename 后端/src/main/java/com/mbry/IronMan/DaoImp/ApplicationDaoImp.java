@@ -66,7 +66,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 
 	@Override
-	public Application[] queryApplicationByUserId(String targetUserId) {
+	public Application[] queryApplicationsByUserId(String targetUserId) {
 		ApplicationEntity[] applicationEntitys = applicationMapper.queryApplicationsByTargetUserId(targetUserId);
 		TeamApplicationEntity[] teamApplicationEntitys = teamApplicationMapper.queryTeamApplicationsByTargetUserId(targetUserId);
 		if (applicationEntitys == null & teamApplicationEntitys == null) {
@@ -99,10 +99,12 @@ public class ApplicationDaoImp implements ApplicationDao {
 	public Application queryApplicationByAppId(String applicationId) {
 		ApplicationEntity applicationEntity = applicationMapper.queryApplicationById(applicationId);
 		if (applicationEntity == null) {
-			return null;
-		}
-		if (applicationEntity.getCardId() == null) {
-			return this.getApplicationFromEntity(teamApplicationMapper.queryApplicationById(applicationId));
+			TeamApplicationEntity teamApplicationEntity = teamApplicationMapper.queryApplicationById(applicationId); 
+			if (teamApplicationEntity != null) {
+				return this.getApplicationFromEntity(teamApplicationEntity);
+			}  else {
+				return null;
+			}
 		} else {
 			return this.getApplicationFromEntity(applicationEntity);
 		}

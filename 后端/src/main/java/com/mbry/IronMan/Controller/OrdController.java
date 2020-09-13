@@ -19,6 +19,12 @@ public class OrdController {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * 9月12号 测试通过
+     * @param userId
+     * @param page
+     * @return
+     */
     @GetMapping(value="/complete/all/")
     @PreAuthorize("hasRole('common')")
     public GetCompleteOrdResponse getCompleteOrd(
@@ -27,6 +33,12 @@ public class OrdController {
         return orderService.getCompleteOrd(userId, page);
     }
 
+    /**
+     * 9月12号 测试通过
+     * @param userId
+     * @param page
+     * @return
+     */
     @GetMapping(value="/incomplete/all/")
     @PreAuthorize("hasRole('common')")
     public GetIncompleteOrdResponse getIncompleteOrd(

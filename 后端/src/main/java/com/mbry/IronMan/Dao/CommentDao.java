@@ -11,6 +11,7 @@ public interface CommentDao {
      * 按页获取某帖子下主楼评论
      * @param cardId
      * @return 所有主楼评论(不含回复)
+     * 9.11 测试通过
      */
     public Comment[] queryCommentsByCardId(String cardId, int page);
     /**

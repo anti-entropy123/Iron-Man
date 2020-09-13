@@ -16,6 +16,7 @@ public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -1301625591608910415L;
 
     private static final String CLAIM_KEY_USERNAME = "userId";
+    private static final String CLAIM_KEY_AUTH = "auth";
     
     @Value("${jwt.secret}")
     private String secret;
@@ -36,20 +37,38 @@ public class JwtTokenUtil implements Serializable {
         return claims;
     }
 
-    public String getOpenIdFromToken(String token) {
-        String openId;
+    public String[] getIdAndAuthFromToken(String token) {
+        String id, auth;
         try {
             final Claims claims = getClaimsFromToken(token);
-            openId = claims.get(CLAIM_KEY_USERNAME).toString();
+            id = claims.get(CLAIM_KEY_USERNAME).toString();
+            auth = claims.get(CLAIM_KEY_AUTH).toString();
+            System.out.println("[+] openId: " + id + "\n[+] auth: " + auth);
         } catch (Exception e) {
-            openId = null;
+            id = null;
+            auth = null;
         }
-        return openId;
+        return new String[]{id, auth};
     }
 
-    public String generateToken(String openId) {
+    public String getOpenIdFromToken(String token){
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            String openId = claims.get(CLAIM_KEY_USERNAME).toString();
+            System.out.println("[+] openId: " + openId);
+            return openId;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String generateToken(String id, String auth) {
+        if(auth == null){
+            auth = "common";
+        }
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, openId);
+        claims.put(CLAIM_KEY_USERNAME, id);
+        claims.put(CLAIM_KEY_AUTH, auth);
         return generateToken(claims);
     }
 

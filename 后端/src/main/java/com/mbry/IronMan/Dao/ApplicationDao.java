@@ -35,7 +35,7 @@ public interface ApplicationDao {
      * @param userId
      * @return
      */
-    public Application[] queryApplicationByUserId(String targetUserId);
+    public Application[] queryApplicationsByUserId(String targetUserId);
 
     /**
      * 根据 cardId 查询该card对应的有关的CardId

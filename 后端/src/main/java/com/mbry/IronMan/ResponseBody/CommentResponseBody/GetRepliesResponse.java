@@ -118,6 +118,14 @@ public class GetRepliesResponse extends DefaultResponse{
                     replyToUsers[i]);
             }
         }
+
+        public Reply[] getReplies(){
+            return this.replies;
+        }
+
+        public void setReplies(Reply[] replies){
+            this.replies = replies;
+        }
     }
     private Data data;
 

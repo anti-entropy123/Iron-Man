@@ -1,5 +1,7 @@
 package com.mbry.IronMan;
 
+import com.mbry.IronMan.Security.JwtAuthenticationTokenFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
@@ -28,10 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
-    // @Bean
-    // public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-    //     return new JwtAuthenticationTokenFilter();
-    // }
+    @Bean
+    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtAuthenticationTokenFilter();
+    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -50,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,
-                        "/api/detail/getCardDetail/",
                         "/",
                         "/*.html",
                         "/favicon.ico",
@@ -61,14 +63,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         "/*"
                 ).permitAll()
                 // 对于获取token的rest api要允许匿名访问
-                .antMatchers("/api/login/").permitAll()
+                .antMatchers(
+                    "/api/login/",
+                    "/api/adm/login"
+                ).permitAll()
                 .antMatchers("/api/user/register/").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
         // // 添加JWT filter
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
         // httpSecurity
-        //         .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        //         .addFilterBefore(authenticationTokenFilterBean(), SecurityContextHolderAwareRequestFilter.class);
 
         // 禁用缓存
         httpSecurity.headers().cacheControl();

@@ -1,26 +1,29 @@
 package com.mbry.IronMan.ResponseBody.BaseResponseBody;
 
-import java.io.Serializable;
+import com.mbry.IronMan.ResponseBody.DefaultResponse;
 
-public class LoginToken implements Serializable {
+public class LoginToken extends DefaultResponse {
     /**
      *
      */
     private static final long serialVersionUID = -2922693761785960371L;
     private String token;
-    private int result;
-    private String message;
+    private Boolean firstTime;
+    private String userId;
 
     public LoginToken() {
     }
 
     public LoginToken(
             String token, 
+            boolean firstTime,
             int result,
-            String message) {
+            String message,
+            String userId) {
+        super(result, message);
         this.token = token;
-        this.result = result;
-        this.message = message;
+        this.firstTime = firstTime;
+        this.userId = userId;
     }
 
     public String getToken() {
@@ -31,19 +34,19 @@ public class LoginToken implements Serializable {
         this.token = token;
     }
 
-    public int getResult() {
-        return this.result;
+    public boolean getFirstTime() {
+        return this.firstTime;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
     }
 
-    public String getMessage() {
-        return this.message;
+    public String getUserId() {
+        return this.userId;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

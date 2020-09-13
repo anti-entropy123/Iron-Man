@@ -28,15 +28,6 @@ public class AdmCardService {
     @Autowired
     UserMapper userMapper;
 
-    /**
-     * 获取需要的Cards列表
-     * @param type
-     * @param userId
-     * @param minDate
-     * @param maxDate
-     * @param page
-     * @return
-     */
     public GetCardResponse.Data[] getCardsByRequire(
         int type,
         String userId,
@@ -45,8 +36,18 @@ public class AdmCardService {
         int page) {
 
         int startIndex = (page - 1) * Global.pageSize;
-        String minDateS = dateUtil.getDateFromLong(minDate);
-        String maxDateS = dateUtil.getDateFromLong(maxDate);
+        String minDateS;
+        String maxDateS;
+        if (minDate > 0) {
+            minDateS = dateUtil.getDateFromLong(minDate);
+        } else {
+            minDateS = null;
+        }
+        if (maxDate > 0) {
+            maxDateS = dateUtil.getDateFromLong(maxDate);
+        } else {
+            maxDateS = null;
+        }
         CardEntity[] cardEntitys = cardMapper.queryCardsForAdm(startIndex, Global.pageSize, userId, minDateS, maxDateS);
 
         GetCardResponse getCardResponse = new GetCardResponse();
@@ -58,20 +59,12 @@ public class AdmCardService {
             data.setUserId(cardEntity.getUserId());
             data.setDate(cardEntity.getDate());
             data.setTitle(cardEntity.getTitle());
+            datas.add(data);
         }
 
         return datas.toArray(new GetCardResponse.Data[datas.size()]);
     }
 
-    /**
-     * 获取所需的Crads页数
-     * @param type
-     * @param userId
-     * @param minDate
-     * @param maxDate
-     * @param page
-     * @return
-     */
     public int getCardsPagesByRequire(
         int type,
         String userId,
@@ -90,24 +83,12 @@ public class AdmCardService {
         return pages;
     }
 
-    /**
-     * 删除指定card
-     * @param cardIds
-     */
     public void deleteCards(String[] cardIds) {
         for (String cardId: cardIds) {
             cardMapper.deleteCardById(cardId);
         }
     }
 
-    /**
-     * 获取user信息表
-     * @param nickname
-     * @param userId
-     * @param mobileNumber
-     * @param page
-     * @return
-     */
     public GetUserResponse getUser(
         String nickname,
         String userId,
@@ -146,11 +127,6 @@ public class AdmCardService {
         }
     }
 
-    /**
-     * 删除指定user
-     * @param userIds
-     * @return
-     */
     public DefaultResponse deleteUser(String[] userIds) {
         try {
             for (String userId: userIds) {

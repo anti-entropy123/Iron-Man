@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+/**
+ * 9月12日通过测试
+ */
 @RestController
 @RequestMapping("/api/union")
 public class TeamController{
@@ -34,6 +36,12 @@ public class TeamController{
     @Value("jwt.tokenHead")
     private String tokenHead;
 
+    /**
+     * 9.12 测试通过
+     * @param cardId
+     * @param headers
+     * @return
+     */
     @GetMapping(value="/getTeam/")
     @PreAuthorize("hasRole('common')")
     public GetTeamResponse getTeam(
@@ -45,6 +53,11 @@ public class TeamController{
         return teamService.getTeam(cardId, userId);
     }
     
+    /**
+     * 9月12日 测试通过
+     * @param createTeamRequest
+     * @return
+     */
     @PostMapping(value="/createTeam/")
     @PreAuthorize("hasRole('common')")
     public DefaultResponse createTeam(@RequestBody CreateTeamRequest createTeamRequest) {
@@ -54,6 +67,11 @@ public class TeamController{
             createTeamRequest.getMaxNum());
     }
     
+    /**
+     * 9月12通过测试
+     * @param joinTeamRequest
+     * @return
+     */
     @PostMapping(value="/joinTeam/")
     @PreAuthorize("hasRole('common')")
     public DefaultResponse joinTeam(@RequestBody JoinTeamRequest joinTeamRequest) {
@@ -62,6 +80,11 @@ public class TeamController{
             joinTeamRequest.getUserId());
     }
 
+    /**
+     * 9月12日通过测试
+     * @param leaveTeamRequest
+     * @return
+     */
     @PostMapping(value="/leaveTeam/")
     @PreAuthorize("hasRole('common')")
     public DefaultResponse leaveTeam(@RequestBody LeaveTeamRequest leaveTeamRequest) {

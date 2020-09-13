@@ -16,16 +16,16 @@ public class CardResponse extends DefaultResponse {
     private static final long serialVersionUID = -1038013217654236746L;
 
 
-    public class Data implements Serializable {
+    public class Data /*implements Serializable*/ {
         /**
          *
          */
-        private static final long serialVersionUID = -5901321498254340640L;
-        public class Card implements Serializable {
+      //  private static final long serialVersionUID = -5901321498254340640L;
+        public class Card /*implements Serializable*/ {
             /**
              *
              */
-            private static final long serialVersionUID = -4255988525432960030L;
+            //private static final long serialVersionUID = -4255988525432960030L;
             private String cardId;
             private int type;
             private String title;
@@ -33,7 +33,7 @@ public class CardResponse extends DefaultResponse {
             private double[] prices;
             private double[] squares;
             private String location;
-            private boolean hasHouseResource;
+            private Boolean hasHouseResource;
             private String introduction;
     
             public Card() {
@@ -47,7 +47,7 @@ public class CardResponse extends DefaultResponse {
                     double[] prices,
                     double[] squares,
                     String location,
-                    boolean hasHouseResource,
+                    Boolean hasHouseResource,
                     String introduction) {
                 this.cardId = cardId;
                 this.type = type;
@@ -116,15 +116,15 @@ public class CardResponse extends DefaultResponse {
                 this.location = location;
             }
     
-            public boolean getHasHouseResource() {
+            public Boolean getHasHouseResource() {
                 return this.hasHouseResource;
             }
         
-            public void setHasHouseResource(boolean hasHouseResource) {
+            public void setHasHouseResource(Boolean hasHouseResource) {
                 this.hasHouseResource = hasHouseResource;
             }
     
-            public String getIntroduction(String introduction) {
+            public String getIntroduction() {
                 return this.introduction;
             }
         
@@ -197,7 +197,7 @@ public class CardResponse extends DefaultResponse {
                     _card.getCardId(), 
                     type, 
                     _card.getTitle(), 
-                    _card.getImages()[0],
+                    _card.getImages().length > 0? _card.getImages()[0]:null,
                     prices, 
                     squares, 
                     _card.getLocation(), 

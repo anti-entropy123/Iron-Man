@@ -10,6 +10,7 @@ import com.mbry.IronMan.Dao.ApplicationDao;
 import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Dao.TeamDao;
 import com.mbry.IronMan.Dao.UserDao;
+import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.TeamResponseBody.GetTeamResponse;
 import com.mbry.IronMan.Utils.DateUtil;
@@ -64,16 +65,24 @@ public class TeamService {
     }
 
     public DefaultResponse joinTeam(String teamId, String userId){
+        Team team = teamDao.queryTeamByTeamId(teamId);
+        if(team.isMaxMember()){
+            return new DefaultResponse(0, "该合租队伍已满");
+        }    
+        String targetUserId = team.getCaptainId();
         String applyId = applicationDao.createApplication(new TeamApplication(
             null, 
             userId, 
-            teamDao.queryCaptainIdFromTeamId(teamId),
+            team.getCaptainId(),
             false, 
             dateUtil.getDate(), 
             teamId));
-        logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, teamDao.queryCaptainIdFromTeamId(teamId), false));
-        // 发送微信通知
-        wxMessageUtil.sendMessage();
+        logDao.addLog(new Log(-1, 1, team.getCardId(), applyId, userId, targetUserId, false));
+        // todo 发送微信通知
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetUserId
+        );
         return new DefaultResponse(1, "");
     }
 
@@ -84,14 +93,23 @@ public class TeamService {
             User[] members = teamDao.queryTeamByTeamId(teamId).getMembers();
             teamDao.deleteTeamByTeamId(teamId);
             for(User member: members){
-                wxMessageUtil.sendMessage();
+                // todo 发送微信模板消息
+                wxMessageUtil.sendMessage(
+                    new WxMessageRequestBody().new Data(),
+                    member.getUserId()
+                );
                 logDao.addLog(new Log(-1, 4, cardId, "", userId, member.getUserId(), false));
             }
         }else{
             // 如果不是队长, 则自己退出队伍
+            String targetUserId = teamDao.queryCaptainIdFromTeamId(teamId);
             teamDao.deleteUserFromTeam(userId, teamId);
-            wxMessageUtil.sendMessage();
-            logDao.addLog(new Log(-1, 3, teamDao.queryCardIdFromTeamId(teamId), "", userId, teamDao.queryCaptainIdFromTeamId(teamId), false));
+            // todo 发送微信模板消息
+            wxMessageUtil.sendMessage(
+                new WxMessageRequestBody().new Data(),
+                targetUserId     
+            );
+            logDao.addLog(new Log(-1, 3, teamDao.queryCardIdFromTeamId(teamId), "", userId, targetUserId, false));
         }
         return new DefaultResponse(1, "");
     }

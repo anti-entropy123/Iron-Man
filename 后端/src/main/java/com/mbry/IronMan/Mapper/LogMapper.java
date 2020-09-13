@@ -38,4 +38,6 @@ public interface LogMapper {
      */
     public void setTrueByApplyId(String applyId);
 
+    public void setTrueByLogId(int log);
+
 }

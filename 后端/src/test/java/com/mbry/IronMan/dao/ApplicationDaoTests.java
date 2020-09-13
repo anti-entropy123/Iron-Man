@@ -78,7 +78,7 @@ public class ApplicationDaoTests {
 
     @Test
     void queryApplicationByUserId() {
-        Application[] apps = applicationDao.queryApplicationByUserId("12");
+        Application[] apps = applicationDao.queryApplicationsByUserId("12");
         for (Application app: apps) {
             System.out.println(app.getApplicationId());
         }

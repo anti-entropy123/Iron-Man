@@ -4,7 +4,9 @@ public class RentCard extends Card{
     private String requirement; // 对租客要求
     private int unionNum;
     private double price;
-    private double Square;
+    private double square;
+    private Double longitude; // 经度 
+    private Double latitude;  // 纬度
 
     public RentCard(){}
     public RentCard(
@@ -20,13 +22,17 @@ public class RentCard extends Card{
         int unionNum,
         double price,
         double square,
-        String[] images
+        String[] images,
+        Double longitude, // 经度 
+        Double latitude   // 纬度
         ){
             super(cardId, userId, status, date, title, introduction, location, unitType, images);
             this.setRequirement(requirement);
             this.setUnionNum(unionNum);
             this.setPrice(price);
             this.setSquare(square);
+            this.setLongitude(longitude);
+            this.setLatitude(latitude);
     }
     
 	public String getRequirement() {
@@ -57,11 +63,26 @@ public class RentCard extends Card{
 	}
 	
 	public double getSquare() {
-		return Square;
+		return square;
 	}
 	
 	public void setSquare(double square) {
-		Square = square;
+		this.square = square;
+	}
+    
+    public double getLongitude() {
+		return longitude;
 	}
 	
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+    }
+    
+    public double getLatitude() {
+		return this.latitude;
+	}
+	
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 }

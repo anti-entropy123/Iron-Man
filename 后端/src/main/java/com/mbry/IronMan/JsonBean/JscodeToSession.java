@@ -10,7 +10,7 @@ public class JscodeToSession implements Serializable {
      */
     private static final long serialVersionUID = 4704342103853655924L;
     
-    @JSONField(name = "open_id")
+    @JSONField(name = "openid")
     private String openId;
     
     @JSONField(name = "session_key")

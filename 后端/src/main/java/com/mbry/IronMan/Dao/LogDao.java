@@ -6,14 +6,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface LogDao {
-    
     /**
      * 插入一条log
      * @param logEntity
      */
     public void addLog(Log log);
 
-        /**
+    /**
      * 查询log
      * @param aimUserId
      * @return
@@ -25,5 +24,11 @@ public interface LogDao {
      * @param applyId
      */
     public void setTrueByApplyId(String applyId);
+
+    /**
+     * 将指定log置为已读
+     * @param logId
+     */
+    public void setTrueByLogId(int logId);
     
 }

@@ -27,11 +27,11 @@ class CardMapperTests {
 	
 	@Test
 	void queryCard() {
-//		CardEntity[] ce = cardMapper.queryCards(0, 4, -1, "1",-1, -1, -1, -1, -1);
-//		System.out.println(ce.length);
-//		for(int i = 0; i < ce.length; i++) {
-//			System.out.println(ce[i].getUserId());
-//		}
+		CardEntity[] ce = cardMapper.queryCards(0, 4, -1, "1",-1, -1, -1, -1, -1, null);
+		System.out.println(ce.length);
+		for(int i = 0; i < ce.length; i++) {
+			System.out.println(ce[i].getUserId());
+		}
 	}
 	
 //	@Test

@@ -53,5 +53,11 @@
         SET status = 1
         WHERE apply_id = #{applyId}
     </update>
+
+    <update id="setTrueByLogId" parameterType="int">
+        UPDATE log
+        SET status = 1
+        WHERE log_id = #{logId}
+    </update>
     
 </mapper>

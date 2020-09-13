@@ -1,15 +1,19 @@
 package com.mbry.IronMan.Service;
 
+import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.Dao.CommentDao;
+import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Dao.UserDao;
 import com.mbry.IronMan.RequestBody.CommentRequestBody.AddCommentRequest;
 import com.mbry.IronMan.RequestBody.CommentRequestBody.DeleteCommentRequest;
+import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.CommentResponseBody.GetCommentResponse;
 import com.mbry.IronMan.ResponseBody.CommentResponseBody.GetRepliesResponse;
 import com.mbry.IronMan.Utils.DateUtil;
+import com.mbry.IronMan.Utils.WxMessageUtil;
 
-
+import com.mbry.IronMan.BusinessObject.Log;
 import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.BusinessObject.Comment.Comment;
 import com.mbry.IronMan.BusinessObject.Comment.Reply;
@@ -27,6 +31,16 @@ public class CommentService {
 
     @Autowired
     private DateUtil dateUtil;
+
+    @Autowired
+    private WxMessageUtil wxMessageUtil;
+
+    @Autowired
+    private LogDao logDao;
+
+    @Autowired
+    private CardDao cardDao;
+
 
     public GetCommentResponse getComments(String cardId, int pageNum){
         Comment[] comments = commentDao.queryCommentsByCardId(cardId, pageNum);
@@ -49,6 +63,13 @@ public class CommentService {
         Reply[] replies = commentDao.queryRepliesByCommentId(commentId);
         User[] users = new User[replies.length];
         User[] replyToUsers = new User[replies.length];
+        for(int i=0;i < users.length; ++i){
+            String userId = replies[i].getUserId();
+            String replyToId = replies[i].getReplyToId();
+            String replyToUserId = commentDao.queryCommentByCommentId(replyToId).getUserId();
+            users[i] = userDao.queryUserByOpenId(userId);
+            replyToUsers[i] = userDao.queryUserByOpenId(replyToUserId);
+        }
         GetRepliesResponse getRepliesResponse = new GetRepliesResponse();
         GetRepliesResponse.Data data = getRepliesResponse.new Data(
             replies, 
@@ -63,14 +84,20 @@ public class CommentService {
     public DefaultResponse addComment(AddCommentRequest addCommentRequest){
         String replyToId = addCommentRequest.getReplyToId();
         Comment comment;
-		String date = dateUtil.getDate();
+        String date = dateUtil.getDate();
+        int type = -1;
+        String replyToUser;
         if(replyToId != null && replyToId.length() > 0){
             // 这是一个Reply
+            type = 6;
             Comment replyToComment = commentDao.queryCommentByCommentId(replyToId);
             String belongToId;
+            replyToUser = commentDao.queryCommentByCommentId(replyToId).getUserId();
             if(replyToComment instanceof Reply){
+                // 这是回复某条回复的
                 belongToId = ((Reply)replyToComment).getBelongToId();
             }else{
+                // 这是回复主楼评论的
                 belongToId = replyToComment.getCommentId();
             }
             comment = new Reply(
@@ -83,15 +110,24 @@ public class CommentService {
                 belongToId
                 );
         }else{
-            // 这是一个主楼评论
+            // 这是一个主楼评论(评论的是帖子)
+            type = 7;
             comment = new Comment(
                                 null,
                                 addCommentRequest.getCardId(),
                                 addCommentRequest.getUserId(),
                                 addCommentRequest.getContent(),
-                                date);            
+                                date);
+            replyToUser = cardDao.queryCardByCardId(addCommentRequest.getCardId()).getUserId();
         }
         commentDao.createComment(comment);
+        // todo 微信消息提醒 参数组装
+        wxMessageUtil.sendMessage(
+                new WxMessageRequestBody().new Data(),
+                replyToUser
+        );
+        // 通过此reply的replyTOId找到需要被通知的用户
+        logDao.addLog(new Log(-1, type, addCommentRequest.getCardId(), "", addCommentRequest.getUserId(), replyToUser, false));
         return new DefaultResponse(1, "");
     }
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DateUtil {
 	
-	final private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	final private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	
 	public String getDate() {
 		return dateFormat.format(new Date());

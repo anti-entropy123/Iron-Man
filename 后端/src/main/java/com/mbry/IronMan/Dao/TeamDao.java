@@ -14,7 +14,8 @@ public interface TeamDao {
 
     /**
      * 
-     * @param team
+     * @param userId
+     * @param cardId
      * @return
      */
     public boolean createTeam(Team team);
@@ -49,7 +50,7 @@ public interface TeamDao {
      */
     public String queryCaptainIdFromTeamId(String teamId);
 
-     /**
+    /**
      * 查询队长id和cardId与参数相符的队伍
      * @param captainId 队长的userId
      * @param cardId    cardId
@@ -70,5 +71,5 @@ public interface TeamDao {
      * @return
      */
     public boolean deleteTeamByTeamId(String teamId);
-    
+
 }

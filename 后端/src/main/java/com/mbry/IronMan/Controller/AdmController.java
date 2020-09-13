@@ -7,13 +7,16 @@ import com.mbry.IronMan.ResponseBody.HomeResponseBody.CardResponse;
 import com.mbry.IronMan.Service.AdmCardService;
 import com.mbry.IronMan.Service.HomeService;
 import com.mbry.IronMan.RequestBody.AdmRequestBody.DeleteUserRequestBody;
+import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetUserResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 public class AdmController {
@@ -34,6 +37,7 @@ public class AdmController {
      * @return
      */
     @GetMapping("/api/adm/getCard/")
+    @PreAuthorize("hasRole('super')")
     public GetCardResponse getCards(
         @RequestParam int type, 
         @RequestParam String userId, 

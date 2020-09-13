@@ -2,6 +2,7 @@ package com.mbry.IronMan.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mbry.IronMan.RequestBody.BaseRequestBody.AdmLoginRequest;
 import com.mbry.IronMan.RequestBody.BaseRequestBody.LoginCode;
 import com.mbry.IronMan.ResponseBody.BaseResponseBody.LoginToken;
 import com.mbry.IronMan.Service.BaseService;
@@ -22,8 +23,19 @@ public class LoginController {
      */
     @PostMapping("/api/login/")
     public LoginToken commonUserLogin(@RequestBody LoginCode loginCode) {
-        String token = baseService.login(loginCode.getCode());
-        return new LoginToken(token, 1, "");
+        return baseService.login(loginCode.getCode());
+    }
+
+    /**
+     * 9.12 测试通过
+     * @param admLoginRequest
+     * @return
+     */
+    @PostMapping("/api/adm/login")
+    public LoginToken admUserLogin(@RequestBody AdmLoginRequest admLoginRequest){
+        return baseService.superLogin(
+            admLoginRequest.getAccount(), 
+            admLoginRequest.getPassword());
     }
 }
 

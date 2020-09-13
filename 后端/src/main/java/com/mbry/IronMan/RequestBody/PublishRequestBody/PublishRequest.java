@@ -18,7 +18,8 @@ public class PublishRequest implements Serializable {
     private String[] images;
     private String require;
     private int unionNum;
-    private boolean hasHouseResource;
+    private Boolean hasHouseResource;
+    private Double[] coordinates;
 
     public PublishRequest() {
     }
@@ -35,7 +36,8 @@ public class PublishRequest implements Serializable {
             String[] images,
             String require,
             int unionNum,
-            boolean hasHouseResource) {
+            boolean hasHouseResource,
+            Double[] coordinates) {
         this.userId = userId;
         this.type = type;
         this.title =title;
@@ -48,6 +50,7 @@ public class PublishRequest implements Serializable {
         this.require = require;
         this.unionNum = unionNum;
         this.hasHouseResource = hasHouseResource;
+        this.coordinates =coordinates;
     }
 
     public String getUserId() {
@@ -145,4 +148,13 @@ public class PublishRequest implements Serializable {
     public void setHasHouseResource(boolean hasHouseResource) {
         this.hasHouseResource = hasHouseResource;
     }
+
+    public void setCoordinates(Double[] coordinates){
+        this.coordinates =coordinates;
+    }
+
+    public Double[] getCoordinates(){
+        return this.coordinates;
+    }
+    
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.CardCoordinateMapper">
+
+     <resultMap id="CardCoordianteMap" type="com.mbry.IronMan.entity.CardCoordinateEntity">
+        <result property="cardId" column="card_id"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.mbry.IronMan.entity.CardCoordinateEntity">
+        INSERT INTO
+            card_coordinate(card_id, longitude, latitude)
+        VALUES(#{cardId}, #{longitude}, #{latitude})
+    </insert>
+
+    <delete id="deleteByCardId" parameterType="java.lang.String">
+        DELETE FROM card_coordinate
+        WHERE card_id = #{cardId}
+    </delete>
+
+    <select id="queryByCardId" parameterType="java.lang.String" resultMap="CardCoordianteMap">
+        SELECT * FROM card_coordinate
+        WHERE card_id = #{cardId}
+    </select>
+
+</mapper>

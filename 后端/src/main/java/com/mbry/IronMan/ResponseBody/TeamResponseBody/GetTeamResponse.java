@@ -58,9 +58,11 @@ public class GetTeamResponse extends DefaultResponse {
             public Team(com.mbry.IronMan.BusinessObject.Team team){
                 this.maxTeamMem = team.getMaxNum();
                 com.mbry.IronMan.BusinessObject.User[] _members = team.getMembers();
-                this.members = new Member[_members.length];
-                for(int i = 0;i < members.length;i++){
-                    this.members[i] = new Member(_members[i]);
+                if(_members != null){
+                    this.members = new Member[_members.length];
+                    for(int i = 0;i < members.length;i++){
+                        this.members[i] = new Member(_members[i]);
+                    }
                 }
                 this.teamId = team.getTeamId();
             }

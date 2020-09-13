@@ -84,5 +84,8 @@ public class Team {
 	public void setMembers(User[] members) {
 		this.members = members;
 	}
-    
+	
+	public boolean isMaxMember(){
+		return this.getMaxNum() <= this.members.length;
+	}
 }
