@@ -77,6 +77,7 @@ public class AdmController {
      * @return
      */
     @DeleteMapping("/api/adm/deleteCard/")
+    @PreAuthorize("hasRole('super')")
     public DefaultResponse deleteCards(@RequestBody DeleteCardsRequest deleteCardsRequest) {
         try {
             admCardService.deleteCards(deleteCardsRequest.getCardIds());
@@ -91,7 +92,8 @@ public class AdmController {
         
     }
 
-    @GetMapping("/api/adm/deleteCard/")
+    @GetMapping("/api/adm/getCardDetail/")
+    @PreAuthorize("hasRole('super')")
     public CardResponse getCards(
         @RequestParam int type,
         @RequestParam int page,
@@ -119,6 +121,7 @@ public class AdmController {
     }
 
     @GetMapping("/api/adm/getUser/")
+    @PreAuthorize("hasRole('super')")
     public GetUserResponse getUser(
         @RequestParam String nickname,
         @RequestParam String userId,
@@ -132,6 +135,7 @@ public class AdmController {
     }
 
     @DeleteMapping("/api/adm/deleteUser")
+    @PreAuthorize("hasRole('super')")
     public DefaultResponse deleteUser(@RequestBody DeleteUserRequestBody deleteUserRequestBody) {
         return admCardService.deleteUser(deleteUserRequestBody.getUserIds());
     }

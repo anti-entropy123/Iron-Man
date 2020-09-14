@@ -82,7 +82,7 @@ public class DetailController {
      * @param cardId
      * @return
      */
-    @GetMapping("/getApply/")
+    @GetMapping("/owner/getApply/")
     @PreAuthorize("hasRole('common')")
     public GetApplyResponse getApply(@RequestParam String cardId) {
         return detailService.getApply(cardId);
@@ -98,5 +98,5 @@ public class DetailController {
     public DefaultResponse processApply(@RequestBody ProcessApplyRequest processApplyRequest) {
         return detailService.processApply(processApplyRequest.getApplyId());
     }
-
+    
 }

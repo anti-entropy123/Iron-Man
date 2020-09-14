@@ -82,4 +82,9 @@ public class HomeService {
         cardResponse.setMessage("");
         return cardResponse;
     }
+
+    public CardResponse getCardsWithCoordinates(){
+        Card[] cards = cardDao.queryCardsWithCoordinates();
+        return new CardResponse(cards, 1, "");
+    }
 }

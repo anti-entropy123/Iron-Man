@@ -30,7 +30,7 @@ public class DetailCardResponse extends DefaultResponse {
         private boolean status;
         private int unionNum;
         private String ownerId;
-
+        private Double[] coordinates;
 
         public Data() {
         }
@@ -51,7 +51,8 @@ public class DetailCardResponse extends DefaultResponse {
                 int unitType,
                 boolean status,
                 int unionNum,
-                String ownerId) {
+                String ownerId,
+                Double[] coordinates) {
             this.cardId = cardId;
             this.type = type;
             this.title = title;
@@ -68,6 +69,7 @@ public class DetailCardResponse extends DefaultResponse {
             this.status = status;
             this.unionNum = unionNum;
             this.ownerId = ownerId;
+            this.coordinates = coordinates;
         }
 
         public String getCardId() {
@@ -196,6 +198,14 @@ public class DetailCardResponse extends DefaultResponse {
 
         public void setOwnerId(String ownerId) {
             this.ownerId = ownerId;
+        }
+
+        public Double[] getCoordinates() {
+            return this.coordinates;
+        }
+
+        public void setCoordinates(Double[] coordinates) {
+            this.coordinates = coordinates;
         }
     }
     private Data data;

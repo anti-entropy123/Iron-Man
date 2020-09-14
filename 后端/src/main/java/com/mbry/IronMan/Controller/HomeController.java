@@ -33,15 +33,15 @@ public class HomeController {
     @GetMapping("/getCards/")
     @PreAuthorize("hasRole('common')")
     public CardResponse getCards(
-            @RequestParam int type,
-            @RequestParam int page,
-            @RequestParam String location,
-            @RequestParam double minPrice,
-            @RequestParam double maxPrice,
-            @RequestParam double minSquare,
-            @RequestParam double maxSquare,
-            @RequestParam int unitType,
-            @RequestParam boolean hasHouseResource) {
+            @RequestParam Integer type,
+            @RequestParam Integer page,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Double minSquare,
+            @RequestParam(required = false) Double maxSquare,
+            @RequestParam(required = false) Integer unitType,
+            @RequestParam(required = false) Boolean hasHouseResource) {
         if(type == 0){
             return homeService.getALLCards(page);
         }else{
@@ -56,5 +56,11 @@ public class HomeController {
                 unitType, 
                 hasHouseResource);
         }
+    }
+
+    @GetMapping("/getCardsWithCoordinates/")
+    @PreAuthorize("hasRole('common')")
+    public CardResponse getCardsWithCoordinates(){
+        return homeService.getCardsWithCoordinates();
     }
 }

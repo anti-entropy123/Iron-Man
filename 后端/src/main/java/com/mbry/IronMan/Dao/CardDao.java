@@ -33,9 +33,9 @@ public interface CardDao {
     public Card[] queryFinishCardsByUserId(String userId);
 
     /**
-     * 获取所有类别的最新帖子, 按页返回
+     * 获取所有类别的最新帖子, 按页返回, 可以不对坐标进行初始化
      * @param page
-     * @return
+     * @return 
      */
     public Card[] queryALLCards(int page);
 
@@ -131,5 +131,15 @@ public interface CardDao {
      */
     public Card[] queryUncompleteCardsByUserId(String userId);
 
+    /**
+     * 将帖子的状态设置为完成
+     * @param cardId
+     */
     public void setStatusTrue(String cardId);
+
+    /**
+     * 返回带有坐标的Card数组
+     * @return
+     */
+    public Card[] queryCardsWithCoordinates();
 }

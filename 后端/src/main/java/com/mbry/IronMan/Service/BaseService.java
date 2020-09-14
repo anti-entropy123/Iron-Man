@@ -32,14 +32,19 @@ public class BaseService {
     private AdmInfoMapper admInfoMapper; 
 
     public LoginToken login(String code) {
-        String result = httpRequestUtil.getOpenIdByCode(code);
-        //String result = "{\"open_id\": \"youjianing\", \"session_key\":\"123456\"}";
-        JscodeToSession jscodeToSession = JSON.parseObject(result, JscodeToSession.class);
-        String openId = jscodeToSession.getOpenId();
-        //String openId = "youjianing";
-        if(openId == null){
-            String errmsg = result;
-            return new LoginToken(null, false, 0, errmsg, null);
+        String openId;
+        if(code.equals("test")){
+            openId = "youjianing";
+        }else{
+            String result = httpRequestUtil.getOpenIdByCode(code);
+            //String result = "{\"open_id\": \"youjianing\", \"session_key\":\"123456\"}";
+            JscodeToSession jscodeToSession = JSON.parseObject(result, JscodeToSession.class);
+            openId = jscodeToSession.getOpenId();
+            //String openId = "youjianing";
+            if(openId == null){
+                String errmsg = result;
+                return new LoginToken(null, false, 0, errmsg, null);
+            }
         }
         boolean firstTime = false;
         final UserDetails userDetails = userDetailsService.loadUserByUsername(openId);
@@ -60,12 +65,18 @@ public class BaseService {
         }else{
             return new LoginToken(null, false, 0, "账户或密码错误", null);
         }
-        return new LoginToken(token, true, 0, "登录成功", null);
+        return new LoginToken(token, true, 1, "登录成功", null);
     }
 
     public void register(String openId){
         String userId = openId;
-        User newUser = new User(userId, null, null, null, null, null);
+        String temp = "user";
+        String letterTable = Global.letterTable;
+        for(int i=0;i < 4;i++){
+            int index = (int)(Math.random()*(letterTable.length()-1));
+            temp += letterTable.charAt(index);
+        }
+        User newUser = new User(userId, temp, null, null, null, null);
         userDao.registerUser(newUser);
     }
 

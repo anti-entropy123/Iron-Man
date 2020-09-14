@@ -13,9 +13,11 @@ import com.mbry.IronMan.BusinessObject.Card.RentCard;
 import com.mbry.IronMan.BusinessObject.Card.RoomMateCard;
 import com.mbry.IronMan.BusinessObject.Card.SellCard;
 import com.mbry.IronMan.Dao.CardDao;
+import com.mbry.IronMan.Mapper.CardCoordinateMapper;
 import com.mbry.IronMan.Mapper.CardMapper;
 import com.mbry.IronMan.Mapper.ImageMapper;
 import com.mbry.IronMan.Mapper.UncompleteCardMapper;
+import com.mbry.IronMan.entity.CardCoordinateEntity;
 import com.mbry.IronMan.entity.CardEntity;
 import com.mbry.IronMan.global.Global;
 
@@ -29,6 +31,8 @@ public class CardDaoImp implements CardDao {
 	ImageMapper imageMapper;
 	@Autowired
 	UncompleteCardMapper uncompleteCardMapper;
+	@Autowired
+	CardCoordinateMapper cardCoordinateMapper;
 
 	@Override
 	public Card queryCardByCardId(String cardId) {
@@ -262,8 +266,18 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public boolean createCard(Card card) {
 		try {
-			CardEntity cardEntity = this.getCardEntityFromBO(card);
+			Double[] coordinates = new Double[2];
+			CardEntity cardEntity = this.getCardEntityFromBO(card, coordinates);
 			cardMapper.insertCard(cardEntity);
+			if (cardEntity.getType() < 3) {
+				CardCoordinateEntity cardCoordinateEntity = new CardCoordinateEntity(
+					cardEntity.getCardId(),
+					coordinates[0],
+					coordinates[1]
+				);
+				cardCoordinateMapper.insert(cardCoordinateEntity);
+			}
+			
 			for (int i = 0; i < card.getImages().length; i++) {
 				imageMapper.insertImage(cardEntity.getCardId(), card.getImages()[i]);
 			}
@@ -277,8 +291,18 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public boolean updateCard(Card card) {
 		try {
-			CardEntity cardEntity = this.getCardEntityFromBO(card);
+			Double[] coordinates = new Double[2];
+			CardEntity cardEntity = this.getCardEntityFromBO(card, coordinates);
 			cardMapper.updateCard(cardEntity);
+			if (cardEntity.getType() < 3) {
+				CardCoordinateEntity cardCoordinateEntity = new CardCoordinateEntity(
+					cardEntity.getCardId(),
+					coordinates[0],
+					coordinates[1]
+				);
+				cardCoordinateMapper.deleteByCardId(cardCoordinateEntity.getCardId());
+				cardCoordinateMapper.insert(cardCoordinateEntity);
+			}
 			imageMapper.deleteImageByCardId(card.getCardId());
 			if (card.getImages() != null) {
 				for (int i = 0; i < card.getImages().length; i++) {
@@ -346,6 +370,19 @@ public class CardDaoImp implements CardDao {
 		cardMapper.finsihCard(cardId);
 	}
 
+	public Card[] queryCardsWithCoordinates() {
+		CardEntity[] cardEntitys = cardMapper.queryRentSell();
+		if (cardEntitys == null) {
+			return null;
+		}
+		List<Card> cards = new ArrayList<Card>();
+		for (CardEntity cardEntity: cardEntitys) {
+			Card card = this.getCardBOByEntity(cardEntity);
+			cards.add(card);
+		}
+		return cards.toArray(new Card[cards.size()]);
+	}
+
 	/**
 	 * 将cardEntity按照type转化为五种Card之一
 	 * @param cardEntity
@@ -401,6 +438,11 @@ public class CardDaoImp implements CardDao {
 		card.setUnionNum(cardEntity.getUnionNum());
 		card.setPrice(cardEntity.getMinPrice());
 		card.setSquare(cardEntity.getMinSquare());
+		CardCoordinateEntity cardCoordinateEntity = cardCoordinateMapper.queryByCardId(cardEntity.getCardId());
+		if(cardCoordinateEntity != null){
+			card.setLongitude(cardCoordinateEntity.getLongitude());
+			card.setLatitude(cardCoordinateEntity.getLatitude());
+		}
 		return card;
 	}
 	
@@ -416,6 +458,12 @@ public class CardDaoImp implements CardDao {
 		//card.setRequirement(cardEntity.getRequirement());
 		card.setPrice(cardEntity.getMinPrice());
 		card.setSquare(cardEntity.getMinSquare());
+		CardCoordinateEntity cardCoordinateEntity = cardCoordinateMapper.queryByCardId(cardEntity.getCardId());
+		if(cardCoordinateEntity != null){
+			card.setLongitude(cardCoordinateEntity.getLongitude());
+			card.setLatitude(cardCoordinateEntity.getLatitude());
+		}
+		
 		return card;
 	}
 	
@@ -494,17 +542,21 @@ public class CardDaoImp implements CardDao {
 	 * @param card
 	 * @return
 	 */
-	private CardEntity getCardEntityFromBO(Card card) {
+	private CardEntity getCardEntityFromBO(Card card, Double[] coordiante) {
 		/*
 		 * type = 1 出租
 		 */
 		if (card instanceof RentCard) {
+			coordiante[0] = ((RentCard)card).getLongitude();
+			coordiante[1] = ((RentCard)card).getLatitude();
 			return this.getCardEntityFromRent((RentCard)card);
 		}
 		/*
 		 * type = 2 出售
 		 */
 		else if (card instanceof SellCard) {
+			coordiante[0] = ((RentCard)card).getLongitude();
+			coordiante[1] = ((RentCard)card).getLatitude();
 			return this.getCardEntityFromSell((SellCard)card);
 		}
 		/*
@@ -627,7 +679,7 @@ public class CardDaoImp implements CardDao {
 		cardEntity.setStatus(card.isStatus());
 		cardEntity.setDate(card.getDate());
 		cardEntity.setTitle(card.getTitle());
-		cardEntity.setIntroduction(cardEntity.getIntroduction());
+		cardEntity.setIntroduction(card.getIntroduction());
 		cardEntity.setLocation(card.getLocation());
 		cardEntity.setUnitType(card.getUnitType());
 	}

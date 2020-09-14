@@ -78,6 +78,8 @@ public class CardService {
 		card.setUnionNum(publishRequest.getUnionNum());
 		card.setPrice(publishRequest.getPrices()[0]);
 		card.setSquare(publishRequest.getSquares()[0]);
+		card.setLongitude(publishRequest.getCoordinates()[0]);
+		card.setLatitude(publishRequest.getCoordinates()[1]);
 		return card;
 	}
 	
@@ -93,6 +95,8 @@ public class CardService {
 		//card.setRequirement(cardEntity.getRequirement());
 		card.setPrice(publishRequest.getPrices()[0]);
 		card.setSquare(publishRequest.getSquares()[0]);
+		card.setLongitude(publishRequest.getCoordinates()[0]);
+		card.setLatitude(publishRequest.getCoordinates()[1]);
 		return card;
 	}
 	

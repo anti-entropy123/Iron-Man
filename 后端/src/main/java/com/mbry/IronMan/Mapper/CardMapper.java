@@ -80,6 +80,8 @@ public interface CardMapper {
 		@Param("userId")String userId, 
 		@Param("minDate")String minDate, 
 		@Param("maxDate")String maxDate);
+
+	public CardEntity[] queryRentSell();
 	
 	/**
 	 * 更新一条指定的Card

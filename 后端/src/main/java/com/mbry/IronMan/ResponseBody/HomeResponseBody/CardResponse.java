@@ -1,7 +1,5 @@
 package com.mbry.IronMan.ResponseBody.HomeResponseBody;
 
-import java.io.Serializable;
-
 import com.mbry.IronMan.BusinessObject.Card.AskRentCard;
 import com.mbry.IronMan.BusinessObject.Card.AskSellCard;
 import com.mbry.IronMan.BusinessObject.Card.RentCard;
@@ -16,16 +14,16 @@ public class CardResponse extends DefaultResponse {
     private static final long serialVersionUID = -1038013217654236746L;
 
 
-    public class Data implements Serializable {
+    public class Data /*implements Serializable*/ {
         /**
          *
          */
-        private static final long serialVersionUID = -5901321498254340640L;
-        public class Card implements Serializable {
+      //  private static final long serialVersionUID = -5901321498254340640L;
+        public class Card /*implements Serializable*/ {
             /**
              *
              */
-            private static final long serialVersionUID = -4255988525432960030L;
+            //private static final long serialVersionUID = -4255988525432960030L;
             private String cardId;
             private int type;
             private String title;
@@ -35,7 +33,8 @@ public class CardResponse extends DefaultResponse {
             private String location;
             private Boolean hasHouseResource;
             private String introduction;
-    
+            private Double[] coordinates;
+
             public Card() {
             }
         
@@ -48,7 +47,8 @@ public class CardResponse extends DefaultResponse {
                     double[] squares,
                     String location,
                     Boolean hasHouseResource,
-                    String introduction) {
+                    String introduction,
+                    Double[] coordinates) {
                 this.cardId = cardId;
                 this.type = type;
                 this.title = title;
@@ -58,6 +58,7 @@ public class CardResponse extends DefaultResponse {
                 this.location = location;
                 this.hasHouseResource = hasHouseResource;
                 this.introduction = introduction;
+                this.coordinates = coordinates;
             }
         
             public String getCardId() {
@@ -124,14 +125,23 @@ public class CardResponse extends DefaultResponse {
                 this.hasHouseResource = hasHouseResource;
             }
     
-            public String getIntroduction(String introduction) {
+            public String getIntroduction() {
                 return this.introduction;
             }
         
             public void setIntroduction(String introduction) {
                 this.introduction = introduction;
             }
+
+            public Double[] getCoordinates() {
+                return this.coordinates;
+            }
+        
+            public void setCoordinates(Double[] coordinates) {
+                this.coordinates = coordinates;
+            }
         }
+
         private Card[] cards;
     
         public Data() {
@@ -149,6 +159,7 @@ public class CardResponse extends DefaultResponse {
                 double[] prices;
                 double[] squares;
                 Boolean hasHouseResource = null;
+                Double[] coordinates = new Double[2];
                 if(_card instanceof RentCard){
                     type = 1;
                     RentCard rc = (RentCard)_card;
@@ -156,6 +167,8 @@ public class CardResponse extends DefaultResponse {
                     prices[0] = rc.getPrice();
                     squares = new double[1];
                     squares[0] = rc.getSquare();
+                    coordinates[0] = rc.getLongitude();
+                    coordinates[1] = rc.getLatitude();
                 }else if(_card instanceof SellCard){
                     type = 2;
                     SellCard sc = (SellCard)_card;
@@ -163,6 +176,8 @@ public class CardResponse extends DefaultResponse {
                     prices[0] = sc.getPrice();
                     squares = new double[1];
                     squares[0] = sc.getSquare();
+                    coordinates[0] = sc.getLongitude();
+                    coordinates[1] = sc.getLatitude();
                 }else if(_card instanceof AskRentCard){
                     type = 3;
                     AskRentCard arc = (AskRentCard)_card;
@@ -202,7 +217,8 @@ public class CardResponse extends DefaultResponse {
                     squares, 
                     _card.getLocation(), 
                     hasHouseResource, 
-                    _card.getIntroduction()
+                    _card.getIntroduction(),
+                    coordinates
                 );
             }
         }
@@ -228,6 +244,14 @@ public class CardResponse extends DefaultResponse {
         super(result, message);
         this.data = data;
     } 
+
+    public CardResponse(
+        com.mbry.IronMan.BusinessObject.Card.Card[] cards,
+        int result,
+        String message){
+        super(result, message);
+        this.data = new Data(cards);
+    }
 
     public Data getData() {
         return this.data;

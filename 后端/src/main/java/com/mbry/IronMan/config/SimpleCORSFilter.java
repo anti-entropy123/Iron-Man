@@ -1,4 +1,4 @@
-package com.mbry.IronMan;
+package com.mbry.IronMan.config;
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -19,9 +19,11 @@ public class SimpleCORSFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
 		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, PATCH, OPTIONS, DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
 		response.setHeader("Access-Control-Allow-Headers", "content-type, x-requested-with,authorization,X-XSRF-TOKEN");
+		
 		if (!request.getMethod().equalsIgnoreCase("OPTIONS")) {
 			chain.doFilter(req, res);
 		} else {

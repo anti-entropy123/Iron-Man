@@ -43,6 +43,7 @@ public class JwtTokenUtil implements Serializable {
             final Claims claims = getClaimsFromToken(token);
             id = claims.get(CLAIM_KEY_USERNAME).toString();
             auth = claims.get(CLAIM_KEY_AUTH).toString();
+            System.out.println("[+] openId: " + id + "\n[+] auth: " + auth);
         } catch (Exception e) {
             id = null;
             auth = null;
@@ -53,7 +54,9 @@ public class JwtTokenUtil implements Serializable {
     public String getOpenIdFromToken(String token){
         try {
             final Claims claims = getClaimsFromToken(token);
-            return claims.get(CLAIM_KEY_USERNAME).toString();
+            String openId = claims.get(CLAIM_KEY_USERNAME).toString();
+            System.out.println("[+] openId: " + openId);
+            return openId;
         } catch (Exception e) {
             return null;
         }

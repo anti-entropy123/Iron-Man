@@ -72,9 +72,12 @@ public class DetailService {
         double[] squares = (type==1 || type == 2)? new double[1]:new double[2];
         String requirement = "";
         int unionNum = -1;
+        Double[] coordinates = new Double[2]; 
         if(type == 1 || type == 2){
             prices[0] = ((type == 1)?((RentCard)card).getPrice():((SellCard)card).getPrice());
             squares[0] = ((type == 1)?((RentCard)card).getSquare():((SellCard)card).getSquare());
+            coordinates[0] = ((type == 1)?((RentCard)card).getLongitude():((SellCard)card).getLongitude());
+            coordinates[1] = ((type == 1)?((RentCard)card).getLatitude():((SellCard)card).getLatitude());
             if(type == 1){
                 requirement = ((RentCard)card).getRequirement();
                 unionNum = ((RentCard)card).getUnionNum();
@@ -121,7 +124,8 @@ public class DetailService {
                                                 card.getUnitType(),
                                                 card.isStatus(),
                                                 unionNum,
-                                                card.getUserId()
+                                                card.getUserId(),
+                                                coordinates
                                                 );
         response.setData(data);
         response.setResult(1);
@@ -190,7 +194,7 @@ public class DetailService {
                 // 没有匹配的队伍, 说明是个人整租
                 persons.add(data.new Person(
                         userDao.queryUserByOpenId(applicant),
-                        cardApp.getApplicantId()));
+                        cardApp.getApplicationId()));
             }else{
                 ArrayList<GetApplyResponse.Data.Team.Member> paramsMembers = new ArrayList<>();
                 GetApplyResponse.Data.Team paramsTeam = data.new Team(team.getTeamId(), null, cardApp.getApplicationId());
