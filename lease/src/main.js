@@ -2,22 +2,29 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+
 import ElementUI from 'element-ui'
 import './theme/index.css'
 import qs from 'qs'
 import axios from 'axios'
-
+import router from './router'
 Vue.prototype.$http = axios
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://188.131.227.20:8080' // 关键步骤–填写后台请求统一的地址
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-// axios.defaults.headers.post['x-csrf-token'] = localStorage.getItem('token')
+axios.defaults.baseURL = ''
+axios.defaults.baseURL = 'http://188.131.227.20:1314'
+Vue.config.productionTip = false
+// 关键步骤–填写后台请求统一的地址
+// axios.defaults.headers.post['Content-Type'] = 'application/json'
+// axios.defaults.headers.post['Authorization'] = localStorage.getItem('token')
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = "*"
 
 axios.interceptors.request.use((config) => {
-  if (config.method === 'post') {
-    config.data = qs.stringify(config.data)
+  const USER_TOKEN = sessionStorage.getItem('token')
+  if(USER_TOKEN && !config.url.includes('login')){
+    config.headers.Authorization = "Bearer "+ USER_TOKEN
   }
+   config.headers['Access-Control-Allow-Origin'] = '*'
+    config.headers['Access-Control-Allow-Credentials'] = 'true'
   return config
 }, (error) => {
   return Promise.reject(error)

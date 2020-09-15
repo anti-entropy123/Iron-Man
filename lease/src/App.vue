@@ -11,16 +11,17 @@
           </div>
           <div class="line"></div>
           <div class="menu">
-            <router-link to="/rent" class="menu-item">租赁</router-link>
-            <router-link to="/user" class="menu-item">用户</router-link>
+            <router-link to="/rent" class="menu-item">帖子管理</router-link>
+            <router-link to="/user" class="menu-item">用户管理</router-link>
           </div>
         </div>
       </el-col>
       <el-col :span="20" >
         <div class="container" >
           <div class="headline ">
-            <div >北洋房屋租售信息管理系统</div>
-            <div class="login_btn" @click="goLogin" >{{login_status}}</div>
+            <div @click="goHome">北洋房屋租售信息管理系统</div>
+            <div v-if="this.login_status==='点击登陆'" class="login_btn" @click="goLogin" >{{login_status}}</div>
+            <div v-if="this.login_status==='登出'" class="login_btn" @click="goLogout" >{{login_status}}</div>
           </div>
         </div>
         <router-view @myEvent="handle"></router-view>
@@ -35,8 +36,8 @@ export default {
   data () {
     return {
       adm:{
-        name:'yjn',
-        url:'/static/yjn.png'
+        name:'请登陆',
+        url:'/static/avatar.png'
       },
       login_status: '点击登陆'
     }
@@ -46,8 +47,22 @@ export default {
       this.login_status=''
       this.$router.push('/login')
     },
+    goHome (){
+      this.$router.push('/')
+    },
     handle(){
+      this.adm.name= sessionStorage.getItem('username')
+      this.adm.url= sessionStorage.getItem('userImage')
       this.login_status='登出'
+    },
+    goLogout(){
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('username')
+      sessionStorage.removeItem('userImage')
+      this.adm.name= '请先登陆'
+      this.adm.url= '/static/avatar.png'
+      this.login_status=''
+      this.$router.replace('/login')
     }
   },
   computed : {
@@ -59,11 +74,8 @@ export default {
 }
 </script>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
+<style scoped>
+
 .menu-item {
   color: #fff;
   cursor: pointer;
@@ -104,24 +116,22 @@ export default {
   flex-direction: column;
   line-height: 35px
 }
-.shadow {
-  box-shadow: 5px 5px 5px #c0c0c0;
-  border-radius: 10px;
-}
+
 .headline{
   height: 80px;
   background-color: #fdfdfd;
-  opacity: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Adobe 楷体 Std R";
   font-size: x-large;
 }
+
   .login_btn {
     font-size:14px;
     position: absolute;
-    top:20px;right:15px;
+    top:28px;
+    right:20px;
     cursor: pointer;
     color: #41bcfe
   }

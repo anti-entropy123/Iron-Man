@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbry.IronMan.Mapper.LogMapper">
+
+    <resultMap id="LogMap" type="com.mbry.IronMan.entity.LogEntity">
+        <result property="logId" column="log_id"/>
+        <result property="type" column="type"/>
+        <result property="cardId" column="card_id"/>
+        <result property="applyId" column="apply_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="aimUserId" column="aim_user_id"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <insert id="insertLog" parameterType="com.mbry.IronMan.entity.LogEntity">
+        INSERT INTO 
+            log(
+                type,
+                card_id,
+                apply_id,
+                user_id,
+                aim_user_id,
+                status
+            )
+        VALUES(
+            #{type},
+            #{cardId},
+            #{applyId},
+            #{userId},
+            #{aimUserId},
+            #{status}
+        )
+    </insert>
+
+    <delete id="deleteLog" parameterType="java.lang.String">
+        DELETE FROM log
+        WHERE log_id = #{logId}
+    </delete>
+
+    <delete id="deleteLogByApplyId" parameterType="java.lang.String">
+        DELETE FROM log
+        WHERE apply_id = #{applyId}
+    </delete>
+
+    <select id="queryLogEntityByAimUserId" parameterType="java.lang.String" resultMap="LogMap">
+        SELECT * FROM log
+        WHERE aim_user_id = #{aimUserId}
+    </select>
+
+    <update id="setTrueByApplyId" parameterType="java.lang.String">
+        UPDATE log
+        SET status = 1
+        WHERE apply_id = #{applyId}
+    </update>
+
+    <update id="setTrueByLogId" parameterType="int">
+        UPDATE log
+        SET status = 1
+        WHERE log_id = #{logId}
+    </update>
+    
+</mapper>

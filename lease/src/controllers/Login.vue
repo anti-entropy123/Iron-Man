@@ -1,7 +1,9 @@
 <template>
     <div>
       <div class="container">
-        <img src="/static/yjn.png" class ="img">
+        <div class="mbry">
+          <img src="static/mbry.png">
+        </div>
         <el-input
           class="input"
           placeholder="请输入账号"
@@ -42,54 +44,51 @@
         if(this.loginForm.inputUser === '' || this.loginForm.inputPassword===''){
           this.$message.warning('账号或密码不能为空')
         } else {
-          this.$emit('myEvent')
-          this.$router.push({
-            path:'/user'
+          this.$http.post(`/api/adm/login`,{
+            account:this.loginForm.inputUser,
+            password:this.loginForm.inputPassword
+          }).then(res =>{
+            console.log(res);
+            if (res.status!=200 || res.data.result==0){
+              let message = res.data.message
+              _this.$message.error(message)
+            } else {
+              sessionStorage.setItem('token', res.data.token)
+              sessionStorage.setItem('username', '尤嘉宁');
+              sessionStorage.setItem('userImage', '/static/yjn.png')
+              _this.$message.success("登录成功")
+              this.$emit('myEvent')
+              this.$router.push({
+                path:'/user'
+              })
+            }
+          }).catch(err=>{
+            _this.$message.error('系统出错')
           })
-          // this.$http.post ('/api/adm/login',{
-          //   account: this.loginForm.inputUser,
-          //   password: this.loginForm.password
-          // }).then( res=>{
-          //   console.log(res);
-          //
-          //   if (res.response && res.response.status!=200){
-          //     let message = res.response.data.message
-          //     _this.$message.error(message)
-          //   } else {
-          //     sessionStorage.setItem('token', res.data.token)
-          //     _this.$message.success("登录成功，请手动刷新")
-          //     let a = this.$route.params.id
-          //     // window.location = a
-          //     _this.$router.push(a)
-          //   }
-          // }).catch(err=>{
-          //   _this.$message.error('系统出错')
-          // })
-
         }
 
       },
-
     },
     computed : {
-
     }
   }
 </script>
 
 <style scoped>
 .container {
+  padding-top: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column
 }
-.img {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-top: 90px;
+.mbry {
+  height: 70px;
+  width: 300px;
+}
+.mbry img{
+  height: 70px;
+  width: 300px;
 }
 .input{
   padding-top: 10px;
@@ -99,7 +98,7 @@
   margin-top: 25px;
   width: 20%;
   background-color: #3c3f41;
-  opacity: 50%;
+  opacity: 0.5;
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
       <div class="shadow search" >
         <div style="font-size: larger">查询</div>
         <el-row :gutter="10" style="margin-top: 10px;margin-bottom:10px">
@@ -10,7 +10,7 @@
             <el-input
               placeholder="请输入内容"
               v-model="search_input_nickname"
-              @keyup.enter.native="goSearch(search_input_nickname,search_input_userId,search_input_mobileNumber)"
+              @keyup.enter.native="getSearch(search_input_nickname,search_input_userId,search_input_mobileNumber)"
               clearable>
             </el-input>
           </el-col>
@@ -21,7 +21,7 @@
             <el-input
               placeholder="请输入内容"
               v-model="search_input_userId"
-              @keyup.enter.native="goSearch(search_input_nickname,search_input_userId,search_input_mobileNumber)"
+              @keyup.enter.native="getSearch()"
               clearable>
             </el-input>
           </el-col>
@@ -31,20 +31,23 @@
           <el-col :span="4">
             <el-input
               placeholder="请输入内容"
-              v-model="search_input_nickname"
-              @keyup.enter.native="goSearch(search_input_nickname,search_input_userId,search_input_mobileNumber)"
+              v-model="search_input_mobileNumber"
+              @keyup.enter.native="getSearch()"
               clearable>
             </el-input>
           </el-col>
           <el-col :offset="1" :span="2" >
-            <div class="search_btn" @click="goSearch(search_input_nickname,search_input_userId,search_input_mobileNumber)">搜索</div>
+            <div class="search_btn" @click="getSearch()">搜索</div>
           </el-col>
         </el-row>
 
       </div>
       <div class="shadow content">
-        <el-row class="inner-title">
-          用户信息
+        <el-row>
+        <el-col :span="4" class="inner-title">用户信息</el-col>
+        <el-col :offset="17" :span="2">
+          <el-button type="danger" style="margin-top: -5px;" @click="handleDeletes">批量删除</el-button>
+        </el-col>
         </el-row>
         <el-row>
           <el-table
@@ -63,49 +66,50 @@
               prop="userId"
               label="userId"
               align="center"
-              width="80">
+              width="250"
+             :show-overflow-tooltip='true'>
             </el-table-column>
             <el-table-column
               prop="nickname"
               label="姓名"
               align="center"
-              width="100">
+              width="120">
             </el-table-column>
             <el-table-column
               align="center"
               prop="sex"
               label="性别"
-              width="60">
+              width="80">
+              <template slot-scope="scope">
+                <div > {{ scope.row.sex|filters1 }}</div>
+
+              </template>
             </el-table-column>
 
             <el-table-column
               prop="mobileNumber"
               label="手机号"
               align="center"
-              width="150">
+              width="200">
             </el-table-column>
             <el-table-column
               prop="introduction"
               label="介绍"
               align="center"
-              width="350">
+              width="400"
+              :show-overflow-tooltip='true'>
             </el-table-column>
-            <el-table-column
-              prop="introduction"
-              label="介绍"
-              align="center"
-              width="350">
-            </el-table-column>
+
             <el-table-column
               label="操作"
-              width="100"
+              width="150"
               align="center"
             >
               <template slot-scope="scope" >
                 <el-button
                   size="mini"
                   type="danger"
-                  @click="handleDeleteUser(scope.$index, scope.row)">删除</el-button>
+                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -116,26 +120,46 @@
               :current-page.sync="currentPage"
               :page-size="8"
               layout="prev, pager, next, jumper"
-              :total="100">
+              :total="totalPage">
             </el-pagination>
           </div>
         </el-row>
       </div>
+
+
     </div>
 </template>
 
 <script>
   export default {
     name: "User",
+    mounted () {
+     const token = sessionStorage.getItem('token')?true:false
+      let _this = this
+      if(token){
+        this.$nextTick(function (){
+          _this.getUser()
+        })
+      }else{
+        _this.$message.warning(
+          "请先登录后查看"
+        )
+        _this.$message(
+          "3s后为您跳转到登陆界面"
+        )
+        setTimeout(()=>{
+          this.$route.replace('/login')
+        },3000)
+      }
+     },
     data () {
       return {
         search_input_nickname:'',
         search_input_userId:'',
         search_input_mobileNumber:'',
-
         currentPage: 1,
-
-        options: [{
+        options: [
+          {
           value: '选项1',
           label: '出售'
         }, {
@@ -149,73 +173,12 @@
           label: '求租'
         }
         ],
-
-        tableData: [
-          {
-            "userId": "001",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "002",
-            "nickname": "yjn",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A114",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "003",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "004",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "005",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "006",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "007",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-          {
-            "userId": "008",
-            "nickname": "mxf",
-            "sex": "Y",
-            "introduction": "天津大学北洋园校区诚园8斋A115",
-            "mobileNumber": "18722648040"
-          },
-        ],
+        totalPage:2,
+        tableData: [],
         multipleSelection: [],
-
       }
     },
     methods: {
-      changeChoose (data) {
-        this.choose = data;
-      },
       toggleSelection(rows) {
         if (rows) {
           rows.forEach(row => {
@@ -227,27 +190,100 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
-        console.log(val)
       },
       handleView(index, row) {
         console.log(index, row);
       },
       handleDelete(index, row) {
-        console.log(index, row);
-      },
+        /**
+         * todo 删除指定用户
+           * /api/adm/deleteUser/
+         */
+        let _this = this
+        this.$http.post('/api/adm/deleteUser/',{
+          userIds:[_this.tableData[index].userId],
+        }).then(res=>{
+          console.log(res)
+          _this.$message.success("删除成功")
+        }).catch(err=>{
+          console.log(err)
+        })
+        setTimeout(()=>{
+          this.getUser()
+        },3000)
 
-      handleDeleteUser(index, row) {
-        console.log(index, row);
+      },
+      handleDeletes() {
+
+        console.log(this.multipleSelection)
+        /**
+         * 获取userId 数组然后批量删除
+         * /api/adm/deleteUser/
+         * */
+        let arr = this.multipleSelection
+        let _this = this
+        let userIds=new Array()
+        for ( let i = 0; i <arr.length; i++){
+          userIds[i] = arr[i].userId
+        }
+        this.$http.post('/api/adm/deleteUser/',{
+          userIds:userIds,
+        }).then(res=>{
+          console.log(res)
+          _this.$message.success("删除成功")
+        }).catch(err=>{
+          console.log(err)
+        })
+        setTimeout(()=>{
+          _this.getUser()
+        },1000)
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+        this.getUser()
+        this.$message.success("查询成功")
       },
-
+      getSearch () {
+        this.getUser()
+        this.$message.success("查询成功")
+      },
+      getUser(){
+        /**
+         * todo 获取用户信息
+         * /api/adm/getUser/
+         */
+        let _this = this
+        this.$http.get(`/api/adm/getUser/`,{
+          params:{
+            nickname:_this.search_input_nickname,
+            userId:_this.search_input_userId,
+            mobileNumber:_this.search_input_mobileNumber,
+            page:this.currentPage
+          }
+        }).then(res=>{
+          console.log(res.data.totalPage)
+          _this.tableData=res.data.data
+          _this.totalPage=parseInt(res.data.totalPage)
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
     },
-    computed : {
+    filters: {
+      filters1: function(arg) {
+        if (!arg && typeof arg != "undefined" && arg != 0)
+        {
+          return '保密';
+        } else if (arg) {
+          return '男';
+        } else {
+          return '女';
+        }
+      },
+    },
+    computed:{
 
     }
   }
