@@ -62,7 +62,7 @@ public class HttpRequestUtil {
             String checkCode){
         String url = "https://api.binstd.com/sms/send";
         // todo 在这里编辑经审核的短信模板.
-        String param = "mobile=" + mobile + "&content=【北洋房屋租赁】用户您好。\n您的验证码是: "+ checkCode + "&appkey=yourappkey";
+        String param = "mobile=" + mobile + "&content=您的手机验证码为"+ checkCode +"，5分钟内有效。请不要把此验证码泄露给任何人。【MBRY】&appkey=16e666a737db0889";
         sendHttpRequest(url, param);
         return true;
     }

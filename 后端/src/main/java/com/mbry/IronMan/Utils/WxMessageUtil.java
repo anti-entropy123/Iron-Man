@@ -7,7 +7,12 @@ import com.mbry.IronMan.JsonBean.GetAccessTokenResponse;
 import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 @Component
 public class WxMessageUtil {
@@ -41,23 +46,24 @@ public class WxMessageUtil {
 
     public void sendMessage(WxMessageRequestBody.Data data, String touser) {
         getAccessToken();
-        // String templateId = null;
-        // String page = null;
-        // String fromId = null;
-        // WxMessageRequestBody wxMessageRequestBody = new WxMessageRequestBody(
-        //     touser,
-        //     templateId,
-        //     page,
-        //     fromId,
-        //     data
-        // );
-        // HttpHeaders headers = new HttpHeaders();
-        // headers.setContentType(MediaType.APPLICATION_JSON);
-        // String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + getAccessToken();
-        // HttpEntity<WxMessageRequestBody> entity = new HttpEntity<WxMessageRequestBody>(wxMessageRequestBody, headers);
-        // RestTemplate restTemplate = new RestTemplate();
-        // ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, entity, String.class);
-        // String user = responseEntity.getBody();
+        String templateId = "73JjfMviVMAqVmYLWRL18iALfyTRfnH8zus0x4ydvDU";
+        String page = null;
+        String formId = "null";
+        WxMessageRequestBody wxMessageRequestBody = new WxMessageRequestBody(
+            touser,
+            templateId,
+            page,
+            formId,
+            data
+        );
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + getAccessToken();
+        HttpEntity<WxMessageRequestBody> entity = new HttpEntity<WxMessageRequestBody>(wxMessageRequestBody, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, entity, String.class);
+        String user = responseEntity.getBody();
+        System.out.println(user);
         /*
         {
             "errcode": 0,

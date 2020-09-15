@@ -5,10 +5,42 @@ public class WxMessageRequestBody {
     // http://www.ionic.wang/weixin/api/notice.html#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
     
     public class Data {
+
+        public Param character_string1;
+
+        public Param phrase2;
+
         public Data(){}
         
         public Data(int type) {
-            // todo 
+            this.character_string1 = new Param();
+            character_string1.setValue("消息提醒");
+            character_string1.setColor("#173177");
+            this.phrase2 = new Param();
+            phrase2.setValue(Integer.toString(type));
+            phrase2.setColor("#173177");
+        }
+    }
+
+    public class Param {
+        private String value;
+        private String color;
+        public Param() {}
+        public Param(String value, String color) {
+            this.setValue(value);
+            this.setColor(color);
+        }
+        public String getValue() {
+            return value;
+        }
+        public void setValue(String value) {
+            this.value = value;
+        }
+        public String getColor() {
+            return color;
+        }
+        public void setColor(String color) {
+            this.color = color;
         }
     }
     
@@ -33,7 +65,7 @@ public class WxMessageRequestBody {
     /**
      * true
      */
-    private String from_id;
+    private String form_id;
 
     /**
      * true
@@ -57,7 +89,7 @@ public class WxMessageRequestBody {
         this.setTouser(touser);
         this.setTemplate_id(template_id);
         this.setPage(page);
-        this.setFrom_id(from_id);
+        this.setForm_id(from_id);
         this.setData(data);
     }
 
@@ -85,12 +117,12 @@ public class WxMessageRequestBody {
 		this.page = page;
 	}
 
-	public String getFrom_id() {
-		return from_id;
+	public String getForm_id() {
+		return form_id;
 	}
 
-	public void setFrom_id(String from_id) {
-		this.from_id = from_id;
+	public void setForm_id(String form_id) {
+		this.form_id = form_id;
 	}
 
 	public Data getData() {
