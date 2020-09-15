@@ -1,4 +1,4 @@
-package com.mbry.IronMan.config;
+package com.mbry.IronMan.Config;
 
 // import java.io.File;
 

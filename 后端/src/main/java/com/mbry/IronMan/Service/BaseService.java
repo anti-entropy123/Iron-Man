@@ -4,15 +4,17 @@ import com.alibaba.fastjson.JSON;
 // import com.fasterxml.jackson.databind.JsonNode;
 // import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbry.IronMan.BusinessObject.User;
+import com.mbry.IronMan.BusinessObject.other.JsonBean.JscodeToSession;
 import com.mbry.IronMan.Dao.UserDao;
-import com.mbry.IronMan.JsonBean.JscodeToSession;
+
 import com.mbry.IronMan.Mapper.AdmInfoMapper;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.BaseResponseBody.LoginToken;
 import com.mbry.IronMan.Utils.HttpRequestUtil;
 import com.mbry.IronMan.Utils.JwtTokenUtil;
+import com.mbry.IronMan.Utils.Global.CheckCode;
 import com.mbry.IronMan.entity.AdmInfoEntity;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -87,22 +89,20 @@ public class BaseService {
             int index = (int)(Math.random()*letterTable.length());
             checkCode += letterTable.charAt(index);
         }
-        Global.mobileToCheckCode.put(mobileNum, checkCode);
+        CheckCode checkCodeEntity = new CheckCode(checkCode);
+        Global.mobileToCheckCode.put(mobileNum, checkCodeEntity);
         httpRequestUtil.sendSMSMessage(mobileNum, checkCode);
         return new DefaultResponse(1, "");
     }
 
     public DefaultResponse bindMobile(String userId, String checkcode, String mobileNum){
-        String trueCode = Global.mobileToCheckCode.remove(mobileNum);
-        int result = 1;
-        String message = "";
-        if(trueCode != null && trueCode.equals(checkcode)){
+        CheckCode trueCode = Global.mobileToCheckCode.get(mobileNum);
+        if(trueCode != null && trueCode.isExpire() && trueCode.getCheckCode().equals(checkcode)){
+            Global.mobileToCheckCode.remove(mobileNum);
             userDao.bindMobileNumberByUserId(userId, mobileNum);
-            result = 1;
+            return new DefaultResponse(1, "");
         }else{
-            result = 0;
-            message = "验证码错误";
+            return new DefaultResponse(1, "验证码错误");
         }
-        return new DefaultResponse(result, message);
     }
 }

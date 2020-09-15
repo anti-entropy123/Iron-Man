@@ -1,4 +1,4 @@
-package com.mbry.IronMan.JsonBean;
+package com.mbry.IronMan.BusinessObject.other.JsonBean;
 
 import java.io.Serializable;
 

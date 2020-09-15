@@ -74,4 +74,20 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
+
+    // @Override
+    // protected boolean preHandle(ServletRequest request, ServletResponse response){
+    //     HttpServletRequest httpServletRequest = (HttpServletRequest)request;
+    //     HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+
+    //     httpServletResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+    //     // httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+    //     httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,PATCH,OPTIONS,DELETE");
+    //     httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
+    //     if(httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())){
+    //         return false;
+    //     }
+        
+    //     return true;
+    // }
 }

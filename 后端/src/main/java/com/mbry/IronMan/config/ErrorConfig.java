@@ -1,4 +1,4 @@
-package com.mbry.IronMan.config;
+package com.mbry.IronMan.Config;
 
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;

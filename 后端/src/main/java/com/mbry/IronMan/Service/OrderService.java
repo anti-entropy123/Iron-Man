@@ -8,7 +8,7 @@ import com.mbry.IronMan.Dao.ApplicationDao;
 import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetCompleteOrdResponse;
 import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetIncompleteOrdResponse;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

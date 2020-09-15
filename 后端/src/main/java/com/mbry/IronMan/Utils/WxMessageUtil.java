@@ -3,7 +3,7 @@ package com.mbry.IronMan.Utils;
 import java.util.Date;
 
 import com.alibaba.fastjson.JSON;
-import com.mbry.IronMan.JsonBean.GetAccessTokenResponse;
+import com.mbry.IronMan.BusinessObject.other.JsonBean.GetAccessTokenResponse;
 import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 
 import org.springframework.beans.factory.annotation.Autowired;

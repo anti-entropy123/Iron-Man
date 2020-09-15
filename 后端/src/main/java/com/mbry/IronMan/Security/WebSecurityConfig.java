@@ -1,7 +1,5 @@
 package com.mbry.IronMan.Security;
 
-import com.mbry.IronMan.Security.JwtAuthenticationTokenFilter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

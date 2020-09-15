@@ -19,7 +19,7 @@ import com.mbry.IronMan.Mapper.ImageMapper;
 import com.mbry.IronMan.Mapper.UncompleteCardMapper;
 import com.mbry.IronMan.entity.CardCoordinateEntity;
 import com.mbry.IronMan.entity.CardEntity;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 
 @Service

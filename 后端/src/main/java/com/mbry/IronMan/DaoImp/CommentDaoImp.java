@@ -11,7 +11,7 @@ import com.mbry.IronMan.BusinessObject.Comment.Reply;
 import com.mbry.IronMan.Dao.CommentDao;
 import com.mbry.IronMan.Mapper.CommentMapper;
 import com.mbry.IronMan.entity.CommentEntity;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 @Service
 public class CommentDaoImp implements CommentDao {

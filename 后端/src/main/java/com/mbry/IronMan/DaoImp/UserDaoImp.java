@@ -16,7 +16,7 @@ import com.mbry.IronMan.Mapper.TeamMapper;
 import com.mbry.IronMan.Mapper.TeamMemberMapper;
 import com.mbry.IronMan.Mapper.UserMapper;
 import com.mbry.IronMan.entity.UserEntity;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 @Service
 public class UserDaoImp implements UserDao {
