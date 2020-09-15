@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "navigation": "/components/navigation/navigation",
+    "addimg": "/components/addimg/add-img",
+    "uni-combox": "/components/uni-combox/uni-combox",
+    "pca-picker": "/components/pcaPicker/pcaPicker"
+  }
+}

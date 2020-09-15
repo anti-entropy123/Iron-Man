@@ -1,0 +1,1 @@
+<view class="orderlist"><view style="text-align:center;"><navigation vue-id="1" config="{{config}}" data-event-opts="{{[['^customConduct',[['customConduct']]]]}}" bind:customConduct="__e" bind:__l="__l"></navigation></view></view>

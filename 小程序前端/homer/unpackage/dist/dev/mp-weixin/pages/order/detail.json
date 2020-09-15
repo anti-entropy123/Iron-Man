@@ -1,0 +1,11 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "navigation": "/components/navigation/navigation",
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot",
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "uni-pop": "/components/uni-popup/uni-pop"
+  }
+}
