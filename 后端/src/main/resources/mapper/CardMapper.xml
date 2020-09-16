@@ -96,18 +96,20 @@
 		</if>
 		<if test="maxPrice > 0">
 			AND max_price &lt;= #{maxPrice}
+			AND min_price &lt;= #{maxPrice}
 		</if>	
 		<if test="minSquare >= 0">
 			AND min_square &gt;= #{minSquare}
 		</if>
 		<if test="maxSquare > 0">
 			AND max_square &lt;= #{maxSquare}
+			AND min_square &lt;= #{maxSquare}
 		</if>
 		<if test="unitType >= 0">
 			AND unit_type = #{unitType}
 		</if>
 		<if test="hasHouseResource != null">
-			AND has_house_resource = # {hasHouseResource}
+			AND has_house_resource = #{hasHouseResource}
 		</if>
 		ORDER BY date DESC
 		LIMIT #{startIndex},#{pageSize}

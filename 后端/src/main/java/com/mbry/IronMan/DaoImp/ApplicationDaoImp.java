@@ -44,7 +44,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 
 	@Override
-	public boolean processApplication(TeamApplication app) {
+	public Boolean processApplication(TeamApplication app) {
 		try {
 			teamApplicationMapper.updateStatusByTeamApplicationId(app.getApplicationId(), true);
 			return true;
@@ -55,7 +55,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 
 	@Override
-	public boolean processApplication(CardApplication app) {
+	public Boolean processApplication(CardApplication app) {
 		try {
 			applicationMapper.updateStatusByApplicationId(app.getApplicationId(), true);
 			return true;
@@ -121,6 +121,11 @@ public class ApplicationDaoImp implements ApplicationDao {
 			applications.add((CardApplication)(this.getApplicationFromEntity(ae)));
 		}
 		return applications.toArray(new CardApplication[applications.size()]);
+	}
+
+	@Override
+	public Integer haveApplication(String cardId, String userId) {
+		return applicationMapper.queryApplicationByCardIdAndUserId(cardId, userId);
 	}
 	/**
 	 * 将CardApplication转为ApplicationEntity

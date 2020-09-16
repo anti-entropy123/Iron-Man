@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public boolean updateUserInfo(UpdateInfoRequest updateInfoRequest) {
+    public Boolean updateUserInfo(UpdateInfoRequest updateInfoRequest) {
         User user = new User(
             updateInfoRequest.getUserId(),
             updateInfoRequest.getName(),

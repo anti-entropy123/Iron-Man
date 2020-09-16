@@ -92,21 +92,21 @@ public interface CardDao {
      * @param card
      * @return
      */
-    public boolean createCard(Card card);
+    public Boolean createCard(Card card);
     
     /**
      * 根据cardId更新数据
      * @param card
      * @return
      */
-    public boolean updateCard(Card card);
+    public Boolean updateCard(Card card);
 
     /**
      * 根据cardId, 将帖子状态更新为已完成
      * @param cardId
      * @return
      */
-    public boolean finishCard(String cardId);
+    public Boolean finishCard(String cardId);
 
     /**
      * 为某个用户记录未完成的订单
@@ -114,7 +114,7 @@ public interface CardDao {
      * @param cardId
      * @return
      */
-    public boolean recordUncompleteCardForUser(String userId, String cardId);
+    public Boolean recordUncompleteCardForUser(String userId, String cardId);
 
     /**
      * 删去某用户未完成订单的记录
@@ -122,7 +122,7 @@ public interface CardDao {
      * @param cardId
      * @return
      */
-    public boolean deleteUncompleteCardForUser(String userId, String cardId);
+    public Boolean deleteUncompleteCardForUser(String userId, String cardId);
 
     /**
      * 当前端请求查询用户参与的未完成的订单时, 通过此接口查询用户所参与的未完成订单(不包括自己发起的).

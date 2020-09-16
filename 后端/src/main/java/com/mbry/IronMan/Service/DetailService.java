@@ -65,11 +65,11 @@ public class DetailService {
         transCardToType.put(RoomMateCard.class, 5);
     };
 
-    public DetailCardResponse getCardDetail(String cardId){
+    public DetailCardResponse getCardDetail(String cardId, String userId){
         Card card = cardDao.queryCardByCardId(cardId);
         int type = transCardToType.get(card.getClass());
-        double[] prices = (type==1 || type == 2)? new double[1]:new double[2];
-        double[] squares = (type==1 || type == 2)? new double[1]:new double[2];
+        Double[] prices = (type==1 || type == 2)? new Double[1]:new Double[2];
+        Double[] squares = (type==1 || type == 2)? new Double[1]:new Double[2];
         String requirement = "";
         int unionNum = -1;
         Double[] coordinates = new Double[2]; 
@@ -107,7 +107,7 @@ public class DetailService {
                 unionNum = rmc.getUnionNum();
             }
         }
-
+        Integer hasApplied = applicationDao.haveApplication(card.getCardId(), userId);
         DetailCardResponse response = new DetailCardResponse();
         DetailCardResponse.Data data = response.new Data(
                                                 cardId,
@@ -125,7 +125,8 @@ public class DetailService {
                                                 card.isStatus(),
                                                 unionNum,
                                                 card.getUserId(),
-                                                coordinates
+                                                coordinates,
+                                                hasApplied
                                                 );
         response.setData(data);
         response.setResult(1);

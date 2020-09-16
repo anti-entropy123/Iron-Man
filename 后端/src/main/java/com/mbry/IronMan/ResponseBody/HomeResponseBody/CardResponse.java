@@ -28,8 +28,8 @@ public class CardResponse extends DefaultResponse {
             private int type;
             private String title;
             private String cover;
-            private double[] prices;
-            private double[] squares;
+            private Double[] prices;
+            private Double[] squares;
             private String location;
             private Boolean hasHouseResource;
             private String introduction;
@@ -43,8 +43,8 @@ public class CardResponse extends DefaultResponse {
                     int type,
                     String title,
                     String cover,
-                    double[] prices,
-                    double[] squares,
+                    Double[] prices,
+                    Double[] squares,
                     String location,
                     Boolean hasHouseResource,
                     String introduction,
@@ -93,19 +93,19 @@ public class CardResponse extends DefaultResponse {
                 this.cover = cover;
             }
     
-            public double[] getPrices() {
+            public Double[] getPrices() {
                 return this.prices;
             }
         
-            public void setPrices(double[] prices) {
+            public void setPrices(Double[] prices) {
                 this.prices = prices;
             }
     
-            public double[] getSquares() {
+            public Double[] getSquares() {
                 return this.squares;
             }
         
-            public void setSquares(double[] squares) {
+            public void setSquares(Double[] squares) {
                 this.squares = squares;
             }
     
@@ -140,6 +140,7 @@ public class CardResponse extends DefaultResponse {
             public void setCoordinates(Double[] coordinates) {
                 this.coordinates = coordinates;
             }
+
         }
 
         private Card[] cards;
@@ -156,53 +157,53 @@ public class CardResponse extends DefaultResponse {
             for(int i = 0; i < cards.length; ++i ){
                 int type = 0;
                 com.mbry.IronMan.BusinessObject.Card.Card _card = cards[i];
-                double[] prices;
-                double[] squares;
+                Double[] prices;
+                Double[] squares;
                 Boolean hasHouseResource = null;
                 Double[] coordinates = new Double[2];
                 if(_card instanceof RentCard){
                     type = 1;
                     RentCard rc = (RentCard)_card;
-                    prices = new double[1];
+                    prices = new Double[1];
                     prices[0] = rc.getPrice();
-                    squares = new double[1];
+                    squares = new Double[1];
                     squares[0] = rc.getSquare();
                     coordinates[0] = rc.getLongitude();
                     coordinates[1] = rc.getLatitude();
                 }else if(_card instanceof SellCard){
                     type = 2;
                     SellCard sc = (SellCard)_card;
-                    prices = new double[1];
+                    prices = new Double[1];
                     prices[0] = sc.getPrice();
-                    squares = new double[1];
+                    squares = new Double[1];
                     squares[0] = sc.getSquare();
                     coordinates[0] = sc.getLongitude();
                     coordinates[1] = sc.getLatitude();
                 }else if(_card instanceof AskRentCard){
                     type = 3;
                     AskRentCard arc = (AskRentCard)_card;
-                    prices = new double[2];
+                    prices = new Double[2];
                     prices[0] = arc.getMinPrice();
                     prices[1] = arc.getMaxPrice();
-                    squares = new double[2];
+                    squares = new Double[2];
                     squares[0] = arc.getMinSquare();
                     squares[1] = arc.getMaxPrice();
                 }else if(_card instanceof AskSellCard){
                     type = 4;
                     AskSellCard asc = (AskSellCard)_card;
-                    prices = new double[2];
+                    prices = new Double[2];
                     prices[0] = asc.getMinPrice();
                     prices[1] = asc.getMaxPrice();
-                    squares = new double[2];
+                    squares = new Double[2];
                     squares[0] = asc.getMinSquare();
                     squares[1] = asc.getMaxPrice();
                 }else{
                     type = 5;
                     RoomMateCard rmc = (RoomMateCard)_card;
-                    prices = new double[2];
+                    prices = new Double[2];
                     prices[0] = rmc.getMinPrice();
                     prices[1] = rmc.getMaxPrice();
-                    squares = new double[2];
+                    squares = new Double[2];
                     squares[0] = rmc.getMinSquare();
                     squares[1] = rmc.getMaxPrice();
                     hasHouseResource = rmc.isHasHouseResource();

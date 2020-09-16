@@ -46,7 +46,7 @@ public class DateUtil {
 		}
 	}
 
-	public boolean isLaterThanCurrentStartTime(long startTime){
+	public Boolean isLaterThanCurrentStartTime(long startTime){
 		return startTime - System.currentTimeMillis()>0;
 	}
 }

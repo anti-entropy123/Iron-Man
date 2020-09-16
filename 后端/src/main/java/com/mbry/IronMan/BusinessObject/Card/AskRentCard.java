@@ -2,10 +2,10 @@ package com.mbry.IronMan.BusinessObject.Card;
 
 public class AskRentCard extends Card{
     private int unionNum;
-    private double minPrice;
-    private double maxPrice;
-    private double minSquare;
-    private double maxSquare;
+    private Double minPrice;
+    private Double maxPrice;
+    private Double minSquare;
+    private Double maxSquare;
     private String requirement;
 
     public AskRentCard(){}
@@ -20,10 +20,10 @@ public class AskRentCard extends Card{
         int unitType,
         String requirement,
         int unionNum,
-        double minPrice,
-        double maxPrice,
-        double minSquare,
-        double maxSquare,
+        Double minPrice,
+        Double maxPrice,
+        Double minSquare,
+        Double maxSquare,
         String[] images
     ){
         super(cardId, userId, status, date, title, introduction, location, unitType, images);
@@ -43,35 +43,35 @@ public class AskRentCard extends Card{
 		this.unionNum = unionNum;
 	}
 	
-	public double getMinPrice() {
+	public Double getMinPrice() {
 		return minPrice;
 	}
 	
-	public void setMinPrice(double minPrice) {
+	public void setMinPrice(Double minPrice) {
 		this.minPrice = minPrice;
 	}
 	
-	public double getMaxPrice() {
+	public Double getMaxPrice() {
 		return maxPrice;
 	}
 	
-	public void setMaxPrice(double maxPrice) {
+	public void setMaxPrice(Double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
 	
-	public double getMinSquare() {
+	public Double getMinSquare() {
 		return minSquare;
 	}
 	
-	public void setMinSquare(double minSquare) {
+	public void setMinSquare(Double minSquare) {
 		this.minSquare = minSquare;
 	}
 	
-	public double getMaxSquare() {
+	public Double getMaxSquare() {
 		return maxSquare;
 	}
 	
-	public void setMaxSquare(double maxSquare) {
+	public void setMaxSquare(Double maxSquare) {
 		this.maxSquare = maxSquare;
 	}
 	

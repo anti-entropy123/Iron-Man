@@ -53,10 +53,10 @@ public interface CardMapper {
 		@Param("pageSize")int pageSize,
 		@Param("type")int type, 
 		@Param("location")String location, 
-		@Param("minPrice")double minPrice, 
-		@Param("maxPrice")double maxPrice,
-		@Param("minSquare")double minSquare,
-		@Param("maxSquare")double maxSquare,
+		@Param("minPrice")Double minPrice, 
+		@Param("maxPrice")Double maxPrice,
+		@Param("minSquare")Double minSquare,
+		@Param("maxSquare")Double maxSquare,
 		@Param("unitType")int unitType,
 		@Param("hasHouseResource")Boolean hasHouseResource);
 	

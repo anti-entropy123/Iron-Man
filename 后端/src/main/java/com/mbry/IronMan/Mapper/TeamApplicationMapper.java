@@ -53,6 +53,6 @@ public interface TeamApplicationMapper {
 	 * @param teamApplicationId
 	 * @param status
 	 */
-	public void updateStatusByTeamApplicationId(@Param("applicationId")String applicationId, @Param("status")boolean status);
+	public void updateStatusByTeamApplicationId(@Param("applicationId")String applicationId, @Param("status")Boolean status);
 
 }

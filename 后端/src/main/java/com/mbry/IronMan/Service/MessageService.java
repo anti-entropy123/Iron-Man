@@ -1,12 +1,14 @@
 package com.mbry.IronMan.Service;
 
 import com.mbry.IronMan.Dao.LogDao;
+import com.mbry.IronMan.Dao.UserDao;
 import com.mbry.IronMan.ResponseBody.MessageResponseBody.GetAllMessageResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mbry.IronMan.BusinessObject.Log;
+import com.mbry.IronMan.BusinessObject.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,10 @@ import org.springframework.stereotype.Service;
 public class MessageService {
 
     @Autowired
-    LogDao logDao;
+    private LogDao logDao;
+
+    @Autowired
+    private UserDao userDao;
 
     public GetAllMessageResponse.Data.Message[] getLogsByAimUser(String userId) {
         GetAllMessageResponse response = new GetAllMessageResponse();
@@ -24,19 +29,24 @@ public class MessageService {
         
         Log[] logs = logDao.queryLogByAimUserId(userId);
         for (Log log: logs) {
-            GetAllMessageResponse.Data.Message message = data.new Message();
-            message.setType(log.getType());
-            message.setCardId(log.getCardId());
-            message.setApplyId(log.getApplyId());
-            message.setUserId(log.getUserId());
-            message.setLogId(log.getLogId());
-            message.setStatus(log.getStatus());
-            messages.add(message);
+            User fromUser = userDao.queryUserByOpenId(log.getUserId());     
+            if(fromUser != null){
+                GetAllMessageResponse.Data.Message message = data.new Message(
+                    log.getType(),
+                    log.getCardId(), 
+                    log.getApplyId(), 
+                    log.getUserId(), 
+                    log.getLogId(),
+                    log.getStatus(),
+                    fromUser.getAvatar(),
+                    fromUser.getNickname()
+                );
+                messages.add(message);
+            }
             if(log.getType() > 1){
                 logDao.setTrueByLogId(log.getLogId());
             }
         }
-
         return messages.toArray(new GetAllMessageResponse.Data.Message[messages.size()]);
     }
 

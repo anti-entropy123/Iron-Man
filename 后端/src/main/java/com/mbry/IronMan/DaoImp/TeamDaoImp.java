@@ -39,7 +39,7 @@ public class TeamDaoImp implements TeamDao {
 	}
 
 	@Override
-	public boolean createTeam(Team team) {
+	public Boolean createTeam(Team team) {
 		try {
 			TeamEntity teamEntity = new TeamEntity();
 			teamEntity.setCaptainId(team.getCaptainId());
@@ -58,7 +58,7 @@ public class TeamDaoImp implements TeamDao {
 	}
 
 	@Override
-	public boolean addUserToTeam(String userId, String teamId) {
+	public Boolean addUserToTeam(String userId, String teamId) {
 		try {
 			teamMemberMapper.insertTeamMember(teamId, userId);
 			return true;
@@ -69,7 +69,7 @@ public class TeamDaoImp implements TeamDao {
 	}
 
 	@Override
-	public boolean deleteUserFromTeam(String userId, String teamId) {
+	public Boolean deleteUserFromTeam(String userId, String teamId) {
 		try {
 			teamMemberMapper.deleteTeamMember(teamId, userId);
 			return true;
@@ -112,7 +112,7 @@ public class TeamDaoImp implements TeamDao {
 	}
 
     @Override
-    public boolean deleteTeamByTeamId(String teamId) {
+    public Boolean deleteTeamByTeamId(String teamId) {
 		try {
 			teamMapper.deleteTeam(teamId, null);
 			teamMemberMapper.deleteTeamMember(teamId, null);

@@ -1,13 +1,12 @@
 package com.mbry.IronMan.Controller;
 
-import com.mbry.IronMan.RequestBody.AdmRequestBody.*;
+import com.mbry.IronMan.RequestBody.AdmRequestBody.DeleteCardsRequest;
+import com.mbry.IronMan.RequestBody.AdmRequestBody.DeleteUserRequestBody;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
-import com.mbry.IronMan.ResponseBody.AdmResponseBody.*;
-import com.mbry.IronMan.ResponseBody.HomeResponseBody.CardResponse;
+import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetCardResponse;
 import com.mbry.IronMan.Service.AdmCardService;
 import com.mbry.IronMan.Service.DetailService;
 import com.mbry.IronMan.Service.HomeService;
-import com.mbry.IronMan.RequestBody.AdmRequestBody.DeleteUserRequestBody;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetUserResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.DetailCardResponse;
 
@@ -46,9 +45,9 @@ public class AdmController {
     @PreAuthorize("hasRole('super')")
     public GetCardResponse getCards(
         @RequestParam int type, 
-        @RequestParam String userId, 
-        @RequestParam Long minDate,
-        @RequestParam Long maxDate, 
+        @RequestParam(required = false) String userId, 
+        @RequestParam(required = false) Long minDate,
+        @RequestParam(required = false) Long maxDate, 
         @RequestParam int page) {
         if (userId == "") {
             userId = null;
@@ -58,15 +57,15 @@ public class AdmController {
             getCardResponse.setData(admCardService.getCardsByRequire(
                 type,
                 userId,
-                minDate,
-                maxDate,
+                minDate==null?0:minDate,
+                maxDate==null?0:maxDate,
                 page
             ));
             getCardResponse.setTotalPage(admCardService.getCardsPagesByRequire(
                 type,
                 userId,
-                minDate,
-                maxDate,
+                minDate==null?0:minDate,
+                maxDate==null?0:maxDate,
                 page
             ));
             getCardResponse.setResult(1);
@@ -86,7 +85,7 @@ public class AdmController {
      * @return
      */
     @PostMapping("/api/adm/deleteCard/")
-    @PreAuthorize("hasRole('super')")
+    @PreAuthorize("hasRole('common')")
     public DefaultResponse deleteCards(@RequestBody DeleteCardsRequest deleteCardsRequest) {
         try {
             admCardService.deleteCards(deleteCardsRequest.getCardIds());
@@ -105,7 +104,7 @@ public class AdmController {
     @PreAuthorize("hasRole('super')")
     public DetailCardResponse getCards(
         @RequestParam String cardId) {
-        return detailService.getCardDetail(cardId);
+        return detailService.getCardDetail(cardId, "null");
     }
    
 

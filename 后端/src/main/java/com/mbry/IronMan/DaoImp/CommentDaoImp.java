@@ -63,7 +63,7 @@ public class CommentDaoImp implements CommentDao {
 	}
 
 	@Override
-	public boolean createComment(Comment comment) {
+	public Boolean createComment(Comment comment) {
 		try {
 			CommentEntity commentEntity = new CommentEntity();
 			commentEntity.setCommentId(comment.getCommentId());
@@ -84,7 +84,7 @@ public class CommentDaoImp implements CommentDao {
 	}
 
 	@Override
-	public boolean deleteComment(String commentId) {
+	public Boolean deleteComment(String commentId) {
 		try {
 			commentMapper.deleteComment(commentId, null);
 			commentMapper.deleteComment(null, commentId);
@@ -96,7 +96,7 @@ public class CommentDaoImp implements CommentDao {
 	}
 
 	@Override
-	public boolean deleteReply(String commentId) {
+	public Boolean deleteReply(String commentId) {
 		try {
 			commentMapper.deleteComment(commentId, null);
 			return true;

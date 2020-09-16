@@ -53,7 +53,7 @@ public class HomeController {
                 maxPrice, 
                 minSquare, 
                 maxSquare, 
-                unitType, 
+                unitType == null? -1: unitType, 
                 hasHouseResource);
         }
     }

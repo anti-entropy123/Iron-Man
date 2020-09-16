@@ -12,8 +12,8 @@ public class PublishRequest implements Serializable {
     private String title;
     private String introduce;
     private String location;
-    private double[] prices;
-    private double[] squares;
+    private Double[] prices;
+    private Double[] squares;
     private int unitType;
     private String[] images;
     private String require;
@@ -30,13 +30,13 @@ public class PublishRequest implements Serializable {
             String title,
             String introduce,
             String location,
-            double[] prices,
-            double[] squares,
+            Double[] prices,
+            Double[] squares,
             int unitType,
             String[] images,
             String require,
             int unionNum,
-            boolean hasHouseResource,
+            Boolean hasHouseResource,
             Double[] coordinates) {
         this.userId = userId;
         this.type = type;
@@ -93,19 +93,19 @@ public class PublishRequest implements Serializable {
         this.location = location;
     }
 
-    public double[] getPrices() {
+    public Double[] getPrices() {
         return this.prices;
     }
 
-    public void setPrices(double[] prices) {
+    public void setPrices(Double[] prices) {
         this.prices = prices;
     }
 
-    public double[] getSquares() {
+    public Double[] getSquares() {
         return this.squares;
     }
 
-    public void setSquares(double[] squares) {
+    public void setSquares(Double[] squares) {
         this.squares = squares;
     }
 
@@ -141,11 +141,11 @@ public class PublishRequest implements Serializable {
         this.unionNum = unionNum;
     }
 
-    public boolean getHasHouseResource() {
+    public Boolean getHasHouseResource() {
         return this.hasHouseResource;
     }
 
-    public void setHasHouseResource(boolean hasHouseResource) {
+    public void setHasHouseResource(Boolean hasHouseResource) {
         this.hasHouseResource = hasHouseResource;
     }
 

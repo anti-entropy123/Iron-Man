@@ -26,21 +26,21 @@ public interface CommentDao {
      * @param comment
      * @return
      */
-    public boolean createComment(Comment comment);
+    public Boolean createComment(Comment comment);
 
     /**
      * 删除某主楼评论, 同时删除其所有reply
      * @param commentId
      * @return
      */
-    public boolean deleteComment(String commentId);
+    public Boolean deleteComment(String commentId);
     
     /**
      * 仅删除某 repley
      * @param commentId
      * @return
      */
-    public boolean deleteReply(String commentId);
+    public Boolean deleteReply(String commentId);
 
     /**
      * 查询某个主楼评论的回复数量

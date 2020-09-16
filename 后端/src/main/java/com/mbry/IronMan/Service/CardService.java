@@ -22,7 +22,7 @@ public class CardService {
      * @param publishRequest
      * @return
      */
-    public boolean publishCard(PublishRequest publishRequest) {
+    public Boolean publishCard(PublishRequest publishRequest) {
         return cardDao.createCard(this.getCardFromPR(publishRequest));
     }
 

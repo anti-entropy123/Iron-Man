@@ -98,7 +98,7 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public boolean registerUser(User user) {
+	public Boolean registerUser(User user) {
 		try {
 			userMapper.insertUser(this.getEntityFromBO(user));
 			return true;
@@ -109,7 +109,7 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public boolean updateUserDataByUserId(User user) {
+	public Boolean updateUserDataByUserId(User user) {
 		try {
 			userMapper.updateUser(this.getEntityFromBO(user));
 			return true;
@@ -120,7 +120,7 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public boolean bindMobileNumberByUserId(String userId, String mobilePhone) {
+	public Boolean bindMobileNumberByUserId(String userId, String mobilePhone) {
 		try {
 			userMapper.updateUserMobile(userId, mobilePhone);
 			return true;

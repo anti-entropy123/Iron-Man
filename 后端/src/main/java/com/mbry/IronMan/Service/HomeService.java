@@ -27,12 +27,12 @@ public class HomeService {
             int type,
             int page,
             String location,
-            double minPrice,
-            double maxPrice,
-            double minSquare,
-            double maxSquare,
+            Double minPrice,
+            Double maxPrice,
+            Double minSquare,
+            Double maxSquare,
             int unitType,
-            boolean hasHouseResource){
+            Boolean hasHouseResource){
         Card[] cards;
         Double[] prices = new Double[]{minPrice, maxPrice};
         Double[] squares = new Double[]{minSquare, maxSquare};

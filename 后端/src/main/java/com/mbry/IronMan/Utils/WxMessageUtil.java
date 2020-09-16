@@ -24,7 +24,7 @@ public class WxMessageUtil {
     private long lastGetAccessTokenTime = 0;
     long expire = 2 * 60 * 60;
 
-    private boolean isNeedFlushToken(){
+    private Boolean isNeedFlushToken(){
         long second = ((new Date().getTime() - lastGetAccessTokenTime)/1000);
         return second > expire;
     }

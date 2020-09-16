@@ -43,8 +43,10 @@ public class DetailController {
      */
     @GetMapping("/getCardDetail/")
     @PreAuthorize("hasRole('common')")
-    public DetailCardResponse getCardDetail(@RequestParam String cardId) {
-        return detailService.getCardDetail(cardId);
+    public DetailCardResponse getCardDetail(@RequestHeader HttpHeaders headers, @RequestParam String cardId){
+        String token = headers.get("Authorization").get(0).substring("Bearer ".length());
+        
+        return detailService.getCardDetail(cardId, jwtTokenUtil.getOpenIdFromToken(token));
     }
     
     /**

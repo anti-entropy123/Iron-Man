@@ -3,12 +3,22 @@ package com.mbry.IronMan.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mbry.IronMan.BusinessObject.Team;
+import com.mbry.IronMan.Dao.ApplicationDao;
+import com.mbry.IronMan.Dao.TeamDao;
+import com.mbry.IronMan.Mapper.ApplicationMapper;
+import com.mbry.IronMan.Mapper.CardCoordinateMapper;
 import com.mbry.IronMan.Mapper.CardMapper;
+import com.mbry.IronMan.Mapper.CommentMapper;
+import com.mbry.IronMan.Mapper.LogMapper;
+import com.mbry.IronMan.Mapper.TeamApplicationMapper;
+import com.mbry.IronMan.Mapper.UncompleteCardMapper;
 import com.mbry.IronMan.Mapper.UserMapper;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetCardResponse;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetUserResponse;
 import com.mbry.IronMan.Utils.DateUtil;
+import com.mbry.IronMan.entity.CardCoordinateEntity;
 import com.mbry.IronMan.entity.CardEntity;
 import com.mbry.IronMan.entity.UserEntity;
 import com.mbry.IronMan.Utils.Global;
@@ -20,13 +30,34 @@ import org.springframework.stereotype.Service;
 public class AdmCardService {
     
     @Autowired
-    CardMapper cardMapper;
+    private CardMapper cardMapper;
 
     @Autowired
-    DateUtil dateUtil;
+    private DateUtil dateUtil;
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
+
+    @Autowired
+    private ApplicationMapper applicationMapper;
+
+    @Autowired 
+    private LogMapper logMapper;
+
+    @Autowired
+    private TeamDao teamDao;
+
+    @Autowired
+    private TeamApplicationMapper teamApplicationMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
+    private UncompleteCardMapper uncompleteCardMapper;
+
+    @Autowired
+    private CardCoordinateMapper cardCoordinateMapper;
 
     public GetCardResponse.Data[] getCardsByRequire(
         int type,
@@ -71,21 +102,31 @@ public class AdmCardService {
         long minDate,
         long maxDate,
         int page) {
-        int startIndex = (page - 1) * Global.pageSize;
-        String minDateS = dateUtil.getDateFromLong(minDate);
-        String maxDateS = dateUtil.getDateFromLong(maxDate);
-        int pages = cardMapper.queryCardsPagesForAdm(startIndex, Global.pageSize, userId, minDateS, maxDateS);
-        if (pages % Global.pageSize > 0) {
-            pages = pages / Global.pageSize + 1;
-        } else {
-            pages = pages % Global.pageSize;
-        }
+        String minDateS = minDate==0L?null: dateUtil.getDateFromLong(minDate);
+        String maxDateS = maxDate==0L?null: dateUtil.getDateFromLong(maxDate);
+        int pages = cardMapper.queryCardsPagesForAdm(0, 1, userId, minDateS, maxDateS);
         return pages;
     }
 
     public void deleteCards(String[] cardIds) {
         for (String cardId: cardIds) {
             cardMapper.deleteCardById(cardId);
+            // 删除申请
+            applicationMapper.deleteByCardId(cardId);
+            // 删除消息
+            logMapper.deleteByCardId(cardId);
+            // 删除队伍
+            Team[] teams = teamDao.getTeamsByCardId(cardId);
+            for(Team team: teams){
+                teamDao.deleteTeamByTeamId(team.getTeamId());
+                teamApplicationMapper.deletebyTeamId(team.getTeamId());
+            }
+            // 删除评论
+            commentMapper.deleteByCardId(cardId);
+            // 删除未完成card记录
+            uncompleteCardMapper.deleteUserAndCard(null, cardId);
+            // 删除card坐标
+            cardCoordinateMapper.deleteByCardId(cardId);
         }
     }
 
@@ -109,7 +150,7 @@ public class AdmCardService {
                     userEntity.getAvatar(),
                     userEntity.getSex(),
                     userEntity.getIntroduction(),
-                    userEntity.getNickName()
+                    userEntity.getMobile()
                 );
                 datas.add(data);
             }

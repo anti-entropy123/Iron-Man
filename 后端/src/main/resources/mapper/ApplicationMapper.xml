@@ -62,6 +62,11 @@
 		SELECT * FROM application
 		WHERE card_id = #{cardId}
 	</select>
+
+	<select id="queryApplicationByCardIdAndUserId" resultType="java.lang.Integer">
+		SELECT count(*) FROM application
+		WHERE card_id = #{cardId} AND applicant_id = #{applicantId}
+	</select>
 	
 	<update id="updateStatusByApplicationId">
 		UPDATE application 

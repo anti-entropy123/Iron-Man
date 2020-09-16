@@ -57,7 +57,7 @@ public class HttpRequestUtil {
         return result;
     }
 
-    public boolean sendSMSMessage(
+    public Boolean sendSMSMessage(
             String mobile,
             String checkCode){
         String url = "https://api.binstd.com/sms/send";

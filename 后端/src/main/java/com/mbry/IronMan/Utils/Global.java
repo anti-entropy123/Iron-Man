@@ -18,7 +18,7 @@ public class Global {
 			this.genTime = (new Date().getTime()) / 1000;
 		}
 
-		public boolean isExpire(){
+		public Boolean isExpire(){
 			return ((new Date().getTime()) / 1000) - this.genTime < this.expireTime;
 		}
 
@@ -27,7 +27,7 @@ public class Global {
 		}
 	}
 
-	final public static int pageSize = 10;
+	final public static int pageSize = 8;
 	
 	final public static int rentType = 1;
 	
@@ -39,7 +39,7 @@ public class Global {
 	
 	final public static int roomMateCardType = 5;
 
-	final public static String letterTable = "abcdefghijklmnopqrstuvwxyz123456789";
+	final public static String letterTable = "123456789";
 
 	public static Map<String, CheckCode> mobileToCheckCode = new HashMap<>();
 

@@ -16,7 +16,7 @@ public class LoginToken extends DefaultResponse {
 
     public LoginToken(
             String token, 
-            boolean firstTime,
+            Boolean firstTime,
             int result,
             String message,
             String userId) {
@@ -34,11 +34,11 @@ public class LoginToken extends DefaultResponse {
         this.token = token;
     }
 
-    public boolean getFirstTime() {
+    public Boolean getFirstTime() {
         return this.firstTime;
     }
 
-    public void setFirstTime(boolean firstTime) {
+    public void setFirstTime(Boolean firstTime) {
         this.firstTime = firstTime;
     }
 

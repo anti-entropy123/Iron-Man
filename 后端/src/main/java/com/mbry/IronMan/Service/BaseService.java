@@ -48,7 +48,7 @@ public class BaseService {
                 return new LoginToken(null, false, 0, errmsg, null);
             }
         }
-        boolean firstTime = false;
+        Boolean firstTime = false;
         final UserDetails userDetails = userDetailsService.loadUserByUsername(openId);
         if (userDetails == null) {
             register(openId);
@@ -85,7 +85,7 @@ public class BaseService {
     public DefaultResponse getCheckCode(String mobileNum){
         String letterTable = Global.letterTable;
         String checkCode = "";
-        for(int i=0;i < 4;i++){
+        for(int i=0;i < 6;i++){
             int index = (int)(Math.random()*letterTable.length());
             checkCode += letterTable.charAt(index);
         }
@@ -102,7 +102,7 @@ public class BaseService {
             userDao.bindMobileNumberByUserId(userId, mobileNum);
             return new DefaultResponse(1, "");
         }else{
-            return new DefaultResponse(1, "验证码错误");
+            return new DefaultResponse(0, "验证码错误");
         }
     }
 }

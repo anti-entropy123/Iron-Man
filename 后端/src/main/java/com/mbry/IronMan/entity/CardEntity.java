@@ -10,10 +10,10 @@ public class CardEntity {
 	private String title;
 	private String introduction;
 	private String location;
-	private double minPrice = -1;
-	private double maxPrice = -1;
-	private double minSquare = -1;
-	private double maxSquare = -1;
+	private Double minPrice = -1.;
+	private Double maxPrice = -1.;
+	private Double minSquare = -1.;
+	private Double maxSquare = -1.;
 	private int unitType = -1;
 	private String requirement;
 	private int unionNum = 0;
@@ -29,10 +29,10 @@ public class CardEntity {
 			String title,
 			String introduction,
 			String location,
-			double minPrice,
-			double maxPrice,
-			double minSquare,
-			double maxSquare,
+			Double minPrice,
+			Double maxPrice,
+			Double minSquare,
+			Double maxSquare,
 			int unitType,
 			String requirement,
 			int unionNum,
@@ -120,35 +120,35 @@ public class CardEntity {
 		this.location = location;
 	}
 
-	public double getMinPrice() {
+	public Double getMinPrice() {
 		return minPrice;
 	}
 
-	public void setMinPrice(double minPrice) {
+	public void setMinPrice(Double minPrice) {
 		this.minPrice = minPrice;
 	}
 
-	public double getMaxPrice() {
+	public Double getMaxPrice() {
 		return maxPrice;
 	}
 
-	public void setMaxPrice(double maxPrice) {
+	public void setMaxPrice(Double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
 
-	public double getMinSquare() {
+	public Double getMinSquare() {
 		return minSquare;
 	}
 
-	public void setMinSquare(double minSquare) {
+	public void setMinSquare(Double minSquare) {
 		this.minSquare = minSquare;
 	}
 
-	public double getMaxSquare() {
+	public Double getMaxSquare() {
 		return maxSquare;
 	}
 
-	public void setMaxSquare(double maxSquare) {
+	public void setMaxSquare(Double maxSquare) {
 		this.maxSquare = maxSquare;
 	}
 
