@@ -75,11 +75,6 @@ public class AdmCardService {
         String minDateS = dateUtil.getDateFromLong(minDate);
         String maxDateS = dateUtil.getDateFromLong(maxDate);
         int pages = cardMapper.queryCardsPagesForAdm(startIndex, Global.pageSize, userId, minDateS, maxDateS);
-        if (pages % Global.pageSize > 0) {
-            pages = pages / Global.pageSize + 1;
-        } else {
-            pages = pages % Global.pageSize;
-        }
         return pages;
     }
 

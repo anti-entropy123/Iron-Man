@@ -5,10 +5,40 @@ public class WxMessageRequestBody {
     // http://www.ionic.wang/weixin/api/notice.html#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
     
     public class Data {
+
+        public Param character_string1;
+
+        public Param phrase2;
+
         public Data(){}
         
         public Data(int type) {
-            // todo 
+            character_string1.setValue("消息提醒");
+            character_string1.setColor("#173177");
+            phrase2.setValue(Integer.toString(type));
+            phrase2.setColor("#173177");
+        }
+    }
+
+    public class Param {
+        private String value;
+        private String color;
+        public Param() {}
+        public Param(String value, String color) {
+            this.setValue(value);
+            this.setColor(color);
+        }
+        public String getValue() {
+            return value;
+        }
+        public void setValue(String value) {
+            this.value = value;
+        }
+        public String getColor() {
+            return color;
+        }
+        public void setColor(String color) {
+            this.color = color;
         }
     }
     

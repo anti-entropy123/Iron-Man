@@ -1,7 +1,5 @@
 package com.mbry.IronMan.ResponseBody.HomeResponseBody;
 
-import java.io.Serializable;
-
 import com.mbry.IronMan.BusinessObject.Card.AskRentCard;
 import com.mbry.IronMan.BusinessObject.Card.AskSellCard;
 import com.mbry.IronMan.BusinessObject.Card.RentCard;

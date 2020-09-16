@@ -91,7 +91,8 @@ public class AdmController {
         
     }
 
-    @GetMapping("/api/adm/deleteCard/")
+    //FIXME
+    @GetMapping("/api/adm/getCardDetail/")
     public CardResponse getCards(
         @RequestParam int type,
         @RequestParam int page,
