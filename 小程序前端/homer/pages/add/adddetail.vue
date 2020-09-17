@@ -195,10 +195,9 @@
 		onLoad(options) {
 			this.config.renttype = options.type;
 			this.type = options.type;
-		},
-		onReady(){
 			if (uni.getStorageSync('userId')) {
 				this.userId = uni.getStorageSync('userId')
+				this.getmobile()
 			} else{
 				setTimeout(() => {
 					uni.showToast({
@@ -341,6 +340,23 @@
 					},
 					fail:function(){}
 				})
+			},
+			getmobile(){
+				this.$http.get('/api/person/info/', {
+					userId: this.userId
+				}).then(res => {
+					if (!res.mobile) {
+						setTimeout(() => {
+							uni.showToast({
+								title: '请先绑定手机号再发布',
+								icon: 'none'
+							});
+						}, 100);
+						uni.navigateTo({
+							url: '../my/sms'
+						})
+					}
+				}).catch((e) => {});
 			}
 		}
 	}

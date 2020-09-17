@@ -4,8 +4,8 @@
 			<navigation :config="config" @customConduct="customConduct"/>
 		</view>
 		<view style="height:100%;width:100%">
-			<map v-if="area==0" id="map" longitude="117.312269" latitude="38.994228" scale="15" :markers="markers" @markertap="marktap" show-location style="width: 100%; height:100%;"></map>
-			<map v-if="area==1" id="map" longitude="117.172880" latitude="39.108819" scale="16" :markers="markers" @markertap="marktap" show-location style="width: 100%; height:100%;"></map>
+			<map v-if="area==0" id="map" longitude="117.312269" latitude="38.994228" scale="15" :markers="markers" @markertap="marktap" @callouttap="gotodetail" show-location style="width: 100%; height:100%;"></map>
+			<map v-if="area==1" id="map" longitude="117.172880" latitude="39.108819" scale="16" :markers="markers" @markertap="marktap" @callouttap="gotodetail" show-location style="width: 100%; height:100%;"></map>
 			<cover-view class="changebtn">
 				<cover-view v-bind:class="area==0?'selectedbtn':'unselectedbtn'" @tap="changearea1">
 					北洋园
@@ -14,12 +14,12 @@
 					卫津路
 				</cover-view>
 			</cover-view>
-			<cover-view class="card" :class="cardState">
+			<!-- <cover-view class="card" :class="cardState">
 				<cover-view id="upbutton" :class="cardState" @tap="openclose">
 					<cover-image src="../../static/up.png" mode="" class="upIcon"></cover-image>
 				</cover-view>
 				<cover-view style="background: #10518e;height:500upx;" scroll-top=""></cover-view>
-			</cover-view>
+			</cover-view> -->
 		</view>
 	</view>
 </template>
@@ -30,7 +30,6 @@
 		data() {
 			return {
 				area:0,
-				cardState:"close-card",
 				markers: [],
 					
 				config: {
@@ -44,6 +43,9 @@
 		components: {
 			navigation
 		},
+		onLoad(){
+			this.getmarkers()
+		},
 		onShow(){
 			this.getmarkers()
 		},
@@ -54,14 +56,16 @@
 			marktap(e){
 				console.log(e.detail.markerId)
 			},
+			gotodetail(e){
+				uni.navigateTo({
+					url:'../order/detail?Id='+this.cards[e.detail.markerId].cardId +'&type='+this.cards[e.detail.markerId].type
+				})
+			},
 			changearea1(){
 				this.area = 0 ;
 			},
 			changearea2(){
 				this.area = 1 ;
-			},
-			openclose() {
-				this.cardState = this.cardState == 'close-card' ? 'open-card': 'close-card'
 			},
 			getmarkers(){
 				this.$http.get('/api/home/getCardsWithCoordinates/').then(res => {
@@ -79,7 +83,7 @@
 									width: 25,
 									height: 25,
 									callout:{
-										content:cards[i].location.replace(/[^\x00-\xff]/g,"$&\x01").replace(/.{19}\x01?/g,"$&\n").replace(/\x01/g,""),
+										content:("标题："+"出租 | "+cards[i].title).replace(/[^\x00-\xff]/g,"$&\x01").replace(/.{19}\x01?/g,"$&\n").replace(/\x01/g,"")+"\n"+("位置："+cards[i].location).replace(/[^\x00-\xff]/g,"$&\x01").replace(/.{19}\x01?/g,"$&\n").replace(/\x01/g,"")+"\n\n点击查看详情",
 										borderRadius:10,
 										display:'BYCLICK',
 										padding:10,
@@ -94,7 +98,7 @@
 									width: 25,
 									height: 25,
 									callout:{
-										content:cards[i].location.replace(/[^\x00-\xff]/g,"$&\x01").replace(/.{19}\x01?/g,"$&\n").replace(/\x01/g,""),
+										content:("标题："+"出售 | "+cards[i].title).replace(/[^\x00-\xff]/g,"$&\x01").replace(/.{19}\x01?/g,"$&\n").replace(/\x01/g,"")+"\n"+("位置："+cards[i].location).replace(/[^\x00-\xff]/g,"$&\x01").replace(/.{19}\x01?/g,"$&\n").replace(/\x01/g,"")+"\n\n点击查看详情",
 										borderRadius:10,
 										display:'BYCLICK',
 										padding:10,
@@ -142,41 +146,5 @@
 	line-height:50upx;
 	text-align:center;
 }
-.card{
-	background: #ffffff;
-	position:absolute;
-	bottom:0;
-	left:calc((100vw - 650upx)/2);
-	width:650upx;
-	height:70upx;
-	overflow-y: scroll;
-	box-shadow: 0 5upx 5upx 2upx #e6e6e6;
-	transition: all 1s ease;
-}
-.card .open-card {
-	height:500upx;
-}
-.card .close-card {
-	height:70upx;
-}
-#upbutton{
-	position:absolute;
-	top:0;
-	width:100%;
-	height:50upx;
-	z-index: 5;
-	background: #FFFFFF;
-}
-.upIcon{
-	width:50upx;
-	height:50upx;
-	margin:auto;
-	transition: all .4s ease;
-}
-#upbutton .open-card .upIcon {
-	transform: rotate(180deg) scaleY(0.75);
-}
-#upbutton .close-card .upIcon {
-	transform: rotate(0) scaleY(0.75);
-}
+
 </style>

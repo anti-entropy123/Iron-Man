@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 99));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 141));};var _default =
 
 
 
@@ -182,6 +182,7 @@ __webpack_require__.r(__webpack_exports__);
 
       historys: [],
       key: '',
+      type: 1,
       listArr: ['出租', '出售', '求租', '求售', '找室友'],
       listActive: 0, // 当前选中项
       tabsScrollLeft: 0, // tabs当前偏移量
@@ -213,17 +214,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.key != '') {
         this.historys.push(this.key);
         uni.setStorageSync('historyword', JSON.stringify(this.historys));
-        // uni.navigateTo({
-        // 	url:'../order/homelist?key='+this.key
-        // })
+        uni.navigateTo({
+          url: '../order/orderlist?key=' + this.key + '&type=' + this.type });
+
       }
     },
     tapsearch: function tapsearch(key) {
       this.historys.push(key);
       uni.setStorageSync('historyword', JSON.stringify(this.historys));
-      // uni.navigateTo({
-      // 	url:'../order/homelist?key='+key
-      // })
+      uni.navigateTo({
+        url: '../order/orderlist?key=' + key + '&type=' + this.type });
+
     },
     gethistory: function gethistory() {
       if (uni.getStorageSync('historyword')) {
@@ -236,6 +237,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     clickSort: function clickSort(index) {
       this.listActive = index;
+      this.type = index + 1;
     },
     // scroll-view滑动事件
     scroll: function scroll(e) {

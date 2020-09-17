@@ -260,6 +260,25 @@
 	    -ms-flex-align: center;
 	        align-items: center;
 }
+.textrent.data-v-9dfa7872{
+	width: 250rpx;
+	float: right;
+	height: 100rpx;
+	color: #10518e;
+	background: #FFFFFF;
+	font-size: 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-justify-content: space-around;
+	    -ms-flex-pack: distribute;
+	        justify-content: space-around;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
 .prompt-box.data-v-9dfa7872 {
 	position: fixed;
 	left: 0;

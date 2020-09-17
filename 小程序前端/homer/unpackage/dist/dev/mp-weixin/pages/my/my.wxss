@@ -1,6 +1,7 @@
 
 .mine-container.data-v-5d69faaa {
 	background-color: #F8F8F8;
+	width:100vw
 }
 .user-box.data-v-5d69faaa {
 	height: 240rpx;
@@ -13,93 +14,138 @@
 	-webkit-align-items: center;
 	    -ms-flex-align: center;
 	        align-items: center;
-	margin: 10rpx 6rpx 10rpx 6rpx;
-	border-radius: 10rpx;
+	margin: 40rpx 0 20rpx;
 	overflow: hidden;
 	background-color: #fff;
-	-webkit-box-shadow: 6rpx 6rpx 6rpx #c0c0c0;
-	        box-shadow: 6rpx 6rpx 6rpx #c0c0c0;
 	position: relative;
 }
 .avator-box.data-v-5d69faaa {
-	height: 160rpx;
-	width: 160rpx;
+	height: 140rpx;
+	width: 140rpx;
 	overflow: hidden;
-	margin-left: 20rpx;
+	margin-left: 50rpx;
 }
 .avator-box image.data-v-5d69faaa {
 	height: 140rpx;
 	width: 140rpx;
 	border-radius: 50%;
 }
+.loginbtn.data-v-5d69faaa {
+	border: none
+}
+.editicon.data-v-5d69faaa{
+	width:30rpx;
+	height:30rpx;
+	margin-left:30rpx;
+	position: relative;
+	margin-top:15rpx;
+}
 .user-right.data-v-5d69faaa {
-	margin-left: 10rpx;
+	margin-left: 30rpx;
 }
 .user-id.data-v-5d69faaa {
+	height:60rpx;
+}
+.user-name.data-v-5d69faaa{
 	font-weight: bold;
-	font-size: large;
+	font-size: 45rpx;
+	line-height: 60rpx;
 }
 .user-phone.data-v-5d69faaa {
 	margin-top: 20rpx;
 	font-size: smaller;
-}
-.user-edit.data-v-5d69faaa {
-	font-size: small;
-	position: absolute;
-	bottom: 20rpx;
-	right: 40rpx;
 }
 .order.data-v-5d69faaa {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	padding: 0 30rpx;
+	margin: 20rpx 0;
+	background-color: #fff;
+	height:190rpx;
+	-webkit-justify-content: space-around;
+	    -ms-flex-pack: distribute;
+	        justify-content: space-around;
+	text-align: center;
 }
 .order-btn.data-v-5d69faaa {
+	width: 250rpx;
+	height: 130rpx;
+	margin-top:30rpx;
+	border-radius: 10rpx;
+	/* vertical-align: middle; */
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.order-btn text.data-v-5d69faaa{
+	font-size: 30rpx;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	    -ms-flex: 1;
 	        flex: 1;
-	width: 200rpx;
-	height: 120rpx;
-	background-color: rgba(16, 81, 142, 0.25);
-	border-radius: 10rpx;
-	text-align: center;
-	line-height: 120rpx;
-}
-.order-btn.data-v-5d69faaa:first-child {
-	margin-right: 20rpx;
-}
-.title.data-v-5d69faaa {
-	margin-top: 10rpx;
-	margin-bottom: 10rpx;
-	margin-left: 15rpx;
-	font-size: larger;
-	font-weight: bold;
-}
-.msg-list.data-v-5d69faaa {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 }
-.msg-item.data-v-5d69faaa {
-	height: 80rpx;
+.msglist.data-v-5d69faaa{
+	width:100vw;
+	background: #FFFFFF;
+	margin: 20rpx 0;
+	padding:20rpx 0;
+}
+.title.data-v-5d69faaa {
+	padding-bottom: 20rpx;
+	border-bottom: 2rpx #e6e6e6 solid;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	font-size: 40rpx;
+	font-weight: bold;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	text-align: center;
+}
+.title image.data-v-5d69faaa{
+	width:60rpx;
+}
+.title text.data-v-5d69faaa{
+	line-height: 60rpx;
+	vertical-align: middle;
+}
+.msgbox.data-v-5d69faaa{
+	margin:30rpx 0;
+	border-bottom: 2rpx #e6e6e6 solid;
+	padding:0 100rpx 30rpx;
+	position: relative;
+}
+.messageavatar.data-v-5d69faaa{
+	width:80rpx;
+	height:80rpx;
+	float:left;
+}
+.messgaetext.data-v-5d69faaa{
+	margin-left:50rpx;
+	float:left;
+	width:300rpx;
+	font-size:32rpx;
+	height:80rpx;
+}
+.statetext.data-v-5d69faaa{
+	position: absolute;
+	top:0;
+	right:50rpx;
+	font-size:30rpx;
 	line-height: 80rpx;
-	padding-left: 20rpx;
-	margin: 10rpx 15rpx 10rpx 15rpx;
-	background-color: #fff;
-	border-radius: 6rpx;
-	-webkit-box-shadow: 5rpx 5rpx 5rpx #c0c0c0;
-	        box-shadow: 5rpx 5rpx 5rpx #c0c0c0;
-}
-.loginbtn.data-v-5d69faaa {
-	border: none
+	height:80rpx;
 }
 

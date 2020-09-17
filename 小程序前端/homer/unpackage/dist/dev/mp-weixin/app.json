@@ -9,7 +9,12 @@
     "pages/order/detail",
     "pages/order/orderlist",
     "pages/order/mapdetail",
-    "pages/add/adddetail"
+    "pages/add/adddetail",
+    "pages/my/sms",
+    "pages/my/editMine",
+    "pages/my/finishOrder",
+    "pages/my/unfinishOrder",
+    "pages/my/other"
   ],
   "subPackages": [],
   "window": {
@@ -50,5 +55,5 @@
     }
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap24.json"
+  "sitemapLocation": "sitemap51.json"
 }

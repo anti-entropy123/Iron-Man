@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 99));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 141));};var _default =
 
 
 
@@ -154,7 +154,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       area: 0,
-      cardState: "close-card",
       markers: [],
 
       config: {
@@ -168,6 +167,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     navigation: navigation },
 
+  onLoad: function onLoad() {
+    this.getmarkers();
+  },
   onShow: function onShow() {
     this.getmarkers();
   },
@@ -178,14 +180,16 @@ __webpack_require__.r(__webpack_exports__);
     marktap: function marktap(e) {
       console.log(e.detail.markerId);
     },
+    gotodetail: function gotodetail(e) {
+      uni.navigateTo({
+        url: '../order/detail?Id=' + this.cards[e.detail.markerId].cardId + '&type=' + this.cards[e.detail.markerId].type });
+
+    },
     changearea1: function changearea1() {
       this.area = 0;
     },
     changearea2: function changearea2() {
       this.area = 1;
-    },
-    openclose: function openclose() {
-      this.cardState = this.cardState == 'close-card' ? 'open-card' : 'close-card';
     },
     getmarkers: function getmarkers() {var _this = this;
       this.$http.get('/api/home/getCardsWithCoordinates/').then(function (res) {
@@ -203,7 +207,7 @@ __webpack_require__.r(__webpack_exports__);
                 width: 25,
                 height: 25,
                 callout: {
-                  content: cards[i].location.replace(/[^\x00-\xff]/g, "$&\x01").replace(/.{19}\x01?/g, "$&\n").replace(/\x01/g, ""),
+                  content: ("标题：" + "出租 | " + cards[i].title).replace(/[^\x00-\xff]/g, "$&\x01").replace(/.{19}\x01?/g, "$&\n").replace(/\x01/g, "") + "\n" + ("位置：" + cards[i].location).replace(/[^\x00-\xff]/g, "$&\x01").replace(/.{19}\x01?/g, "$&\n").replace(/\x01/g, "") + "\n\n点击查看详情",
                   borderRadius: 10,
                   display: 'BYCLICK',
                   padding: 10 } });
@@ -218,7 +222,7 @@ __webpack_require__.r(__webpack_exports__);
                 width: 25,
                 height: 25,
                 callout: {
-                  content: cards[i].location.replace(/[^\x00-\xff]/g, "$&\x01").replace(/.{19}\x01?/g, "$&\n").replace(/\x01/g, ""),
+                  content: ("标题：" + "出售 | " + cards[i].title).replace(/[^\x00-\xff]/g, "$&\x01").replace(/.{19}\x01?/g, "$&\n").replace(/\x01/g, "") + "\n" + ("位置：" + cards[i].location).replace(/[^\x00-\xff]/g, "$&\x01").replace(/.{19}\x01?/g, "$&\n").replace(/\x01/g, "") + "\n\n点击查看详情",
                   borderRadius: 10,
                   display: 'BYCLICK',
                   padding: 10 } });

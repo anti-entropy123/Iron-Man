@@ -72,6 +72,8 @@
 					return '求购';
 				} else if (arg == 5) {
 					return '找室友';
+				} else {
+					return '';
 				}
 			},
 		},
