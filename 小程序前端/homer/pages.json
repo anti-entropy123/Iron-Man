@@ -64,6 +64,38 @@
 		    "style": {
 		      "navigationStyle": "custom"
 		    }
+		},
+		{
+			"path" : "pages/my/sms",
+			"style" : {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/my/editMine",
+			"style" : {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/my/finishOrder",
+			"style" : {
+				"navigationStyle": "custom",
+			  "enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/my/unfinishOrder",
+			"style" : {
+				"navigationStyle": "custom",
+			  "enablePullDownRefresh": true
+			}
+		},
+		{
+			"path":"pages/my/other",
+			"style":{
+				"navigationStyle": "custom"
+			}
 		}
     ],
 	"globalStyle": {

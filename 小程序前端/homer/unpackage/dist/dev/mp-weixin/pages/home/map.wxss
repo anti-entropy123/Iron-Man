@@ -33,50 +33,5 @@
 	line-height:50rpx;
 	text-align:center;
 }
-.card{
-	background: #ffffff;
-	position:absolute;
-	bottom:0;
-	left:calc((100vw - 650rpx)/2);
-	width:650rpx;
-	height:70rpx;
-	overflow-y: scroll;
-	-webkit-box-shadow: 0 5rpx 5rpx 2rpx #e6e6e6;
-	        box-shadow: 0 5rpx 5rpx 2rpx #e6e6e6;
-	-webkit-transition: all 1s ease;
-	-o-transition: all 1s ease;
-	transition: all 1s ease;
-}
-.card .open-card {
-	height:500rpx;
-}
-.card .close-card {
-	height:70rpx;
-}
-#upbutton{
-	position:absolute;
-	top:0;
-	width:100%;
-	height:50rpx;
-	z-index: 5;
-	background: #FFFFFF;
-}
-.upIcon{
-	width:50rpx;
-	height:50rpx;
-	margin:auto;
-	-webkit-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	transition: all .4s ease;
-}
-#upbutton .open-card .upIcon {
-	-webkit-transform: rotate(180deg) scaleY(0.75);
-	    -ms-transform: rotate(180deg) scaleY(0.75);
-	        transform: rotate(180deg) scaleY(0.75);
-}
-#upbutton .close-card .upIcon {
-	-webkit-transform: rotate(0) scaleY(0.75);
-	    -ms-transform: rotate(0) scaleY(0.75);
-	        transform: rotate(0) scaleY(0.75);
-}
+
 

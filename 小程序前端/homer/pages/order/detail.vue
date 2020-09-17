@@ -1,5 +1,5 @@
 <template>
-	<view class="detail">
+	<view class="detail" v-if="complete">
 		<!-- 顶部轮播图 -->
 		<view v-if="(card.type==1||card.type==2)&&card.images">
 			<view class="top" v-if="scrolltotitle" :style="{height:height}"></view>
@@ -27,10 +27,10 @@
 
 		<view class="box">
 			<view style="display: flex;align-items: center;margin-bottom: 10upx;width:calc(100vw - 60upx);">
-				<image :src="owner.avatarUrl" mode="" style="width: 76upx;height: 76upx;border-radius: 50%;"></image>
+				<image :src="owner.avatarUrl" mode="" style="width: 76upx;height: 76upx;border-radius: 50%;" @tap="gotoother(card.ownerId)"></image>
 				<view>
 					<view style="padding-left: 24upx;font-size: 32upx;font-family: bold;color:rgba(102,102,102,1);overflow: hidden;text-overflow:ellipsis;white-space: nowrap;display: flex;align-items: center;">
-						<view>{{ owner.name }}</view>
+						<view @tap="gotoother(card.ownerId)">{{ owner.name }}</view>
 					</view>
 					<view class="time">
 						<text>发布时间{{ "："+card.postDate}}</text>
@@ -111,9 +111,9 @@
 			<view class="title">申请列表</view>
 			<view v-if="persons.length>0" class="applybox" v-for="(person,index) in persons" :key="index">
 				<view style="display: flex;align-items: center;width:400upx;float:left;">
-					<image class="avatarlist" :src="person.avatarUrl" />
+					<image class="avatarlist" :src="person.avatarUrl" @tap="gotoother(person.userId)"/>
 					<view style="padding-left: 24upx;font-size: 32upx;font-family: bold;color:rgba(102,102,102,1);overflow: hidden;text-overflow:ellipsis;white-space: nowrap;display: flex;align-items: center;">
-						<view>{{ person.name }}</view>
+						<view @tap="gotoother(person.userId)">{{ person.name }}</view>
 					</view>
 				</view>
 				<view v-if="userId==card.ownerId" class="textbtn" @tap="processapply(person.applyId)">同意申请</view>
@@ -121,7 +121,7 @@
 			</view>
 			<view v-if="applyteams.length>0" class="applybox" v-for="(team,index) in applyteams" :key="index">
 				<view v-for="(member,id) in team.members" :key="id">
-					<image class="avatarlist" :src="member.avatarUrl" />
+					<image class="avatarlist" :src="member.avatarUrl" @tap="gotoother(member.userId)"/>
 				</view>
 				<view v-if="userId==card.ownerId" class="textbtn" @tap="processapply(team.applyId)">同意申请</view>
 				<view style="clear: both;"></view>
@@ -132,7 +132,7 @@
 			<view class="title">我的合租</view>
 			<view class="applybox">
 				<view v-for="(member,id) in myTeam.members" :key="id">
-					<image class="avatarlist" :src="member.avatarUrl" />
+					<image class="avatarlist" :src="member.avatarUrl" @tap="gotoother(member.userId)"/>
 				</view>
 				<view v-if="myTeam.members[0].userId==userId" class="textbtn" @tap="leaveteam(0)">解散队列</view>
 				<view v-else class="textbtn" @tap="leaveteam(1)">退出队列</view>
@@ -144,7 +144,7 @@
 			<view class="title">合租队列</view>
 			<view class="applybox" v-for="(team,index) in otherTeams" :key="index">
 				<view v-for="(member,id) in team.members" :key="id">
-					<image class="avatarlist" :src="member.avatarUrl" />
+					<image class="avatarlist" :src="member.avatarUrl" @tap="gotoother(member.userId)"/>
 				</view>
 				<image v-if="!myTeam.teamId&&team.members.length<card.unionNum&&userId!=card.ownerId" src="../../static/join.png"
 				 class="avatarlist" @tap="jointeam(team.teamId)"></image>
@@ -157,8 +157,8 @@
 			<view class="title">评论区</view>
 			<view v-for="(comment, index) in comments" :key="index" class="applybox">
 				<view style="display: flex;align-items: center;padding-left: 20upx;position: relative;">
-					<image :src="comment.avatarUrl" mode="" style="width: 50upx;height: 50upx;border-radius: 50%;"></image>
-					<text style="padding-left: 20upx;color:#10518e">{{ comment.name }}</text>
+					<image :src="comment.avatarUrl" mode="" style="width: 50upx;height: 50upx;border-radius: 50%;" @tap="gotoother(comment.userId)"></image>
+					<text style="padding-left: 20upx;color:#10518e" @tap="gotoother(comment.userId)">{{ comment.name }}</text>
 					<text style="position: absolute;right: 20upx;color:rgba(119,119,119,1);font-size:25upx">{{ comment.createDate }}</text>
 					<!-- <text style="position: absolute;right: 20upx;font-size:30upx" @tap="reply(comment)">回复</text> -->
 				</view>
@@ -167,7 +167,7 @@
 					<image src="../../static/deletecomment.png" style="width:30upx;" mode="widthFix"></image>
 				</view>
 				<view style="float:right;margin-right:20upx;display: flex;flex-direction: row;align-items: center;justify-content: center;" @tap="openreply(comment)">
-					<text style="margin-right: 10upx;font-size:25upx;color:#808080">{{ comment.replyNum }}</text>
+					<text style="margin-right: 10upx;font-size:25upx;color:#808080;line-height: 30upx;vertical-align: middle;">{{ comment.replyNum }}</text>
 					<image src="../../static/comment.png" style="width:30upx;" mode="widthFix"></image>
 				</view>
 				<view style="clear: both;"></view>
@@ -184,6 +184,9 @@
 			<view v-else-if="userId==card.ownerId">
 				<view class="deleterent" @tap="deleterent()">删除帖子</view>
 			</view>
+			<view v-else-if="card.hasApplied==1">
+				<view class="textrent">等待确认</view>
+			</view>
 			<view v-else>
 				<view class="manyrent" v-if="card.type==1&&card.unionNum>1">
 					<view class="mainbox" @tap="manyapply()" v-if="myTeam.teamId&&myTeam.members[0].userId==userId">
@@ -198,7 +201,7 @@
 						<view style="font-size:20upx">新建合租队列</view>
 					</view>
 				</view>
-				<view class="onerent" @tap="oneapply()">我要{{card.type|filters3}}</view>
+				<view class="onerent" @tap="oneapply()" v-if="!myTeam.teamId">我要{{card.type|filters3}}</view>
 			</view>
 		</view>
 
@@ -230,8 +233,8 @@
 				</view>
 				<view class="applybox" style="margin-top:70upx;">
 					<view style="display: flex;align-items: center;padding-left: 20upx;position: relative;">
-						<image :src="replytocomment.avatarUrl" mode="" style="width: 50upx;height: 50upx;border-radius: 50%;"></image>
-						<text style="padding-left: 20upx;color:#10518e">{{ replytocomment.name }}</text>
+						<image :src="replytocomment.avatarUrl" mode="" style="width: 50upx;height: 50upx;border-radius: 50%;" @tap="gotoother(replytocomment.userId)"></image>
+						<text style="padding-left: 20upx;color:#10518e" @tap="gotoother(replytocomment.userId)">{{ replytocomment.name }}</text>
 						<!-- <text style="position: absolute;right: 120upx;color:rgba(119,119,119,1);font-size:25upx">{{ replytocomment.createDate }}</text> -->
 						<text style="position: absolute;right: 20upx;font-size:30upx" @tap="reply(replytocomment)">回复</text>
 						<text style="position: absolute;right: 120upx;font-size:30upx;color:#D81E06" @tap="deletecomment(replytocomment.commentId)" v-if="replytocomment.userId==userId">删除</text>
@@ -245,9 +248,9 @@
 				
 				<view v-for="(reply, index) in replylist" :key="index" class="applybox">
 					<view style="display: flex;align-items: center;padding-left: 20upx;position: relative;">
-						<text style="padding-left: 70upx;padding-right:10upx;color:#10518e">{{ reply.name }}</text>
+						<text style="padding-left: 70upx;padding-right:10upx;color:#10518e" @tap="gotoother(reply.userId)">{{ reply.name }}</text>
 						<text>回复</text>
-						<text style="padding-left: 10upx;color:#10518e">{{ reply.replyToUserName }}</text>
+						<text style="padding-left: 10upx;color:#10518e" @tap="gotoother(reply.replyToUserId)">{{ reply.replyToUserName }}</text>
 						<text style="position: absolute;right: 20upx;font-size:30upx" @tap="reply(reply)">回复</text>
 						<text style="position: absolute;right: 120upx;font-size:30upx;color:#D81E06" @tap="deletecomment(reply.replyId)" v-if="reply.userId==userId">删除</text>
 					</view>
@@ -291,7 +294,7 @@
 			return {
 				config: {
 					type: 2, //0无title，1有title，2类别title
-					renttype: 5,
+					renttype: 0,
 					back: true,
 				},
 				userId: '',
@@ -322,6 +325,7 @@
 				mode: 'round',
 				dotsStyles: {},
 				commentpage: 1,
+				complete:false,
 			}
 		},
 		onPageScroll(e) {
@@ -400,6 +404,7 @@
 		onLoad(options) {
 			if (uni.getStorageSync('userId')) {
 				this.userId = uni.getStorageSync('userId')
+				this.getmobile()
 			} else {
 				setTimeout(() => {
 					uni.showToast({
@@ -413,10 +418,18 @@
 			}
 			this.config.renttype = options.type;
 			this.cardId = options.Id;
+			uni.showLoading({
+				title: '加载中',
+				mask: true
+			});
 			this.getdetail()
 		},
 		onShow() {
 			this.getdetail()
+		},
+		onPullDownRefresh: function() {
+			//下拉刷新的时候请求一次数据
+			this.getdetail();
 		},
 		onReachBottom: function() {
 			this.getmorecomments();
@@ -424,6 +437,13 @@
 		methods: {
 			customConduct() {
 				uni.navigateBack({});
+			},
+			gotoother(e){
+				if (this.userId!=e){
+					uni.navigateTo({
+						url:'../my/other?userId='+e
+					})
+				}
 			},
 			change(e) {
 				this.current = e.detail.current
@@ -469,8 +489,12 @@
 						_this.getapply()
 					}
 					_this.getcomment()
+					uni.hideLoading();
+					_this.complete = true;
 				}).catch(err => {
 					console.log(err)
+					uni.hideLoading();
+					_this.complete = true;
 				})
 			},
 			getowner() {
@@ -521,7 +545,7 @@
 					console.log(res)
 					_this.commentpage = 2
 					_this.comments = res.data.comments
-					if (res.data.comments.length < 10) {
+					if (res.data.comments.length < 8) {
 						console.log('评论区1');
 						this.loadingType = 2;
 					} else {
@@ -550,7 +574,7 @@
 						uni.hideNavigationBarLoading(); //关闭加载动画
 						return;
 					}
-					else if (res.data.comments.length < 10) {
+					else if (res.data.comments.length < 8) {
 						console.log('评论区');
 						this.loadingType = 2;
 					} else {
@@ -580,7 +604,7 @@
 									title: '申请成功',
 									icon: 'success'
 								})
-								_this.detail()
+								_this.getdetail()
 							}).catch(err => {
 								console.log(err)
 							})
@@ -607,7 +631,7 @@
 									title: '申请成功',
 									icon: 'success'
 								})
-								_this.detail()
+								_this.getdetail()
 							}).catch(err => {
 								console.log(err)
 							})
@@ -844,6 +868,23 @@
 						}
 					}
 				});
+			},
+			getmobile(){
+				this.$http.get('/api/person/info/', {
+					userId: this.userId
+				}).then(res => {
+					if (!res.mobile) {
+						setTimeout(() => {
+							uni.showToast({
+								title: '请先绑定手机号再再查看详情',
+								icon: 'none'
+							});
+						}, 100);
+						uni.navigateTo({
+							url: '../my/sms'
+						})
+					}
+				}).catch((e) => {});
 			}
 		}
 	}
@@ -1083,6 +1124,18 @@
 		height: 100upx;
 		color: #FFFFFF;
 		background: #d81e06;
+		font-size: 30upx;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+	
+	.textrent{
+		width: 250upx;
+		float: right;
+		height: 100upx;
+		color: #10518e;
+		background: #FFFFFF;
 		font-size: 30upx;
 		display: flex;
 		justify-content: space-around;

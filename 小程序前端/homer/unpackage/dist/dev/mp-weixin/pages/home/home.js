@@ -139,7 +139,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 99));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! ../../components/uni-load-more/uni-load-more.vue */ 106));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 141));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! ../../components/uni-load-more/uni-load-more.vue */ 148));};var _default =
+
+
 
 
 
@@ -236,7 +238,6 @@ __webpack_require__.r(__webpack_exports__);
         back: false },
 
       cards: [],
-
       loadingType: 0, //定义加载方式 0---contentdown  1---contentrefresh 2---contentnomore
       contentText: {
         contentdown: '上拉显示更多',
@@ -273,6 +274,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (uni.getStorageSync('userId')) {
       this.userId = uni.getStorageSync('userId');
+      this.getnewList();
     } else {
       uni.hideLoading();
       setTimeout(function () {
@@ -280,15 +282,16 @@ __webpack_require__.r(__webpack_exports__);
           title: '请先授权登录',
           icon: 'none' });
 
-      }, 100);
+      }, 500);
       uni.switchTab({
         url: '../my/my' });
 
     }
-    this.getnewList();
   },
   onShow: function onShow() {
-    this.getnewList();
+    if (uni.getStorageSync('userId')) {
+      this.getnewList();
+    }
   },
   onPullDownRefresh: function onPullDownRefresh() {
     //下拉刷新的时候请求一次数据
@@ -330,7 +333,7 @@ __webpack_require__.r(__webpack_exports__);
       then(function (res) {
         console.log(res);
         console.log(res.data.cards.length);
-        if (res.data.cards.length < 10) {
+        if (res.data.cards.length < 8) {
           console.log('我来了');
           _this.loadingType = 2;
         } else {
@@ -363,7 +366,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.loadingType = 2;
           uni.hideNavigationBarLoading(); //关闭加载动画
           return;
-        } else if (res.data.cards.length < 10) {
+        } else if (res.data.cards.length < 8) {
           _this2.loadingType = 2;
           uni.hideNavigationBarLoading(); //关闭加载动画
         } else {

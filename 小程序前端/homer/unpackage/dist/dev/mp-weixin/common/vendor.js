@@ -1620,7 +1620,7 @@ function normalizeComponent (
 var http = new _request.default();exports.http = http;
 http.setConfig(function (config) {/* 设置全局配置 */
 
-  config.baseUrl = 'http://188.131.227.20:1314';
+  config.baseUrl = 'https://tjuyjn.top:1314';
 
   //config.baseUrl = 'http://172.23.12.67:1314'
 
@@ -1640,55 +1640,6 @@ http.interceptor.response(function (response) {/* 请求之后拦截器 */
   return response;
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 153:
-/*!************************************************!*\
-  !*** D:/homer/components/pcaPicker/pcaData.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var pca = [
-{
-  "code": "12", "name": "天津大学", "children": [
-  { "code": "1201", "name": "北洋园校区", "children": [
-    { "code": "120101", "name": "格园一斋" },
-    { "code": "120102", "name": "格园二斋" },
-    { "code": "120103", "name": "格园三斋" },
-    { "code": "120104", "name": "知园四斋" },
-    { "code": "120105", "name": "知园五斋" },
-    { "code": "120106", "name": "诚园六斋" },
-    { "code": "120110", "name": "诚园七斋" },
-    { "code": "120111", "name": "诚园八斋" },
-    { "code": "120112", "name": "正园九斋" },
-    { "code": "120113", "name": "正园十斋" }] },
-
-  { "code": "1201", "name": "卫津路校区", "children": [
-    { "code": "120101", "name": "和平区" },
-    { "code": "120102", "name": "河东区" },
-    { "code": "120103", "name": "河西区" },
-    { "code": "120104", "name": "南开区" },
-    { "code": "120105", "name": "河北区" },
-    { "code": "120106", "name": "红桥区" },
-    { "code": "120110", "name": "东丽区" },
-    { "code": "120111", "name": "西青区" },
-    { "code": "120112", "name": "津南区" },
-    { "code": "120113", "name": "北辰区" },
-    { "code": "120114", "name": "武清区" },
-    { "code": "120115", "name": "宝坻区" },
-    { "code": "120116", "name": "滨海新区" },
-    { "code": "120117", "name": "宁河区" },
-    { "code": "120118", "name": "静海区" },
-    { "code": "120119", "name": "蓟州区" }] }] }];
-
-
-
-
-module.exports = {
-  pca: pca };
 
 /***/ }),
 
@@ -2942,6 +2893,69 @@ QQMapWX = /*#__PURE__*/function () {
 ;
 
 module.exports = QQMapWX;
+
+/***/ }),
+
+/***/ 195:
+/*!************************************************!*\
+  !*** D:/homer/components/pcaPicker/pcaData.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var pca = [
+{
+  "code": "12", "name": "天津大学", "children": [
+  { "code": "1201", "name": "北洋园校区", "children": [
+    { "code": "120101", "name": "格园一斋" },
+    { "code": "120102", "name": "格园二斋" },
+    { "code": "120103", "name": "格园三斋" },
+    { "code": "120104", "name": "知园四斋" },
+    { "code": "120105", "name": "知园五斋" },
+    { "code": "120106", "name": "诚园六斋" },
+    { "code": "120110", "name": "诚园七斋" },
+    { "code": "120111", "name": "诚园八斋" },
+    { "code": "120112", "name": "正园九斋" },
+    { "code": "120113", "name": "正园十斋" },
+    { "code": "120114", "name": "修园十一斋" },
+    { "code": "120115", "name": "修园十二斋" },
+    { "code": "120116", "name": "齐园十三斋" },
+    { "code": "120120", "name": "齐园十四斋" },
+    { "code": "120121", "name": "齐园十五斋" },
+    { "code": "120122", "name": "齐园十六斋" },
+    { "code": "120123", "name": "治园十七斋" },
+    { "code": "120114", "name": "治园十八斋" },
+    { "code": "120115", "name": "治园十九斋" },
+    { "code": "120116", "name": "治园二十斋" },
+    { "code": "120120", "name": "平园二十一斋" },
+    { "code": "120121", "name": "平园二十二斋" },
+    { "code": "120122", "name": "平园二十三斋" },
+    { "code": "120123", "name": "平园二十四斋" }] },
+
+  { "code": "1201", "name": "卫津路校区", "children": [
+    { "code": "120101", "name": "和平区" },
+    { "code": "120102", "name": "河东区" },
+    { "code": "120103", "name": "河西区" },
+    { "code": "120104", "name": "南开区" },
+    { "code": "120105", "name": "河北区" },
+    { "code": "120106", "name": "红桥区" },
+    { "code": "120110", "name": "东丽区" },
+    { "code": "120111", "name": "西青区" },
+    { "code": "120112", "name": "津南区" },
+    { "code": "120113", "name": "北辰区" },
+    { "code": "120114", "name": "武清区" },
+    { "code": "120115", "name": "宝坻区" },
+    { "code": "120116", "name": "滨海新区" },
+    { "code": "120117", "name": "宁河区" },
+    { "code": "120118", "name": "静海区" },
+    { "code": "120119", "name": "蓟州区" }] }] }];
+
+
+
+
+module.exports = {
+  pca: pca };
 
 /***/ }),
 
@@ -9857,7 +9871,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/home": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/my/my": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/add/add": { "navigationStyle": "custom" }, "pages/home/map": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/add/getmap": { "navigationStyle": "custom" }, "pages/home/search": { "navigationStyle": "custom" }, "pages/order/detail": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/order/orderlist": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/order/mapdetail": { "navigationStyle": "custom" }, "pages/add/adddetail": { "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/home": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/my/my": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/add/add": { "navigationStyle": "custom" }, "pages/home/map": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/add/getmap": { "navigationStyle": "custom" }, "pages/home/search": { "navigationStyle": "custom" }, "pages/order/detail": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/order/orderlist": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/order/mapdetail": { "navigationStyle": "custom" }, "pages/add/adddetail": { "navigationStyle": "custom" }, "pages/my/sms": { "navigationStyle": "custom" }, "pages/my/editMine": { "navigationStyle": "custom" }, "pages/my/finishOrder": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/my/unfinishOrder": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/my/other": { "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

@@ -144,7 +144,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 72));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 99));};var uniSwiperDot = function uniSwiperDot() {return __webpack_require__.e(/*! import() | components/uni-swiper-dot/uni-swiper-dot */ "components/uni-swiper-dot/uni-swiper-dot").then(__webpack_require__.bind(null, /*! @/components/uni-swiper-dot/uni-swiper-dot.vue */ 113));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! ../../components/uni-load-more/uni-load-more.vue */ 106));};var uniPop = function uniPop() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-pop */ "components/uni-popup/uni-pop").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-pop.vue */ 120));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 127));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 72));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 141));};var uniSwiperDot = function uniSwiperDot() {return __webpack_require__.e(/*! import() | components/uni-swiper-dot/uni-swiper-dot */ "components/uni-swiper-dot/uni-swiper-dot").then(__webpack_require__.bind(null, /*! @/components/uni-swiper-dot/uni-swiper-dot.vue */ 155));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! ../../components/uni-load-more/uni-load-more.vue */ 148));};var uniPop = function uniPop() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-pop */ "components/uni-popup/uni-pop").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-pop.vue */ 162));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 169));};var _default =
+
+
+
 
 
 
@@ -437,7 +440,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         type: 2, //0无title，1有title，2类别title
-        renttype: 5,
+        renttype: 0,
         back: true },
 
       userId: '',
@@ -467,7 +470,8 @@ __webpack_require__.r(__webpack_exports__);
       current: 0,
       mode: 'round',
       dotsStyles: {},
-      commentpage: 1 };
+      commentpage: 1,
+      complete: false };
 
   },
   onPageScroll: function onPageScroll(e) {
@@ -546,6 +550,7 @@ __webpack_require__.r(__webpack_exports__);
   onLoad: function onLoad(options) {
     if (uni.getStorageSync('userId')) {
       this.userId = uni.getStorageSync('userId');
+      this.getmobile();
     } else {
       setTimeout(function () {
         uni.showToast({
@@ -559,9 +564,17 @@ __webpack_require__.r(__webpack_exports__);
     }
     this.config.renttype = options.type;
     this.cardId = options.Id;
+    uni.showLoading({
+      title: '加载中',
+      mask: true });
+
     this.getdetail();
   },
   onShow: function onShow() {
+    this.getdetail();
+  },
+  onPullDownRefresh: function onPullDownRefresh() {
+    //下拉刷新的时候请求一次数据
     this.getdetail();
   },
   onReachBottom: function onReachBottom() {
@@ -570,6 +583,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     customConduct: function customConduct() {
       uni.navigateBack({});
+    },
+    gotoother: function gotoother(e) {
+      if (this.userId != e) {
+        uni.navigateTo({
+          url: '../my/other?userId=' + e });
+
+      }
     },
     change: function change(e) {
       this.current = e.detail.current;
@@ -615,8 +635,12 @@ __webpack_require__.r(__webpack_exports__);
           _this.getapply();
         }
         _this.getcomment();
+        uni.hideLoading();
+        _this.complete = true;
       }).catch(function (err) {
         console.log(err);
+        uni.hideLoading();
+        _this.complete = true;
       });
     },
     getowner: function getowner() {
@@ -667,7 +691,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(res);
         _this.commentpage = 2;
         _this.comments = res.data.comments;
-        if (res.data.comments.length < 10) {
+        if (res.data.comments.length < 8) {
           console.log('评论区1');
           _this2.loadingType = 2;
         } else {
@@ -696,7 +720,7 @@ __webpack_require__.r(__webpack_exports__);
           uni.hideNavigationBarLoading(); //关闭加载动画
           return;
         } else
-        if (res.data.comments.length < 10) {
+        if (res.data.comments.length < 8) {
           console.log('评论区');
           _this3.loadingType = 2;
         } else {
@@ -726,7 +750,7 @@ __webpack_require__.r(__webpack_exports__);
                 title: '申请成功',
                 icon: 'success' });
 
-              _this.detail();
+              _this.getdetail();
             }).catch(function (err) {
               console.log(err);
             });
@@ -753,7 +777,7 @@ __webpack_require__.r(__webpack_exports__);
                 title: '申请成功',
                 icon: 'success' });
 
-              _this.detail();
+              _this.getdetail();
             }).catch(function (err) {
               console.log(err);
             });
@@ -990,6 +1014,23 @@ __webpack_require__.r(__webpack_exports__);
           }
         } });
 
+    },
+    getmobile: function getmobile() {
+      this.$http.get('/api/person/info/', {
+        userId: this.userId }).
+      then(function (res) {
+        if (!res.mobile) {
+          setTimeout(function () {
+            uni.showToast({
+              title: '请先绑定手机号再再查看详情',
+              icon: 'none' });
+
+          }, 100);
+          uni.navigateTo({
+            url: '../my/sms' });
+
+        }
+      }).catch(function (e) {});
     } } };exports.default = _default;
 
 

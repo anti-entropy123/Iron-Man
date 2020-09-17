@@ -1,0 +1,112 @@
+
+.finish-box.data-v-56f10ded {
+}
+.alllist.data-v-56f10ded{
+	width:100%;
+}
+.margintop.data-v-56f10ded{
+	margin-top:290rpx;
+}
+.cardbox.data-v-56f10ded{
+	margin:30rpx 30rpx 0 30rpx;
+	border-bottom: 2rpx #e6e6e6 solid;
+	padding:0;
+	position: relative;
+}
+.cardimg.data-v-56f10ded{
+	float:left;
+	width:230rpx;
+	height:180rpx;
+	margin-bottom:30rpx;
+}
+.titlebox.data-v-56f10ded{
+	margin-left:15rpx;
+	float:left;
+	font-size:35rpx;
+	font-weight: bold;
+}
+.cardtitle.data-v-56f10ded{
+	float:left;
+	display:block;
+	-o-text-overflow:ellipsis;
+	   text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	max-width:266rpx;
+	margin-right:6rpx;
+}
+.contentbox.data-v-56f10ded{
+	margin: 0 0 0 15rpx;
+	float:left;
+	font-size:25rpx;
+}
+.cardcontent.data-v-56f10ded{
+	float:left;
+	display:block;
+	-o-text-overflow:ellipsis;
+	   text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	max-width:330rpx;
+}
+.pricebox.data-v-56f10ded{
+	margin-left:15rpx;
+	margin-top:10rpx;
+	font-weight: bold;
+}
+.cardprice.data-v-56f10ded{
+	font-size:40rpx;
+	color:#FF7900;
+}
+.typebox.data-v-56f10ded{
+	width:80rpx;
+	height:40rpx;
+	border-radius: 10rpx;
+	position:absolute;
+	bottom:30rpx;
+	right:10rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-justify-content: space-around;
+	    -ms-flex-pack: distribute;
+	        justify-content: space-around;
+	font-weight: bold;
+	opacity: 0.7;
+}
+.chuzucolor.data-v-56f10ded{
+	border:4rpx #F56C6C solid;
+	color:#F56C6C;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.chushoucolor.data-v-56f10ded{
+	border:4rpx #00aaff solid;
+	color:#00aaff;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.qiuzucolor.data-v-56f10ded{
+	border:4rpx #E6A23C solid;
+	color:#E6A23C;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.qiushoucolor.data-v-56f10ded{
+	border:4rpx #67C23A solid;
+	color:#67C23A;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.zhaoshiyoucolor.data-v-56f10ded{
+	border:4rpx #aa55ff solid;
+	color:#aa55ff;
+	font-size:20rpx;
+	line-height: 40rpx;
+}
+

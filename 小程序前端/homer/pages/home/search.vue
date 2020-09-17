@@ -23,7 +23,7 @@
 			<view class="weui-search-bar__form">
 				<icon class="weui-icon-search_in-box" type="search" size="14"></icon>
 				<view class="weui-search-bar__box">
-					<input type="text" @confirm="handlesearch()" class="weui-search-bar__input" placeholder="请在此处输入您想搜索的地区..." v-model="key" />
+					<input type="text" @confirm="handlesearch()" class="weui-search-bar__input" placeholder="请在此处输入您想搜索的位置..." v-model="key" />
 				</view>
 			</view>
 		</view>
@@ -58,6 +58,7 @@
 				},
 				historys: [],
 				key: '',
+				type:1,
 				listArr: ['出租', '出售', '求租', '求售', '找室友'],
 				listActive: 0, // 当前选中项
 				tabsScrollLeft: 0, // tabs当前偏移量
@@ -89,17 +90,17 @@
 				if (this.key != '') {
 					this.historys.push(this.key)
 					uni.setStorageSync('historyword', JSON.stringify(this.historys));
-					// uni.navigateTo({
-					// 	url:'../order/homelist?key='+this.key
-					// })
+					uni.navigateTo({
+						url:'../order/orderlist?key='+this.key+'&type='+this.type
+					})
 				}
 			},
 			tapsearch(key) {
 				this.historys.push(key)
 				uni.setStorageSync('historyword', JSON.stringify(this.historys));
-				// uni.navigateTo({
-				// 	url:'../order/homelist?key='+key
-				// })
+				uni.navigateTo({
+					url:'../order/orderlist?key='+key+'&type='+this.type
+				})
 			},
 			gethistory() {
 				if (uni.getStorageSync('historyword')) {
@@ -112,6 +113,7 @@
 			},
 			clickSort(index) {
 				this.listActive = index
+				this.type = index + 1
 			},
 			// scroll-view滑动事件
 			scroll(e) {
@@ -174,10 +176,10 @@
 		display: -webkit-flex;
 		display: flex;
 		box-sizing: border-box;
-		width: 550upx;
+		width: 684upx;
 		background: transparent;
 		border-radius: 10upx;
-		margin: 20upx 20upx 20upx 20upx;
+		margin: 20upx auto;
 	}
 
 	.weui-icon-search_in-box {
@@ -247,7 +249,7 @@
 		position: absolute;
 		right: 16upx;
 		bottom: 10upx;
-		width: 24upx;
+		width: 30upx;
 	}
 
 	.sticky-box {

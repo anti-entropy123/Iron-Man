@@ -1,0 +1,248 @@
+
+.navigation{
+	position:fixed;
+	height:340rpx;
+	width:100%;
+	background-color: white;
+	font-size: 30rpx;
+	font-family: SFProDisplay-Bold;
+	-webkit-box-shadow: 0rpx 4rpx 4rpx 2rpx rgba(242, 242, 242, 1);
+	        box-shadow: 0rpx 4rpx 4rpx 2rpx rgba(242, 242, 242, 1);
+	z-index:10;
+}
+.fixedheight{
+	height:290rpx;
+}
+.weui-search-bar {
+	background: #F8F8F8;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	width: 684rpx;
+	background:transparent;
+	border-radius: 10rpx;
+	margin:  20rpx auto;
+}
+.weui-icon-search_in-box {
+	position: absolute;
+	left: 20rpx;
+	top: 15rpx;
+}
+.weui-search-bar__form {
+	position: relative;
+	-webkit-box-flex: 1;
+	-webkit-flex: auto;
+	-ms-flex: auto;
+	    flex: auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	border-radius: 10rpx;
+	background: #F8F8F8;
+	opacity: 0.7;
+}
+.weui-search-bar__box {
+	text-align: left;
+	position: relative;
+	padding-left: 30px;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	z-index: 1;
+}
+.weui-search-bar__input {
+	/* height: 76.38upx; */
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 24rpx;
+	/* */
+}
+.weui-search-bar__cancel-btn {
+	margin-left: 10px;
+	line-height: 28px;
+	color: #09BB07;
+	white-space: nowrap;
+}
+.remove{
+	width:128rpx;
+	height:34rpx;
+	line-height: 34rpx;
+	text-align: center;
+	color:#969595;
+	font-size:16rpx;
+	border: 2rpx solid #CAC8C8;
+	border-radius: 20rpx;
+	position:absolute;
+	right:30rpx;
+	top:112rpx;
+}
+.input_digit {
+	float:left;
+	margin-left:10rpx;
+	font-size: 22rpx;
+	width:150rpx;
+	height:40rpx;
+	min-height: 40rpx;
+	background:#FFFFFF;
+	border:2rpx solid #F2F2F2;
+	border-radius:4rpx;
+	line-height: 40rpx;
+	padding-left:20rpx;
+}
+/* 默认背景样式*/
+radio .wx-radio-input{
+  width: 20rpx;
+  height: 20rpx;
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked{
+  width: 20rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 20rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  border: none;
+  background: #FEA951;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before{
+  border-radius: 50%;/* 圆角 */
+  width: 20rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 20rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 20rpx;
+  text-align: center;
+  font-size:15rpx; /* 对勾大小 30rpx */
+  color:#FEA951;
+  border: 2rpx solid #FEA951;
+  background: #FEA951;
+  -ms-transform:translate(-50%, -50%) scale(1);
+      transform:translate(-50%, -50%) scale(1);
+  -webkit-transform:translate(-50%, -50%) scale(1);
+}
+.alllist{
+	width:100%;
+	margin-top:340rpx;
+}
+.margintop{
+	margin-top:290rpx;
+}
+.cardbox{
+	margin:30rpx 30rpx 0 30rpx;
+	border-bottom: 2rpx #e6e6e6 solid;
+	padding:0;
+	position: relative;
+}
+.cardimg{
+	float:left;
+	width:230rpx;
+	height:180rpx;
+	margin-bottom:30rpx;
+}
+.titlebox{
+	margin-left:15rpx;
+	float:left;
+	font-size:35rpx;
+	font-weight: bold;
+}
+.cardtitle{
+	float:left;
+	display:block;
+	-o-text-overflow:ellipsis;
+	   text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	max-width:266rpx;
+	margin-right:6rpx;
+}
+.contentbox{
+	margin: 0 0 0 15rpx;
+	float:left;
+	font-size:25rpx;
+}
+.cardcontent{
+	float:left;
+	display:block;
+	-o-text-overflow:ellipsis;
+	   text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	max-width:330rpx;
+}
+.pricebox{
+	margin-left:15rpx;
+	margin-top:10rpx;
+	font-weight: bold;
+}
+.cardprice{
+	font-size:40rpx;
+	color:#FF7900;
+}
+.typebox{
+	width:80rpx;
+	height:40rpx;
+	border-radius: 10rpx;
+	position:absolute;
+	bottom:30rpx;
+	right:10rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-justify-content: space-around;
+	    -ms-flex-pack: distribute;
+	        justify-content: space-around;
+	font-weight: bold;
+	opacity: 0.7;
+}
+.chuzucolor{
+	border:4rpx #F56C6C solid;
+	/* background:#F56C6C;
+	color:#FFFFFF; */
+	color:#F56C6C;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.chushoucolor{
+	border:4rpx #00aaff solid;
+	/* background:#00aaff;
+	color:#FFFFFF; */
+	color:#00aaff;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.qiuzucolor{
+	border:4rpx #E6A23C solid;
+	/* background:#E6A23C;
+	color:#FFFFFF; */
+	color:#E6A23C;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.qiushoucolor{
+	border:4rpx #67C23A solid;
+	/* background:#67C23A;
+	color:#FFFFFF; */
+	color:#67C23A;
+	font-size:30rpx;
+	line-height: 40rpx;
+}
+.zhaoshiyoucolor{
+	border:4rpx #aa55ff solid;
+	/* background:#aa55ff;
+	color:#FFFFFF; */
+	color:#aa55ff;
+	font-size:20rpx;
+	line-height: 40rpx;
+}
+

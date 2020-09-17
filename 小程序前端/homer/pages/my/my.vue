@@ -4,39 +4,54 @@
 			<navigation :config="config" />
 		</view>
 		<view class="user-box" v-if="userId!=''">
-			<view class="avator-box">
+			<view class="avator-box" @tap="goEdit">
 				<image :src="avatar" mode="aspectFit"></image>
 			</view>
-			<view class="user-right">
+			<view class="user-right" @tap="goEdit">
 				<view class="user-id">
-					{{name}}
+					<text class="user-name">{{name}}</text>
+					<image src="../../static/edit.png" class="editicon"></image>
 				</view>
 				<view class="user-phone">
-					<text>手机号: 18722648040</text>
+					<text>手机号: {{mobile}}</text>
 				</view>
-				<view class="user-edit" @tap="goEdit">编辑信息</view>
 			</view>
 		</view>
 		<view class="user-box" v-else>
 			<button class="loginbtn" plain="true" open-type="getUserInfo" @getuserinfo="getuserinfo">请授权登录</button>
 		</view>
-		<view class="title">订单</view>
 		<view class="order">
 			<view class="order-btn" @tap="goFinish">
-				已完成订单
+				<image src="../../static/order.png" style="width:70upx;flex: 1;margin-top:10upx;justify-content: center;" mode="widthFix"></image>
+				<text>已完成订单</text>
 			</view>
 			<view class="order-btn" @tap="goUnfinish">
-				未完成订单
+				<image src="../../static/thinking.png" style="width:70upx;flex: 1;margin-top:10upx;justify-content: center;" mode="widthFix"></image>
+				<text>未完成订单</text>
 			</view>
 		</view>
-		<view class="title">消息队列</view>
-		<block v-for="(msg,key,index) in msgList" :key="index">
-			<view class="msg-list">
-				<view class="msg-item">
-					{{key}},{{msg.msg}}
-				</view>
+		<view class="msglist">
+			<view class="title">
+				<image src="../../static/messageicon.png" mode="widthFix"></image>
+				<text>消息队列</text>
 			</view>
-		</block>
+			<view v-for="(message,index) in messages" :key="index" class="msgbox">
+				<image :src="message.avatarUrl" mode="" class="messageavatar" @tap="gotoother(message.userId)"></image>
+				<view class="messgaetext">
+					<text style="color:#10518e;margin-right:10upx;" @tap="gotoother(message.userId)">@{{message.nickname}}</text>
+					<text>{{message.type|filters1}}</text>
+				<viwe class="statetext">
+					<text v-if="message.status" style="color:#707070">已批阅</text>
+					<text v-else-if="message.type==0" style="color:#10518E" @tap="gotodetail(message.cardId)">>>去审批</text>
+					<text v-else-if="message.type==1" style="color:#09BB07" @tap="agreejoin(message.applyId)">同意</text>
+				</viwe>
+				</view>
+				<view style="clear: both;"></view>
+			</view>
+			<view style="display: flex;align-items: center;justify-content: space-around;margin-top:20upx;">
+				<view style="color:rgba(119,119,119,1);font-size:25upx;margin-bottom:30upx;">没有更多数据了</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -54,71 +69,90 @@
 				userId: '',
 				avatar: '',
 				name: '',
+				mobile: '',
 				firstTime: true,
-				msgList: [{
-					type: '0',
-					msg: '你的card有人申请了!',
-					cardId: '1'
-				}, {
-					type: '1',
-					msg: '你的队伍有人申请加入了!',
-					cardId: '1'
-				}, {
-					type: '2',
-					msg: '你的入队申请通过了!',
-					cardId: '1'
-				}, {
-					type: '3',
-					msg: '你的队伍有人退出了!',
-					cardId: '1'
-				}, {
-					type: '4',
-					msg: '你的队伍解散了!',
-					cardId: '1'
-				}, {
-					type: '5',
-					msg: '你的card有人申请了!',
-					cardId: '1'
-				}]
+				messages: [],
+				
 			}
 		},
 		components: {
 			navigation
 		},
-		onReady() {
-			if (uni.getStorageSync('userId')&&uni.getStorageSync('token')) {
+		filters: {
+			filters1: function(arg) {
+				if (arg == 0) {
+					return '申请你的资源了'
+				} else if (arg == 1) {
+					return '申请加入你的队伍';
+				} else if (arg == 2) {
+					return '已同意你的合租入队申请';
+				} else if (arg == 3) {
+					return '退出了你的队伍';
+				} else if (arg == 4) {
+					return '已将你们的队伍解散';
+				} else if (arg == 5) {
+					return '已同意你的下单申请';
+				} else if (arg == 6) {
+					return '回复了你的评论';
+				} else if (arg == 7) {
+					return '评论了你的帖子';
+				}
+			},
+		},
+		onLoad() {
+			if (uni.getStorageSync('userId') && uni.getStorageSync('token')) {
 				this.userId = uni.getStorageSync('userId')
 				this.getuser()
 			} else {
-			let _this = this
-			console.log(1)
-			uni.login({
-				provider: 'weixin',
-				success: function(response) {
-					console.log(response)
-					_this.code = response.code
-				},
-				fail: (err) => {
-					console.log(err)
-				}
-			})
+				let _this = this
+				console.log(1)
+				uni.login({
+					provider: 'weixin',
+					success: function(response) {
+						console.log(response)
+						_this.code = response.code
+					},
+					fail: (err) => {
+						console.log(err)
+					}
+				})
+			}
+		},
+		onShow(){
+			if (uni.getStorageSync('userId') && uni.getStorageSync('token')) {
+				this.getuser()
+				this.getmessage()
+			}
+		},
+		onPullDownRefresh: function() {
+			//下拉刷新的时候请求一次数据
+			if (uni.getStorageSync('userId') && uni.getStorageSync('token')) {
+				this.getuser()
+				this.getmessage()
 			}
 		},
 		methods: {
 			goEdit: function() {
-				// wx.navigateTo({
-				//   url: '../my/editMine'　
-				// })
+				uni.navigateTo({
+					url: '../my/editMine'
+				})
 			},
 			goFinish: function() {
-				// wx.navigateTo({
-				//   url: '../my/finish'　
-				// })
+				uni.navigateTo({
+					url: '../my/finishOrder'
+				})
 			},
 			goUnfinish: function() {
-				// wx.navigateTo({
-				//   url: '../my/unfinish'　
-				// })
+				uni.navigateTo({
+					url: '../my/unfinishOrder'
+				})
+			},
+			gotoother(e){
+				if (this.userId!=e){
+					uni.navigateTo({
+						url:'../my/other?userId='+e
+					})
+				}
 			},
 			//获取微信头像昵称
 			getuserinfo(e) {
@@ -127,7 +161,7 @@
 				let user = e.detail.userInfo;
 				this.name = user.nickName;
 				this.avatar = user.avatarUrl;
-				let url = 'http://188.131.227.20:1314/api/login/'
+				let url = 'https://tjuyjn.top:1314/api/login/'
 				let _this = this
 				uni.request({
 					url: url,
@@ -143,6 +177,7 @@
 						uni.setStorageSync('userId', res.data.userId)
 						if (!res.data.firstTime) {
 							_this.getuser()
+							_this.getmessage()
 						} else {
 							_this.sendfirst()
 						}
@@ -150,7 +185,7 @@
 						uni.setStorageSync('name', _this.name)
 					},
 					fail: err => {
-				
+
 					}
 				})
 			},
@@ -159,9 +194,20 @@
 				this.$http.get('/api/person/info/', {
 					userId: this.userId
 				}).then(res => {
-					if (res.result == 1) {
-						this.name = res.name;
-						this.avatar = res.avatarUrl;
+					this.name = res.name;
+					this.avatar = res.avatarUrl;
+					if (!res.mobile) {
+						setTimeout(() => {
+							uni.showToast({
+								title: '请先绑定手机号',
+								icon: 'none'
+							});
+						}, 100);
+						uni.navigateTo({
+							url: '../my/sms'
+						})
+					} else {
+						this.mobile = res.mobile
 					}
 				}).catch((e) => {});
 			},
@@ -178,6 +224,44 @@
 						icon: 'none'
 					})
 				}).catch((e) => {});
+			},
+			getmessage(){
+				this.$http.get('/api/message/getAll/', {
+					userId: this.userId
+				}).then(res => {
+					this.messages = res.data.messages
+				}).catch((e) => {});
+			},
+			agreejoin(e){
+				let _this = this
+				uni.showModal({
+					title: '提示',
+					content: '是否确认同意加入你的队伍',
+					success: function(res) {
+						if (res.confirm) {
+							console.log('用户点击确定');
+							_this.$http.post('/api/detail/processApply/', {
+								applyId:e
+							}).then(res => {
+								console.log(res)
+								uni.showToast({
+									title: '操作成功',
+									icon: 'success'
+								});
+								_this.getmessage()
+							}).catch(err => {
+								console.log(err)
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			},
+			gotodetail(e){
+				uni.navigateTo({
+					url:'../order/detail?Id='+e +'&type='+0
+				})
 			}
 		}
 	}
@@ -186,6 +270,7 @@
 <style scoped>
 	.mine-container {
 		background-color: #F8F8F8;
+		width:100vw
 	}
 
 	.user-box {
@@ -193,19 +278,17 @@
 		padding-left: 20rpx;
 		display: flex;
 		align-items: center;
-		margin: 10rpx 6rpx 10rpx 6rpx;
-		border-radius: 10rpx;
+		margin: 40rpx 0 20rpx;
 		overflow: hidden;
 		background-color: #fff;
-		box-shadow: 6rpx 6rpx 6rpx #c0c0c0;
 		position: relative;
 	}
 
 	.avator-box {
-		height: 160rpx;
-		width: 160rpx;
+		height: 140rpx;
+		width: 140rpx;
 		overflow: hidden;
-		margin-left: 20upx;
+		margin-left: 50upx;
 	}
 
 	.avator-box image {
@@ -213,72 +296,116 @@
 		width: 140rpx;
 		border-radius: 50%;
 	}
+	
+	.loginbtn {
+		border: none
+	}
+	
+	.editicon{
+		width:30upx;
+		height:30upx;
+		margin-left:30upx;
+		position: relative;
+		margin-top:15upx;
+	}
 
 	.user-right {
-		margin-left: 10rpx;
+		margin-left: 30rpx;
 	}
 
 	.user-id {
-		font-weight: bold;
-		font-size: large;
+		height:60upx;
 	}
-
+	
+	.user-name{
+		font-weight: bold;
+		font-size: 45upx;
+		line-height: 60upx;
+	}
+	
 	.user-phone {
 		margin-top: 20rpx;
 		font-size: smaller;
 	}
 
-	.user-edit {
-		font-size: small;
-		position: absolute;
-		bottom: 20rpx;
-		right: 40rpx;
-	}
-
 	.order {
 		display: flex;
-		padding: 0 30rpx;
-
+		margin: 20rpx 0;
+		background-color: #fff;
+		height:190upx;
+		justify-content: space-around;
+		text-align: center;	
 	}
 
 	.order-btn {
-		flex: 1;
-		width: 200rpx;
-		height: 120rpx;
-		background-color: rgba(16, 81, 142, 0.25);
+		width: 250upx;
+		height: 130upx;
+		margin-top:30upx;
 		border-radius: 10rpx;
-		text-align: center;
-		line-height: 120rpx;
+		/* vertical-align: middle; */
+		align-items: center;
 	}
-
-	.order-btn:first-child {
-		margin-right: 20rpx;
-	}
-
-	.title {
-		margin-top: 10rpx;
-		margin-bottom: 10rpx;
-		margin-left: 15rpx;
-		font-size: larger;
-		font-weight: bold;
-	}
-
-	.msg-list {
+	
+	.order-btn text{
+		font-size: 30upx;
+		flex: 1;
 		display: flex;
-		flex-direction: column;
+		justify-content: center;
 	}
-
-	.msg-item {
-		height: 80rpx;
-		line-height: 80rpx;
-		padding-left: 20rpx;
-		margin: 10rpx 15rpx 10rpx 15rpx;
-		background-color: #fff;
-		border-radius: 6rpx;
-		box-shadow: 5rpx 5rpx 5rpx #c0c0c0;
+	
+	.msglist{
+		width:100vw;
+		background: #FFFFFF;
+		margin: 20rpx 0;
+		padding:20rpx 0;
 	}
-
-	.loginbtn {
-		border: none
+	
+	.title {
+		padding-bottom: 20rpx;
+		border-bottom: 2upx #e6e6e6 solid;
+		display: flex;
+		font-size: 40upx;
+		font-weight: bold;
+		justify-content: center;
+		text-align: center;
+	}
+	
+	.title image{
+		width:60upx;
+	}
+	
+	.title text{
+		line-height: 60upx;
+		vertical-align: middle;
+	}
+	
+	.msgbox{
+		margin:30upx 0;
+		border-bottom: 2upx #e6e6e6 solid;
+		padding:0 100upx 30upx;
+		position: relative;
+	}
+	
+	.messageavatar{
+		width:80upx;
+		height:80upx;
+		float:left;
+	}
+	
+	.messgaetext{
+		margin-left:50upx;
+		float:left;
+		width:300upx;
+		font-size:32upx;
+		height:80upx;
+	}
+	
+	.statetext{
+		position: absolute;
+		top:0;
+		right:50upx;
+		font-size:30upx;
+		line-height: 80upx;
+		height:80upx;
 	}
 </style>

@@ -90,6 +90,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.messages, function(message, index) {
+    var f0 = _vm._f("filters1")(message.type)
+
+    return {
+      $orig: _vm.__get_orig(message),
+      f0: f0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -122,7 +139,22 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 99));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigation = function navigation() {return __webpack_require__.e(/*! import() | components/navigation/navigation */ "components/navigation/navigation").then(__webpack_require__.bind(null, /*! ../../components/navigation/navigation */ 141));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -178,38 +210,37 @@ __webpack_require__.r(__webpack_exports__);
       userId: '',
       avatar: '',
       name: '',
+      mobile: '',
       firstTime: true,
-      msgList: [{
-        type: '0',
-        msg: '你的card有人申请了!',
-        cardId: '1' },
-      {
-        type: '1',
-        msg: '你的队伍有人申请加入了!',
-        cardId: '1' },
-      {
-        type: '2',
-        msg: '你的入队申请通过了!',
-        cardId: '1' },
-      {
-        type: '3',
-        msg: '你的队伍有人退出了!',
-        cardId: '1' },
-      {
-        type: '4',
-        msg: '你的队伍解散了!',
-        cardId: '1' },
-      {
-        type: '5',
-        msg: '你的card有人申请了!',
-        cardId: '1' }] };
+      messages: [] };
 
 
   },
   components: {
     navigation: navigation },
 
-  onReady: function onReady() {
+  filters: {
+    filters1: function filters1(arg) {
+      if (arg == 0) {
+        return '申请你的资源了';
+      } else if (arg == 1) {
+        return '申请加入你的队伍';
+      } else if (arg == 2) {
+        return '已同意你的合租入队申请';
+      } else if (arg == 3) {
+        return '退出了你的队伍';
+      } else if (arg == 4) {
+        return '已将你们的队伍解散';
+      } else if (arg == 5) {
+        return '已同意你的下单申请';
+      } else if (arg == 6) {
+        return '回复了你的评论';
+      } else if (arg == 7) {
+        return '评论了你的帖子';
+      }
+    } },
+
+  onLoad: function onLoad() {
     if (uni.getStorageSync('userId') && uni.getStorageSync('token')) {
       this.userId = uni.getStorageSync('userId');
       this.getuser();
@@ -228,21 +259,41 @@ __webpack_require__.r(__webpack_exports__);
 
     }
   },
+  onShow: function onShow() {
+    if (uni.getStorageSync('userId') && uni.getStorageSync('token')) {
+      this.getuser();
+      this.getmessage();
+    }
+  },
+  onPullDownRefresh: function onPullDownRefresh() {
+    //下拉刷新的时候请求一次数据
+    if (uni.getStorageSync('userId') && uni.getStorageSync('token')) {
+      this.getuser();
+      this.getmessage();
+    }
+  },
   methods: {
     goEdit: function goEdit() {
-      // wx.navigateTo({
-      //   url: '../my/editMine'　
-      // })
+      uni.navigateTo({
+        url: '../my/editMine' });
+
     },
     goFinish: function goFinish() {
-      // wx.navigateTo({
-      //   url: '../my/finish'　
-      // })
+      uni.navigateTo({
+        url: '../my/finishOrder' });
+
     },
     goUnfinish: function goUnfinish() {
-      // wx.navigateTo({
-      //   url: '../my/unfinish'　
-      // })
+      uni.navigateTo({
+        url: '../my/unfinishOrder' });
+
+    },
+    gotoother: function gotoother(e) {
+      if (this.userId != e) {
+        uni.navigateTo({
+          url: '../my/other?userId=' + e });
+
+      }
     },
     //获取微信头像昵称
     getuserinfo: function getuserinfo(e) {
@@ -251,7 +302,7 @@ __webpack_require__.r(__webpack_exports__);
       var user = e.detail.userInfo;
       this.name = user.nickName;
       this.avatar = user.avatarUrl;
-      var url = 'http://188.131.227.20:1314/api/login/';
+      var url = 'https://tjuyjn.top:1314/api/login/';
       var _this = this;
       uni.request({
         url: url,
@@ -267,6 +318,7 @@ __webpack_require__.r(__webpack_exports__);
           uni.setStorageSync('userId', res.data.userId);
           if (!res.data.firstTime) {
             _this.getuser();
+            _this.getmessage();
           } else {
             _this.sendfirst();
           }
@@ -283,9 +335,20 @@ __webpack_require__.r(__webpack_exports__);
       this.$http.get('/api/person/info/', {
         userId: this.userId }).
       then(function (res) {
-        if (res.result == 1) {
-          _this2.name = res.name;
-          _this2.avatar = res.avatarUrl;
+        _this2.name = res.name;
+        _this2.avatar = res.avatarUrl;
+        if (!res.mobile) {
+          setTimeout(function () {
+            uni.showToast({
+              title: '请先绑定手机号',
+              icon: 'none' });
+
+          }, 100);
+          uni.navigateTo({
+            url: '../my/sms' });
+
+        } else {
+          _this2.mobile = res.mobile;
         }
       }).catch(function (e) {});
     },
@@ -302,6 +365,44 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'none' });
 
       }).catch(function (e) {});
+    },
+    getmessage: function getmessage() {var _this3 = this;
+      this.$http.get('/api/message/getAll/', {
+        userId: this.userId }).
+      then(function (res) {
+        _this3.messages = res.data.messages;
+      }).catch(function (e) {});
+    },
+    agreejoin: function agreejoin(e) {
+      var _this = this;
+      uni.showModal({
+        title: '提示',
+        content: '是否确认同意加入你的队伍',
+        success: function success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定');
+            _this.$http.post('/api/detail/processApply/', {
+              applyId: e }).
+            then(function (res) {
+              console.log(res);
+              uni.showToast({
+                title: '操作成功',
+                icon: 'success' });
+
+              _this.getmessage();
+            }).catch(function (err) {
+              console.log(err);
+            });
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        } });
+
+    },
+    gotodetail: function gotodetail(e) {
+      uni.navigateTo({
+        url: '../order/detail?Id=' + e + '&type=' + 0 });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

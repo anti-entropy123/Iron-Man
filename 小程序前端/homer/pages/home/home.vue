@@ -37,10 +37,12 @@
 				</view>
 			</view>
 			
-			<view class="mapButton" @tap="gotomap()">
-				<image class="mapImg" mode="aspectFill" src="../../static/map.png" />
-				<text class="mapText">点击进入地图模式</text>
-			</view>
+			
+				<view class="mapButton" @tap="gotomap()">
+					<image class="mapImg" mode="aspectFill" src="../../static/map.png" />
+					<text class="mapText">点击进入地图模式</text>
+				</view>
+			
 			
 			<view class="alllist">
 				<view class="cardbox" v-for="(card, index) in cards" :key="index" @tap="gotodetail(card.cardId,card.type)">
@@ -94,8 +96,7 @@
 					title: "首页",
 					back:false
 				},
-				cards: [
-				        ],
+				cards: [],
 				loadingType: 0, //定义加载方式 0---contentdown  1---contentrefresh 2---contentnomore
 				contentText: {
 					contentdown: '上拉显示更多',
@@ -132,6 +133,7 @@
 			});
 			if (uni.getStorageSync('userId')) {
 				this.userId = uni.getStorageSync('userId')
+				this.getnewList();
 			} else {
 				uni.hideLoading();
 				setTimeout(() => {
@@ -139,15 +141,16 @@
 						title: '请先授权登录',
 						icon: 'none'
 					})
-				}, 100);
+				}, 500);
 				uni.switchTab({
 				   url: '../my/my'　
 				})
 			}
-			this.getnewList();
 		},
 		onShow() {
-			this.getnewList();
+			if (uni.getStorageSync('userId')) {
+				this.getnewList();
+			}
 		},
 		onPullDownRefresh: function() {
 			//下拉刷新的时候请求一次数据
@@ -189,7 +192,7 @@
 					.then(res => {
 						console.log(res)
 						console.log(res.data.cards.length);
-						if (res.data.cards.length < 10) {
+						if (res.data.cards.length < 8) {
 							console.log('我来了');
 							this.loadingType = 2;
 						} else {
@@ -222,7 +225,7 @@
 							this.loadingType = 2;
 							uni.hideNavigationBarLoading(); //关闭加载动画
 							return;
-						} else if (res.data.cards.length < 10){
+						} else if (res.data.cards.length < 8){
 							this.loadingType = 2;
 							uni.hideNavigationBarLoading(); //关闭加载动画
 						} else {
@@ -322,13 +325,19 @@
 	margin-top:-5upx;
 }
 
+/* .mapback{
+	background:#F8F8F8;
+	width:100%;
+	height:190upx;
+} */
+
 .mapButton{
 	width: 720upx;
 	height:150upx;
 	position:relative;
 	box-shadow:0px 2px 6px rgba(233,233,233,0.5);
 	border-radius:30upx;
-	margin:14upx auto;
+	margin:20upx auto;
 	overflow: hidden;
 }
 .mapImg{

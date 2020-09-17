@@ -52,12 +52,11 @@
 			uploadimage(url) {
 				let id = this.imgsrcs.length;
 				let upload_task = uni.uploadFile({
-					url: 'http://188.131.227.20:1314/api/publish/image',
+					url: 'https://tjuyjn.top:1314/api/publish/image',
 					filePath: url,
 					name: 'image',
 					header: {
 						Authorization: 'Bearer ' + uni.getStorageSync('token')
-						//Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiJ5b3VqaWFuaW5nIn0.agJw2OXrczMkLLD-JhqLb0EsUpEVkZ3NzigN4oEQJp68fEzRNQJEVrXRDB03xsG1EH6XTvBYImR3e1IzKbJUeA"
 					},
 					success: (res) => {
 						console.log(res)
