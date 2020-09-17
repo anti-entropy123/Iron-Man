@@ -42,6 +42,7 @@ export default {
       login_status: '点击登陆'
     }
   },
+
   methods: {
     goLogin () {
       this.login_status=''

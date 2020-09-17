@@ -10,8 +10,7 @@ import axios from 'axios'
 import router from './router'
 Vue.prototype.$http = axios
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = ''
-axios.defaults.baseURL = 'http://188.131.227.20:1314'
+axios.defaults.baseURL = 'https://tjuyjn.top:1314'
 Vue.config.productionTip = false
 // 关键步骤–填写后台请求统一的地址
 // axios.defaults.headers.post['Content-Type'] = 'application/json'

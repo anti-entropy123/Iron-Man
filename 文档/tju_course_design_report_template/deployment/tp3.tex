@@ -1,0 +1,66 @@
+\chapter{部署过程}
+
+\section{获取后端源代码和静态资源}
+
+在\href{https://github.com/anti-entropy123/Iron-Man/tree/master}{源代码地址}中获取后端源代码. 静态资源文件位 $\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$static 目录下.
+
+\section{配置数据库}
+1.首先需要在服务器中安装mysql数据库(v > = 5.7.30)
+2.安装成功后 ,建立名为 iron\_man 的数据库, 并将 $\backslash$Iron-Man$\backslash$文档 $\backslash$iron\_man.sql 的文件作为源导入该数据库中.
+3.找到 $\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$application.yml , 根据实际服务器和MySQL的情况调整下面三个字段:
+\begin{itemize}
+    \item datasource.url
+    \item datasource.username
+    \item datasource.password
+\end{itemize}
+ 
+\section{配置 SSL}
+1. 向相关机构申请 SSL 证书
+
+2. 完成证书的申请后下载相关文件, 找到 *.jks 文件和 keystorePass.txt 文件(若设置了私钥则不会有后者).
+
+3. 进入 $\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$application.yml , 修改三个字段:
+
+\begin{itemize}
+    \item ssl.key-store: classpath: (与*.jks的文件名保证一致)
+    \item ssl.key-store-password: (keystorePass.txt 文件中的内容)
+    \item ssl.key-store-type: JKS
+\end{itemize}
+
+\section{配置鉴权Token}
+1. 打开 $\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$application.yml 
+2. 找到 jwt.secret 字段, 可以设置为较复杂的字符串以保证安全性, 不过每当改变这个值时, 之前所下发的token将失效. 
+3. jwt.header 和 jwt.tokenHead 字段也可以根据实际需要进行修改, 但是需要和前端的相关代码保持一致, 否则将无法进行认证.
+
+\section{配置第三方储存}
+1. 本项目的图片使用腾讯cos对象存储进行保存, 所以需要针对该平台配置$\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$application.yml 下的四个字段:
+
+\begin{itemize}
+    \item tencent.cos.secretId
+    \item tencent.cos.secretKey
+    \item tencent.cos.region
+    \item tencent.cos.bucket
+\end{itemize}
+这些参数的值需要到腾讯控制台进行查看.
+
+\section{绑定小程序}
+本项目部分接口需要腾讯小程序开放接口支持, 所以需要管理员到微信小程序平
+台进行小程序的注册. 然后将小程序的相关参数填写至 $\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$application.yml  中的相关字段:
+
+\begin{itemize}
+    \item tencent.wx.appid
+    \item tencent.wx.secret
+ 
+\end{itemize}
+
+\section{打包}
+进入 $\backslash$Iron-Man$\backslash$后端 目录下, 使用命令行或bash等, 输入命令: mvn clean package -Dmaven.test.skip=true然后在 $\backslash$Iron-Man$\backslash$后端$\backslash$target 会出现 IronMan-0.0.1-SNAPSHOT.jar , 此即为本项目后端的jar包.
+
+\section{配置监听端口(选做)}
+
+如果需要的话, 可以修改 $\backslash$Iron-Man$\backslash$后端$\backslash$src$\backslash$main$\backslash$resources$\backslash$application.yml 下的 server.port 字段为其它值, 但需
+要调整前端代码与其保持一致, 不建议随意修改
+
+\section{启动}
+
+将上述jar包上传至服务器某适当目录后, 即可在同目录下输入命令: java -jar IronMan-0.0.1-SNAPSHOT.jar , 即可启动后端程序.

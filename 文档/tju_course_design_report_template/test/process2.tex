@@ -1,0 +1,170 @@
+\chapter{管理员测试过程}
+
+\section{管理员登陆测试}
+
+功能描述：管理员进行登陆
+   
+用户操作：管理员输入正确的账号密码
+
+预期结果：页面跳转到管理用户页面,左边框显示管理员的头像和名字
+
+测试结果：通过
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t]{0.9\textwidth}
+    \centering
+    \includegraphics[width=12cm,height=6cm]{test/image/adm1.png} 
+    \end{minipage}
+    \end{figure}
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[t]{0.9\textwidth}
+        \centering
+        \includegraphics[width=12cm,height=6cm]{test/image/adm2.png} 
+        \end{minipage}
+        \end{figure}
+\newpage     
+\section{管理员查询用户信息测试}
+实现用例17：用户信息管理
+
+功能描述：管理员查询用户
+
+   
+用户操作：管理员可以再搜索栏输入相关信息,
+
+预期结果：筛选出符合条件的帖子
+
+测试结果：通过
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t]{0.9\textwidth}
+    \centering
+    \includegraphics[width=12cm,height=6cm]{test/image/adm3.png} 
+    \end{minipage}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[t]{0.9\textwidth}
+        \centering
+        \includegraphics[width=12cm,height=6cm]{test/image/adm4.png} 
+        \end{minipage}
+        \end{figure}
+        \newpage         
+        \begin{figure}[htbp]
+            \centering
+            \begin{minipage}[t]{0.9\textwidth}
+            \centering
+            \includegraphics[width=12cm,height=6cm]{test/image/adm5.png} 
+            \end{minipage}
+            \end{figure}
+           
+\section{管理员查询帖子信息测试}
+实现用例16：资源管理
+功能描述：管理员删除用户
+   
+用户操作：点击删除或者选则要删除的对象批量删除
+
+预期结果：从数据库中删除对应的数据
+
+测试结果：通过
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t]{0.9\textwidth}
+    \centering
+    \includegraphics[width=12cm,height=6cm]{test/image/adm6.png} 
+    \end{minipage}
+    \end{figure}
+    \newpage 
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[t]{0.9\textwidth}
+        \centering
+        \includegraphics[width=12cm,height=6cm]{test/image/adm7.png} 
+        \end{minipage}
+        \end{figure}
+            
+\section{管理员查询帖子详情信息测试}
+实现用例16：资源管理
+
+功能描述：管理员筛选对应的帖子用户可以查看自己发出请求和发布的未完成的帖子
+   
+用户操作：管理员在查询框中输入帖子信息 进行筛选
+
+预期结果：获取对应数据,渲染到页面上
+
+测试结果：通过
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t]{0.9\textwidth}
+    \centering
+    \includegraphics[width=12cm,height=6cm]{test/image/adm8.png} 
+    \end{minipage}
+    \end{figure} 
+    \newpage 
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[t]{0.9\textwidth}
+        \centering
+        \includegraphics[width=12cm,height=6cm]{test/image/adm9.png} 
+        \end{minipage}
+        \end{figure}
+        \newpage          
+        \begin{figure}[htbp]
+            \centering
+            \begin{minipage}[t]{0.9\textwidth}
+            \centering
+            \includegraphics[width=12cm,height=6cm]{test/image/adm10.png} 
+            \end{minipage}
+            \end{figure}  
+            \newpage                            
+\section{管理员删除用户信息测试}
+实现用例17：用户信息管理
+
+功能描述：管理员查看帖子详情信息
+   
+用户操作：点击查看按钮查看对应的帖子信息
+
+预期结果：浏览器窗口弹出详情信息
+
+测试结果：通过
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t]{0.9\textwidth}
+    \centering
+    \includegraphics[width=12cm,height=6cm]{test/image/adm11.png} 
+    \end{minipage}
+    \end{figure}   
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[t]{0.9\textwidth}
+        \centering
+        \includegraphics[width=12cm,height=6cm]{test/image/adm12.png} 
+        \end{minipage}
+        \end{figure}   
+        \newpage    
+\section{管理员删除帖子信息测试}
+实现用例16：资源管理
+
+功能描述：用户可以查看自己的个人资料
+   
+用户操作：用户点击“我的”中的头像可以查看自己的个人信息
+
+预期结果：页面跳转到”个人信息”页面
+
+测试结果：通过
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t]{0.9\textwidth}
+    \centering
+    \includegraphics[width=12cm,height=6cm]{test/image/adm13.png} 
+    \end{minipage}
+    \end{figure}  
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[t]{0.9\textwidth}
+        \centering
+        \includegraphics[width=12cm,height=6cm]{test/image/adm14.png} 
+        \end{minipage}
+        \end{figure}      
