@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mbry.IronMan.BusinessObject.Team;
-import com.mbry.IronMan.Dao.ApplicationDao;
+// import com.mbry.IronMan.Dao.ApplicationDao;
 import com.mbry.IronMan.Dao.TeamDao;
 import com.mbry.IronMan.Mapper.ApplicationMapper;
 import com.mbry.IronMan.Mapper.CardCoordinateMapper;
@@ -18,7 +18,7 @@ import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetCardResponse;
 import com.mbry.IronMan.ResponseBody.AdmResponseBody.GetUserResponse;
 import com.mbry.IronMan.Utils.DateUtil;
-import com.mbry.IronMan.entity.CardCoordinateEntity;
+// import com.mbry.IronMan.entity.CardCoordinateEntity;
 import com.mbry.IronMan.entity.CardEntity;
 import com.mbry.IronMan.entity.UserEntity;
 import com.mbry.IronMan.Utils.Global;
@@ -119,7 +119,7 @@ public class AdmCardService {
             Team[] teams = teamDao.getTeamsByCardId(cardId);
             for(Team team: teams){
                 teamDao.deleteTeamByTeamId(team.getTeamId());
-                teamApplicationMapper.deletebyTeamId(team.getTeamId());
+                teamApplicationMapper.deleteByTeamId(team.getTeamId());
             }
             // 删除评论
             commentMapper.deleteByCardId(cardId);

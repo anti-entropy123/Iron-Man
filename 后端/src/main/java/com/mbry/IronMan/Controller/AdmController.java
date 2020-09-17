@@ -94,7 +94,8 @@ public class AdmController {
             defaultResponse.setResult(1);
             return defaultResponse;
         } catch(Exception e) {
-            DefaultResponse defaultResponse = new DefaultResponse(1, "server error");
+            DefaultResponse defaultResponse = new DefaultResponse(0, "server error");
+            e.printStackTrace();
             return defaultResponse;
         }
         

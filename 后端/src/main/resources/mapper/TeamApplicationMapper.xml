@@ -37,6 +37,10 @@
 		DELETE FROM team_application
 		WHERE application_id = #{applicationId}
 	</delete>
+	<delete id="deleteByTeamId" parameterType="java.lang.String">
+		DELETE FROM team_application
+		WHERE team_id = #{teamId}
+	</delete>
 	
 	<select id="queryTeamApplicationsByTargetUserId" parameterType="java.lang.String" resultMap="TeamApplicationMap">
 		SELECT * FROM team_application

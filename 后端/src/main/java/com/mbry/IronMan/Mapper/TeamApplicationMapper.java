@@ -19,6 +19,12 @@ public interface TeamApplicationMapper {
 	 * @param applicationId
 	 */
 	public void deleteTeamApplicationById(String applicationId);
+
+	/**
+	 * 
+	 * @param teamId
+	 */
+	public void deleteByTeamId(String teamId);
 	
 	/**
 	 * 查询发送给指定用户的组队申请

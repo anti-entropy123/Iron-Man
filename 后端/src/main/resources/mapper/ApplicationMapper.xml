@@ -38,6 +38,11 @@
 		WHERE application_id = #{applicationId}
 	</delete>
 	
+	<delete id="deleteByCardId" parameterType="java.lang.String">
+		DELETE FROM application
+		WHERE card_id = #{cardId}
+	</delete>
+	
 	<select id="queryApplicationsByTargetUserId" parameterType="java.lang.String" resultMap="ApplicationMap">
 		SELECT * FROM application
 		WHERE target_user_id = #{targetUserId}

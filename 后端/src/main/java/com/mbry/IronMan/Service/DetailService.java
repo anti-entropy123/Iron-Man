@@ -152,17 +152,16 @@ public class DetailService {
 
     public DefaultResponse orderTeamApply(String userId, String cardId, String teamId){
         String date = dateUtil.getDate();
+        String targetUserId = cardDao.queryCardByCardId(cardId).getUserId();
         CardApplication cardApplication = new CardApplication(
             null, 
             userId, 
-            cardDao.queryCardByCardId(cardId).getUserId(), 
+            targetUserId,
             false, 
             date, 
             cardId);
         String applyId = applicationDao.createApplication(cardApplication);
-        String targetUserId = teamDao.queryCaptainIdFromTeamId(teamId);
-
-        logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
+        logDao.addLog(new Log(-1, 0, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
 
         // todo 在这里发送微信模板消息
         wxMessageUtil.sendMessage(
@@ -224,6 +223,10 @@ public class DetailService {
         if(app instanceof CardApplication){
             // 你的申请被card主处理了
             CardApplication ca = (CardApplication)app;
+            Card card = cardDao.queryCardByCardId(ca.getCardId());
+            if(card.isStatus()) {
+                return new DefaultResponse(0, "操作失败, 订单已经结束");
+            }
             applicationDao.processApplication(ca);
             cardId = ca.getCardId();
             type = 5;

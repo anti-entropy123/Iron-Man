@@ -4,6 +4,10 @@ server:
   port: 1314
   servlet:
     context-path:
+  ssl:
+    key-store: classpath:tjuyjn.top.jks
+    key-store-password: vi80m2f3p5262
+    key-store-type: JKS
 
 # Spring configuration
 spring:

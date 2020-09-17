@@ -47,6 +47,11 @@
 			</if> 
 		</where>
 	</delete>
+
+	<delete id="deleteByCardId" parameterType="java.lang.String">
+		DELETE FROM comment
+		WHERE card_id = #{cardId}
+	</delete>
 	
 	<select id="queryCommentByCardId" resultMap="CommentMap">
 		SELECT * FROM comment

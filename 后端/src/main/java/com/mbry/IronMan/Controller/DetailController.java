@@ -100,5 +100,4 @@ public class DetailController {
     public DefaultResponse processApply(@RequestBody ProcessApplyRequest processApplyRequest) {
         return detailService.processApply(processApplyRequest.getApplyId());
     }
-    
 }

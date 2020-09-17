@@ -35,7 +35,7 @@ public class OrderService {
         CardApplication[] apps = applicationDao.queryCardAppByApplicantUserId(userId);
         for(CardApplication app: apps){
             Card tempCard = cardDao.queryCardByCardId(app.getCardId());
-            if(tempCard!=null && tempCard.isStatus()){
+            if(tempCard!=null && app.isStatus()){
                 // 如果完成的话
                 cards.add(tempCard);
             }

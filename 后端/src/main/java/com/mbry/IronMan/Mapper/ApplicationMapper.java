@@ -19,6 +19,12 @@ public interface ApplicationMapper {
 	 * @param applicationId
 	 */
 	public void deleteApplicationById(String applicationId);
+
+	/**
+	 * 
+	 * @param cardId
+	 */
+	public void deleteByCardId(String cardId);
 	
 	/**
 	 * 查询发送给指定用户的全部申请
