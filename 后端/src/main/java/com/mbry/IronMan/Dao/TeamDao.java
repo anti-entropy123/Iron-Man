@@ -18,7 +18,7 @@ public interface TeamDao {
      * @param cardId
      * @return
      */
-    public boolean createTeam(Team team);
+    public Boolean createTeam(Team team);
 
     /**
      * 
@@ -26,7 +26,7 @@ public interface TeamDao {
      * @param teamId
      * @return
      */
-    public boolean addUserToTeam(String userId, String teamId);
+    public Boolean addUserToTeam(String userId, String teamId);
 
     /**
      * 
@@ -34,7 +34,7 @@ public interface TeamDao {
      * @param teamId
      * @return
      */
-    public boolean deleteUserFromTeam(String userId, String teamId);
+    public Boolean deleteUserFromTeam(String userId, String teamId);
 
     /**
      * 根据teamId查询该team所属的card的id
@@ -70,6 +70,6 @@ public interface TeamDao {
      * @param teamId
      * @return
      */
-    public boolean deleteTeamByTeamId(String teamId);
+    public Boolean deleteTeamByTeamId(String teamId);
 
 }

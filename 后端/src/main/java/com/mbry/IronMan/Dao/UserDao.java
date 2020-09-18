@@ -44,14 +44,14 @@ public interface UserDao {
      * @param user
      * @return 
      */
-    public boolean registerUser(User user);
+    public Boolean registerUser(User user);
     
     /**
      * 
      * @param user
      * @return
      */
-    public boolean updateUserDataByUserId(User user);
+    public Boolean updateUserDataByUserId(User user);
 
     /**
      * 为某用户绑定手机号
@@ -59,7 +59,7 @@ public interface UserDao {
      * @param mobilePhone
      * @return
      */
-    public boolean bindMobileNumberByUserId(String userId, String mobilePhone);
+    public Boolean bindMobileNumberByUserId(String userId, String mobilePhone);
 
     /**
      * 根据下述条件筛选

@@ -70,6 +70,7 @@
 	<select id="queryCardByCardId" parameterType="java.lang.String" resultMap="CardMap">
 		SELECT * FROM card
 		WHERE card_id = #{cardId}
+		ORDER BY date DESC
 	</select>
 	
 	<select id="queryCardByUserIdAndStatus" resultMap="CardMap">
@@ -78,6 +79,7 @@
 		<if test="status != null">
 			AND status = #{status}
 		</if>
+		ORDER BY date DESC
 	</select>
 	
 	<select id="queryCards" resultMap="CardMap">
@@ -109,6 +111,7 @@
 		<if test="hasHouseResource != null">
 			AND has_house_resource = #{hasHouseResource}
 		</if>
+		ORDER BY date DESC
 		LIMIT #{startIndex},#{pageSize}
 	</select>
 	
@@ -120,6 +123,9 @@
 	<select id="queryCardsForAdm" resultMap="CardMap">
 		SELECT * FROM card
 		<where> 
+			<if test="type != 0">
+				AND type = #{type} 
+			</if>
 			<if test="userId != null">
 				AND user_id = #{userId}
 			</if>
@@ -130,6 +136,7 @@
 				AND date &lt;= #{maxDate}
 			</if>
 		</where>
+		ORDER BY date DESC
 		LIMIT #{startIndex},#{pageSize}
 	</select>
 
@@ -147,6 +154,11 @@
 			</if>
 		</where>
 		LIMIT #{startIndex},#{pageSize}
+	</select>
+
+	<select id="queryRentSell" resultMap="CardMap">
+		SELECT * FROM card
+		WHERE status = 0 AND (type = 1 or type = 2)
 	</select>
 	
     <update id="updateCard" parameterType="com.mbry.IronMan.entity.CardEntity">

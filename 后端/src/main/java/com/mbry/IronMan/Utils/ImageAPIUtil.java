@@ -50,7 +50,7 @@ public class ImageAPIUtil {
         Date expiration = new Date(new Date().getTime() + 5 * 60 * 10000);
         URL url = cosClient.generatePresignedUrl(bucket, key , expiration);
         String result = url.getHost() + url.getPath();
-        return result;
+        return "https://" + result;
     }
     
     public File transMultipartFileTofile(MultipartFile image) throws IOException{

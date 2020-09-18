@@ -38,6 +38,11 @@
 		WHERE application_id = #{applicationId}
 	</delete>
 	
+	<delete id="deleteByCardId" parameterType="java.lang.String">
+		DELETE FROM application
+		WHERE card_id = #{cardId}
+	</delete>
+	
 	<select id="queryApplicationsByTargetUserId" parameterType="java.lang.String" resultMap="ApplicationMap">
 		SELECT * FROM application
 		WHERE target_user_id = #{targetUserId}
@@ -61,6 +66,11 @@
 	<select id="queryApplicationByCardId" parameterType="java.lang.String" resultMap="ApplicationMap">
 		SELECT * FROM application
 		WHERE card_id = #{cardId}
+	</select>
+
+	<select id="queryApplicationByCardIdAndUserId" resultType="java.lang.Integer">
+		SELECT count(*) FROM application
+		WHERE card_id = #{cardId} AND applicant_id = #{applicantId}
 	</select>
 	
 	<update id="updateStatusByApplicationId">

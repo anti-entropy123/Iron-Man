@@ -27,6 +27,8 @@ public class GetAllMessageResponse extends DefaultResponse{
             private String userId;
             private int logId;
             private Boolean status;
+            private String avatarUrl;
+            private String nickname;
 
             public Message() {
             }
@@ -35,11 +37,19 @@ public class GetAllMessageResponse extends DefaultResponse{
                     int type,
                     String cardId,
                     String applyId,
-                    String userId) {
+                    String userId,
+                    int logId,
+                    Boolean status,
+                    String avatarUrl,
+                    String nickname) {
                 this.type = type;
                 this.cardId = cardId;
                 this.applyId = applyId;
                 this.userId = userId;
+                this.logId = logId;
+                this.status = status;
+                this.avatarUrl = avatarUrl;
+                this.nickname = nickname;
             }
         
             public int getType() {
@@ -75,7 +85,7 @@ public class GetAllMessageResponse extends DefaultResponse{
             }
 
             public int getLogId() {
-                return logId;
+                return this.logId;
             }
 
             public void setLogId(int logId) {
@@ -83,11 +93,27 @@ public class GetAllMessageResponse extends DefaultResponse{
             }
 
             public Boolean getStatus() {
-                return status;
+                return this.status;
             }
 
             public void setStatus(Boolean status) {
                 this.status = status;
+            }
+
+            public String getAvatarUrl() {
+                return this.avatarUrl;
+            }
+
+            public void setAvatarUrl(String avatarUrl) {
+                this.avatarUrl = avatarUrl;
+            }
+
+            public String getNickname() {
+                return this.nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
             }
         }
 

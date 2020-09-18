@@ -27,8 +27,8 @@ public interface ApplicationDao {
      * @param app
      * @return
      */
-    public boolean processApplication(TeamApplication app); 
-    public boolean processApplication(CardApplication app); 
+    public Boolean processApplication(TeamApplication app); 
+    public Boolean processApplication(CardApplication app); 
 
     /**
      * 查询发送给某用户的所有申请
@@ -57,5 +57,7 @@ public interface ApplicationDao {
      * @return    CardApplication
      */
     public CardApplication[] queryCardAppByApplicantUserId(String applicantId);
+
+    public Integer haveApplication(String cardId, String userId);
     
 }

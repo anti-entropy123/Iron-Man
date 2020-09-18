@@ -85,7 +85,7 @@ public class Team {
 		this.members = members;
 	}
 	
-	public boolean isMaxMember(){
+	public Boolean isMaxMember(){
 		return this.getMaxNum() <= this.members.length;
 	}
 }

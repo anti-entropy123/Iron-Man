@@ -13,11 +13,13 @@ import com.mbry.IronMan.BusinessObject.Card.RentCard;
 import com.mbry.IronMan.BusinessObject.Card.RoomMateCard;
 import com.mbry.IronMan.BusinessObject.Card.SellCard;
 import com.mbry.IronMan.Dao.CardDao;
+import com.mbry.IronMan.Mapper.CardCoordinateMapper;
 import com.mbry.IronMan.Mapper.CardMapper;
 import com.mbry.IronMan.Mapper.ImageMapper;
 import com.mbry.IronMan.Mapper.UncompleteCardMapper;
+import com.mbry.IronMan.entity.CardCoordinateEntity;
 import com.mbry.IronMan.entity.CardEntity;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 
 @Service
@@ -29,6 +31,8 @@ public class CardDaoImp implements CardDao {
 	ImageMapper imageMapper;
 	@Autowired
 	UncompleteCardMapper uncompleteCardMapper;
+	@Autowired
+	CardCoordinateMapper cardCoordinateMapper;
 
 	@Override
 	public Card queryCardByCardId(String cardId) {
@@ -68,7 +72,7 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public Card[] queryALLCards(int page) {
 		int startIndex = (page - 1) * Global.pageSize;
-		CardEntity[] cardEntitys = cardMapper.queryCards(startIndex, Global.pageSize, 0, null, 0, 0, 0, 0, -1, null);
+		CardEntity[] cardEntitys = cardMapper.queryCards(startIndex, Global.pageSize, 0, null, 0., 0., 0., 0., -1, null);
 		if (cardEntitys == null) {
 			return null;
 		}
@@ -82,10 +86,18 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public RentCard[] queryRentCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
-		double minPrice = -1.0;
-		double maxPrice = -1.0;
-		double minSquare = -1.0;
-		double maxSquare = -1.0;
+		Double minPrice = -1.0;
+		Double maxPrice = -1.0;
+		Double minSquare = -1.0;
+		Double maxSquare = -1.0;
+		if(priceRange[0] == null){
+			priceRange[0] = -1.;
+			priceRange[1] = -1.;
+		}
+		if(squares[0] == null){
+			squares[0] = -1.;
+			squares[1] = -1.;
+		}
 		if (priceRange != null) {
 			minPrice = priceRange[0];
 			maxPrice = priceRange[1];
@@ -118,10 +130,18 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public AskRentCard[] queryAskRentCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
-		double minPrice = -1.0;
-		double maxPrice = -1.0;
-		double minSquare = -1.0;
-		double maxSquare = -1.0;
+		Double minPrice = -1.0;
+		Double maxPrice = -1.0;
+		Double minSquare = -1.0;
+		Double maxSquare = -1.0;
+		if(priceRange[0] == null){
+			priceRange[0] = -1.;
+			priceRange[1] = -1.;
+		}
+		if(squares[0] == null){
+			squares[0] = -1.;
+			squares[1] = -1.;
+		}
 		if (priceRange != null) {
 			minPrice = priceRange[0];
 			maxPrice = priceRange[1];
@@ -154,10 +174,18 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public SellCard[] querySellCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
-		double minPrice = -1.0;
-		double maxPrice = -1.0;
-		double minSquare = -1.0;
-		double maxSquare = -1.0;
+		Double minPrice = -1.0;
+		Double maxPrice = -1.0;
+		Double minSquare = -1.0;
+		Double maxSquare = -1.0;
+		if(priceRange[0] == null){
+			priceRange[0] = -1.;
+			priceRange[1] = -1.;
+		}
+		if(squares[0] == null){
+			squares[0] = -1.;
+			squares[1] = -1.;
+		}
 		if (priceRange != null) {
 			minPrice = priceRange[0];
 			maxPrice = priceRange[1];
@@ -190,10 +218,18 @@ public class CardDaoImp implements CardDao {
 	@Override
 	public AskSellCard[] queryAskSellCards(int page, String location, Double[] priceRange, Double[] squares, int unitType) {
 		int startIndex = (page - 1) * Global.pageSize;
-		double minPrice = -1.0;
-		double maxPrice = -1.0;
-		double minSquare = -1.0;
-		double maxSquare = -1.0;
+		Double minPrice = -1.0;
+		Double maxPrice = -1.0;
+		Double minSquare = -1.0;
+		Double maxSquare = -1.0;
+		if(priceRange[0] == null){
+			priceRange[0] = -1.;
+			priceRange[1] = -1.;
+		}
+		if(squares[0] == null){
+			squares[0] = -1.;
+			squares[1] = -1.;
+		}
 		if (priceRange != null) {
 			minPrice = priceRange[0];
 			maxPrice = priceRange[1];
@@ -226,10 +262,18 @@ public class CardDaoImp implements CardDao {
 	@Override
     public RoomMateCard[] queryAskRoomMateCards(int page, String location, Double[] priceRange, Double[] squares, int unitType, Boolean hasHouseResource){
 		int startIndex = (page - 1) * Global.pageSize;
-		double minPrice = -1.0;
-		double maxPrice = -1.0;
-		double minSquare = -1.0;
-		double maxSquare = -1.0;
+		Double minPrice = -1.0;
+		Double maxPrice = -1.0;
+		Double minSquare = -1.0;
+		Double maxSquare = -1.0;
+		if(priceRange[0] == null){
+			priceRange[0] = -1.;
+			priceRange[1] = -1.;
+		}
+		if(squares[0] == null){
+			squares[0] = -1.;
+			squares[1] = -1.;
+		}
 		if (priceRange != null) {
 			minPrice = priceRange[0];
 			maxPrice = priceRange[1];
@@ -260,10 +304,20 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public boolean createCard(Card card) {
+	public Boolean createCard(Card card) {
 		try {
-			CardEntity cardEntity = this.getCardEntityFromBO(card);
+			Double[] coordinates = new Double[2];
+			CardEntity cardEntity = this.getCardEntityFromBO(card, coordinates);
 			cardMapper.insertCard(cardEntity);
+			if (cardEntity.getType() < 3) {
+				CardCoordinateEntity cardCoordinateEntity = new CardCoordinateEntity(
+					cardEntity.getCardId(),
+					coordinates[0],
+					coordinates[1]
+				);
+				cardCoordinateMapper.insert(cardCoordinateEntity);
+			}
+			
 			for (int i = 0; i < card.getImages().length; i++) {
 				imageMapper.insertImage(cardEntity.getCardId(), card.getImages()[i]);
 			}
@@ -275,10 +329,20 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public boolean updateCard(Card card) {
+	public Boolean updateCard(Card card) {
 		try {
-			CardEntity cardEntity = this.getCardEntityFromBO(card);
+			Double[] coordinates = new Double[2];
+			CardEntity cardEntity = this.getCardEntityFromBO(card, coordinates);
 			cardMapper.updateCard(cardEntity);
+			if (cardEntity.getType() < 3) {
+				CardCoordinateEntity cardCoordinateEntity = new CardCoordinateEntity(
+					cardEntity.getCardId(),
+					coordinates[0],
+					coordinates[1]
+				);
+				cardCoordinateMapper.deleteByCardId(cardCoordinateEntity.getCardId());
+				cardCoordinateMapper.insert(cardCoordinateEntity);
+			}
 			imageMapper.deleteImageByCardId(card.getCardId());
 			if (card.getImages() != null) {
 				for (int i = 0; i < card.getImages().length; i++) {
@@ -293,7 +357,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public boolean finishCard(String cardId) {
+	public Boolean finishCard(String cardId) {
 		try {	
 			cardMapper.finsihCard(cardId);
 			return true;
@@ -304,7 +368,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public boolean recordUncompleteCardForUser(String userId, String cardId) {
+	public Boolean recordUncompleteCardForUser(String userId, String cardId) {
 		try {
 			uncompleteCardMapper.insertUserAndCard(userId, cardId);
 			return true;
@@ -315,7 +379,7 @@ public class CardDaoImp implements CardDao {
 	}
 
 	@Override
-	public boolean deleteUncompleteCardForUser(String userId, String cardId) {
+	public Boolean deleteUncompleteCardForUser(String userId, String cardId) {
 		try {
 			uncompleteCardMapper.deleteUserAndCard(userId, cardId);
 			return true;
@@ -344,6 +408,19 @@ public class CardDaoImp implements CardDao {
 
 	public void setStatusTrue(String cardId) {
 		cardMapper.finsihCard(cardId);
+	}
+
+	public Card[] queryCardsWithCoordinates() {
+		CardEntity[] cardEntitys = cardMapper.queryRentSell();
+		if (cardEntitys == null) {
+			return null;
+		}
+		List<Card> cards = new ArrayList<Card>();
+		for (CardEntity cardEntity: cardEntitys) {
+			Card card = this.getCardBOByEntity(cardEntity);
+			cards.add(card);
+		}
+		return cards.toArray(new Card[cards.size()]);
 	}
 
 	/**
@@ -401,6 +478,11 @@ public class CardDaoImp implements CardDao {
 		card.setUnionNum(cardEntity.getUnionNum());
 		card.setPrice(cardEntity.getMinPrice());
 		card.setSquare(cardEntity.getMinSquare());
+		CardCoordinateEntity cardCoordinateEntity = cardCoordinateMapper.queryByCardId(cardEntity.getCardId());
+		if(cardCoordinateEntity != null){
+			card.setLongitude(cardCoordinateEntity.getLongitude());
+			card.setLatitude(cardCoordinateEntity.getLatitude());
+		}
 		return card;
 	}
 	
@@ -416,6 +498,12 @@ public class CardDaoImp implements CardDao {
 		//card.setRequirement(cardEntity.getRequirement());
 		card.setPrice(cardEntity.getMinPrice());
 		card.setSquare(cardEntity.getMinSquare());
+		CardCoordinateEntity cardCoordinateEntity = cardCoordinateMapper.queryByCardId(cardEntity.getCardId());
+		if(cardCoordinateEntity != null){
+			card.setLongitude(cardCoordinateEntity.getLongitude());
+			card.setLatitude(cardCoordinateEntity.getLatitude());
+		}
+		
 		return card;
 	}
 	
@@ -494,17 +582,21 @@ public class CardDaoImp implements CardDao {
 	 * @param card
 	 * @return
 	 */
-	private CardEntity getCardEntityFromBO(Card card) {
+	private CardEntity getCardEntityFromBO(Card card, Double[] coordiante) {
 		/*
 		 * type = 1 出租
 		 */
 		if (card instanceof RentCard) {
+			coordiante[0] = ((RentCard)card).getLongitude();
+			coordiante[1] = ((RentCard)card).getLatitude();
 			return this.getCardEntityFromRent((RentCard)card);
 		}
 		/*
 		 * type = 2 出售
 		 */
 		else if (card instanceof SellCard) {
+			coordiante[0] = ((SellCard)card).getLongitude();
+			coordiante[1] = ((SellCard)card).getLatitude();
 			return this.getCardEntityFromSell((SellCard)card);
 		}
 		/*
@@ -627,7 +719,7 @@ public class CardDaoImp implements CardDao {
 		cardEntity.setStatus(card.isStatus());
 		cardEntity.setDate(card.getDate());
 		cardEntity.setTitle(card.getTitle());
-		cardEntity.setIntroduction(cardEntity.getIntroduction());
+		cardEntity.setIntroduction(card.getIntroduction());
 		cardEntity.setLocation(card.getLocation());
 		cardEntity.setUnitType(card.getUnitType());
 	}

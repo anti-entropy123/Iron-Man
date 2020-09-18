@@ -26,6 +26,12 @@ public interface LogMapper {
     public void deleteLogByApplyId(String applyId);
 
     /**
+     * 
+     * @param cardId
+     */
+    public void deleteByCardId(String cardId);
+
+    /**
      * 查询log
      * @param aimUserId
      * @return

@@ -19,6 +19,12 @@ public interface ApplicationMapper {
 	 * @param applicationId
 	 */
 	public void deleteApplicationById(String applicationId);
+
+	/**
+	 * 
+	 * @param cardId
+	 */
+	public void deleteByCardId(String cardId);
 	
 	/**
 	 * 查询发送给指定用户的全部申请
@@ -54,12 +60,14 @@ public interface ApplicationMapper {
 	 * @return
 	 */
 	public ApplicationEntity[] queryApplicationByCardId(String cardId);
+
+	public Integer queryApplicationByCardIdAndUserId(@Param("cardId")String cardId, @Param("applicantId")String userId );
 	
 	/**
 	 * 将指定申请状态改为完成
 	 * @param applicationId
 	 * @param status
 	 */
-	public void updateStatusByApplicationId(@Param("applicationId")String applicationId, @Param("status")boolean status);
+	public void updateStatusByApplicationId(@Param("applicationId")String applicationId, @Param("status")Boolean status);
 	
 }

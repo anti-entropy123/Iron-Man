@@ -43,8 +43,10 @@ public class DetailController {
      */
     @GetMapping("/getCardDetail/")
     @PreAuthorize("hasRole('common')")
-    public DetailCardResponse getCardDetail(@RequestParam String cardId) {
-        return detailService.getCardDetail(cardId);
+    public DetailCardResponse getCardDetail(@RequestHeader HttpHeaders headers, @RequestParam String cardId){
+        String token = headers.get("Authorization").get(0).substring("Bearer ".length());
+        
+        return detailService.getCardDetail(cardId, jwtTokenUtil.getOpenIdFromToken(token));
     }
     
     /**
@@ -82,7 +84,7 @@ public class DetailController {
      * @param cardId
      * @return
      */
-    @GetMapping("/getApply/")
+    @GetMapping("/owner/getApply/")
     @PreAuthorize("hasRole('common')")
     public GetApplyResponse getApply(@RequestParam String cardId) {
         return detailService.getApply(cardId);
@@ -98,5 +100,4 @@ public class DetailController {
     public DefaultResponse processApply(@RequestBody ProcessApplyRequest processApplyRequest) {
         return detailService.processApply(processApplyRequest.getApplyId());
     }
-
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DateUtil {
 	
-	final private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	final private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	
 	public String getDate() {
 		return dateFormat.format(new Date());
@@ -46,7 +46,7 @@ public class DateUtil {
 		}
 	}
 
-	public boolean isLaterThanCurrentStartTime(long startTime){
+	public Boolean isLaterThanCurrentStartTime(long startTime){
 		return startTime - System.currentTimeMillis()>0;
 	}
 }

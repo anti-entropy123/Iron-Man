@@ -9,18 +9,21 @@ public class LoginToken extends DefaultResponse {
     private static final long serialVersionUID = -2922693761785960371L;
     private String token;
     private Boolean firstTime;
+    private String userId;
 
     public LoginToken() {
     }
 
     public LoginToken(
             String token, 
-            boolean firstTime,
+            Boolean firstTime,
             int result,
-            String message) {
+            String message,
+            String userId) {
         super(result, message);
         this.token = token;
         this.firstTime = firstTime;
+        this.userId = userId;
     }
 
     public String getToken() {
@@ -31,11 +34,19 @@ public class LoginToken extends DefaultResponse {
         this.token = token;
     }
 
-    public boolean getFirstTime() {
+    public Boolean getFirstTime() {
         return this.firstTime;
     }
 
-    public void setFirstTime(boolean firstTime) {
+    public void setFirstTime(Boolean firstTime) {
         this.firstTime = firstTime;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

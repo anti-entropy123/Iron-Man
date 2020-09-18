@@ -22,7 +22,7 @@ public class CardService {
      * @param publishRequest
      * @return
      */
-    public boolean publishCard(PublishRequest publishRequest) {
+    public Boolean publishCard(PublishRequest publishRequest) {
         return cardDao.createCard(this.getCardFromPR(publishRequest));
     }
 
@@ -78,6 +78,8 @@ public class CardService {
 		card.setUnionNum(publishRequest.getUnionNum());
 		card.setPrice(publishRequest.getPrices()[0]);
 		card.setSquare(publishRequest.getSquares()[0]);
+		card.setLongitude(publishRequest.getCoordinates()[0]);
+		card.setLatitude(publishRequest.getCoordinates()[1]);
 		return card;
 	}
 	
@@ -93,6 +95,8 @@ public class CardService {
 		//card.setRequirement(cardEntity.getRequirement());
 		card.setPrice(publishRequest.getPrices()[0]);
 		card.setSquare(publishRequest.getSquares()[0]);
+		card.setLongitude(publishRequest.getCoordinates()[0]);
+		card.setLatitude(publishRequest.getCoordinates()[1]);
 		return card;
 	}
 	

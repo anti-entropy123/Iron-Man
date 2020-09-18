@@ -3,8 +3,10 @@ package com.mbry.IronMan.BusinessObject.Card;
 public class RentCard extends Card{
     private String requirement; // 对租客要求
     private int unionNum;
-    private double price;
-    private double Square;
+    private Double price;
+    private Double square;
+    private Double longitude; // 经度 
+    private Double latitude;  // 纬度
 
     public RentCard(){}
     public RentCard(
@@ -18,15 +20,19 @@ public class RentCard extends Card{
         int unitType,
         String requirement,
         int unionNum,
-        double price,
-        double square,
-        String[] images
+        Double price,
+        Double square,
+        String[] images,
+        Double longitude, // 经度 
+        Double latitude   // 纬度
         ){
             super(cardId, userId, status, date, title, introduction, location, unitType, images);
             this.setRequirement(requirement);
             this.setUnionNum(unionNum);
             this.setPrice(price);
             this.setSquare(square);
+            this.setLongitude(longitude);
+            this.setLatitude(latitude);
     }
     
 	public String getRequirement() {
@@ -48,20 +54,35 @@ public class RentCard extends Card{
 		this.unionNum = unionNum;
 	}
 	
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 	
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
-	public double getSquare() {
-		return Square;
+	public Double getSquare() {
+		return square;
 	}
 	
-	public void setSquare(double square) {
-		Square = square;
+	public void setSquare(Double square) {
+		this.square = square;
+	}
+    
+    public Double getLongitude() {
+		return longitude;
 	}
 	
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+    }
+    
+    public Double getLatitude() {
+		return this.latitude;
+	}
+	
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
 }

@@ -22,6 +22,7 @@ import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Dao.TeamDao;
 import com.mbry.IronMan.Dao.UserDao;
+import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.DetailCardResponse;
 import com.mbry.IronMan.ResponseBody.DetailResponseBody.GetApplyResponse;
@@ -64,16 +65,19 @@ public class DetailService {
         transCardToType.put(RoomMateCard.class, 5);
     };
 
-    public DetailCardResponse getCardDetail(String cardId){
+    public DetailCardResponse getCardDetail(String cardId, String userId){
         Card card = cardDao.queryCardByCardId(cardId);
         int type = transCardToType.get(card.getClass());
-        double[] prices = (type==1 || type == 2)? new double[1]:new double[2];
-        double[] squares = (type==1 || type == 2)? new double[1]:new double[2];
+        Double[] prices = (type==1 || type == 2)? new Double[1]:new Double[2];
+        Double[] squares = (type==1 || type == 2)? new Double[1]:new Double[2];
         String requirement = "";
         int unionNum = -1;
+        Double[] coordinates = new Double[2]; 
         if(type == 1 || type == 2){
             prices[0] = ((type == 1)?((RentCard)card).getPrice():((SellCard)card).getPrice());
             squares[0] = ((type == 1)?((RentCard)card).getSquare():((SellCard)card).getSquare());
+            coordinates[0] = ((type == 1)?((RentCard)card).getLongitude():((SellCard)card).getLongitude());
+            coordinates[1] = ((type == 1)?((RentCard)card).getLatitude():((SellCard)card).getLatitude());
             if(type == 1){
                 requirement = ((RentCard)card).getRequirement();
                 unionNum = ((RentCard)card).getUnionNum();
@@ -103,7 +107,7 @@ public class DetailService {
                 unionNum = rmc.getUnionNum();
             }
         }
-
+        Integer hasApplied = applicationDao.haveApplication(card.getCardId(), userId);
         DetailCardResponse response = new DetailCardResponse();
         DetailCardResponse.Data data = response.new Data(
                                                 cardId,
@@ -120,7 +124,9 @@ public class DetailService {
                                                 card.getUnitType(),
                                                 card.isStatus(),
                                                 unionNum,
-                                                card.getUserId()
+                                                card.getUserId(),
+                                                coordinates,
+                                                hasApplied
                                                 );
         response.setData(data);
         response.setResult(1);
@@ -137,26 +143,31 @@ public class DetailService {
         logDao.addLog(new Log(-1, 0, cardId, applyId, userId, targetUserId, Boolean.valueOf(false)));
         
         // todo 在这里发送微信模板消息
-        wxMessageUtil.sendMessage();
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetUserId
+        );
         return new DefaultResponse(1, "");
     }
 
     public DefaultResponse orderTeamApply(String userId, String cardId, String teamId){
         String date = dateUtil.getDate();
+        String targetUserId = cardDao.queryCardByCardId(cardId).getUserId();
         CardApplication cardApplication = new CardApplication(
             null, 
             userId, 
-            cardDao.queryCardByCardId(cardId).getUserId(), 
+            targetUserId,
             false, 
             date, 
             cardId);
         String applyId = applicationDao.createApplication(cardApplication);
-        String targetUserId = teamDao.queryCaptainIdFromTeamId(teamId);
-
-        logDao.addLog(new Log(-1, 1, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
+        logDao.addLog(new Log(-1, 0, teamDao.queryCardIdFromTeamId(teamId), applyId, userId, targetUserId, false));
 
         // todo 在这里发送微信模板消息
-        wxMessageUtil.sendMessage();
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetUserId
+        );
         return new DefaultResponse(1, "");
     }
 
@@ -183,7 +194,7 @@ public class DetailService {
                 // 没有匹配的队伍, 说明是个人整租
                 persons.add(data.new Person(
                         userDao.queryUserByOpenId(applicant),
-                        cardApp.getApplicantId()));
+                        cardApp.getApplicationId()));
             }else{
                 ArrayList<GetApplyResponse.Data.Team.Member> paramsMembers = new ArrayList<>();
                 GetApplyResponse.Data.Team paramsTeam = data.new Team(team.getTeamId(), null, cardApp.getApplicationId());
@@ -212,6 +223,10 @@ public class DetailService {
         if(app instanceof CardApplication){
             // 你的申请被card主处理了
             CardApplication ca = (CardApplication)app;
+            Card card = cardDao.queryCardByCardId(ca.getCardId());
+            if(card.isStatus()) {
+                return new DefaultResponse(0, "操作失败, 订单已经结束");
+            }
             applicationDao.processApplication(ca);
             cardId = ca.getCardId();
             type = 5;
@@ -227,16 +242,19 @@ public class DetailService {
             cardId = teamDao.queryCardIdFromTeamId(ta.getTeamId());
             type = 2;
             teamDao.addUserToTeam(ta.getApplicantId(), ta.getTeamId());
-            // FIXME
         }
         // 改变log状态
         logDao.setTrueByApplyId(applyId);
         // 发送消息
         // todo 通过微信模板消息发送提醒
-        wxMessageUtil.sendMessage();
+        String targetId = app.getTargetId();
+        wxMessageUtil.sendMessage(
+            new WxMessageRequestBody().new Data(),
+            targetId
+        );
         // over
         // 加入消息记录
-        logDao.addLog(new Log(-1, type, cardId, applyId, app.getTargetId(), app.getApplicantId(), false));
+        logDao.addLog(new Log(-1, type, cardId, applyId, targetId, app.getApplicantId(), false));
         return new DefaultResponse(1, "");
     }
 }

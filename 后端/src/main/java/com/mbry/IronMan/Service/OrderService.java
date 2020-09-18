@@ -8,7 +8,7 @@ import com.mbry.IronMan.Dao.ApplicationDao;
 import com.mbry.IronMan.Dao.CardDao;
 import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetCompleteOrdResponse;
 import com.mbry.IronMan.ResponseBody.OrdResponseBody.GetIncompleteOrdResponse;
-import com.mbry.IronMan.global.Global;
+import com.mbry.IronMan.Utils.Global;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +34,11 @@ public class OrderService {
         }
         CardApplication[] apps = applicationDao.queryCardAppByApplicantUserId(userId);
         for(CardApplication app: apps){
-            cards.add(
-                cardDao.queryCardByCardId(app.getCardId())
-            );
+            Card tempCard = cardDao.queryCardByCardId(app.getCardId());
+            if(tempCard!=null && app.isStatus()){
+                // 如果完成的话
+                cards.add(tempCard);
+            }
         }
         int pageNum = Global.pageSize;
         return new GetCompleteOrdResponse(
@@ -57,10 +59,11 @@ public class OrderService {
         }
         CardApplication[] apps = applicationDao.queryCardAppByApplicantUserId(userId);
         for(CardApplication app: apps){
-            if(!app.isStatus())
-            cards.add(
-                cardDao.queryCardByCardId(app.getCardId())
-            );
+            Card tempCard = cardDao.queryCardByCardId(app.getCardId());
+            if(tempCard!=null && !app.isStatus()){
+                // 如果未完成的话
+                cards.add(tempCard);
+            }
         }
         int pageNum = Global.pageSize;
         return new GetIncompleteOrdResponse(

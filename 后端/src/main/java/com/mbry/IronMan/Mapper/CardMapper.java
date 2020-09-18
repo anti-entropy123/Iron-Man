@@ -53,10 +53,10 @@ public interface CardMapper {
 		@Param("pageSize")int pageSize,
 		@Param("type")int type, 
 		@Param("location")String location, 
-		@Param("minPrice")double minPrice, 
-		@Param("maxPrice")double maxPrice,
-		@Param("minSquare")double minSquare,
-		@Param("maxSquare")double maxSquare,
+		@Param("minPrice")Double minPrice, 
+		@Param("maxPrice")Double maxPrice,
+		@Param("minSquare")Double minSquare,
+		@Param("maxSquare")Double maxSquare,
 		@Param("unitType")int unitType,
 		@Param("hasHouseResource")Boolean hasHouseResource);
 	
@@ -68,6 +68,7 @@ public interface CardMapper {
 	public String queryUserIdById(String cardId);
 
 	public CardEntity[] queryCardsForAdm(
+		@Param("type")int type, 
 		@Param("startIndex")int startIndex, 
 		@Param("pageSize")int pageSize, 
 		@Param("userId")String userId, 
@@ -80,6 +81,8 @@ public interface CardMapper {
 		@Param("userId")String userId, 
 		@Param("minDate")String minDate, 
 		@Param("maxDate")String maxDate);
+
+	public CardEntity[] queryRentSell();
 	
 	/**
 	 * 更新一条指定的Card

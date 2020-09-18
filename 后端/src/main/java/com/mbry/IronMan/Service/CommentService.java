@@ -6,11 +6,13 @@ import com.mbry.IronMan.Dao.LogDao;
 import com.mbry.IronMan.Dao.UserDao;
 import com.mbry.IronMan.RequestBody.CommentRequestBody.AddCommentRequest;
 import com.mbry.IronMan.RequestBody.CommentRequestBody.DeleteCommentRequest;
+import com.mbry.IronMan.RequestBody.WxMessageRequestBody.WxMessageRequestBody;
 import com.mbry.IronMan.ResponseBody.DefaultResponse;
 import com.mbry.IronMan.ResponseBody.CommentResponseBody.GetCommentResponse;
 import com.mbry.IronMan.ResponseBody.CommentResponseBody.GetRepliesResponse;
 import com.mbry.IronMan.Utils.DateUtil;
 import com.mbry.IronMan.Utils.WxMessageUtil;
+
 import com.mbry.IronMan.BusinessObject.Log;
 import com.mbry.IronMan.BusinessObject.User;
 import com.mbry.IronMan.BusinessObject.Comment.Comment;
@@ -119,8 +121,11 @@ public class CommentService {
             replyToUser = cardDao.queryCardByCardId(addCommentRequest.getCardId()).getUserId();
         }
         commentDao.createComment(comment);
-        // todo 微信消息提醒
-        wxMessageUtil.sendMessage();
+        // todo 微信消息提醒 参数组装
+        wxMessageUtil.sendMessage(
+                new WxMessageRequestBody().new Data(),
+                replyToUser
+        );
         // 通过此reply的replyTOId找到需要被通知的用户
         logDao.addLog(new Log(-1, type, addCommentRequest.getCardId(), "", addCommentRequest.getUserId(), replyToUser, false));
         return new DefaultResponse(1, "");

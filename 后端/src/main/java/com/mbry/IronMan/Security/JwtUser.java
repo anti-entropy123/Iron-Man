@@ -23,11 +23,15 @@ public class JwtUser implements UserDetails {
 
     public JwtUser(
             String openId,
-            String username){
+            String username,
+            String auth){
         this.openId = openId;
         this.username = username;
         List<String> temp = new ArrayList<>();
         temp.add("ROLE_common");
+        if(auth.equals("super")){
+            temp.add("ROLE_super");
+        }
         this.anthorities = temp.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 

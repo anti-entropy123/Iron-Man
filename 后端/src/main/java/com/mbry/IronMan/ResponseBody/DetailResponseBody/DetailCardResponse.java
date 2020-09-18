@@ -18,19 +18,20 @@ public class DetailCardResponse extends DefaultResponse {
         private String cardId;
         private int type;
         private String title;
-        private double[] prices;
-        private double[] squares;
+        private Double[] prices;
+        private Double[] squares;
         private String location;
-        private boolean hasHouseRes;
+        private Boolean hasHouseRes;
         private String[] images;
         private String introduce;
         private String postDate;
         private String requirement;
         private int unitType;
-        private boolean status;
+        private Boolean status;
         private int unionNum;
         private String ownerId;
-
+        private Double[] coordinates;
+        private Integer hasApplied;
 
         public Data() {
         }
@@ -40,18 +41,20 @@ public class DetailCardResponse extends DefaultResponse {
                 int type,
                 String title,
                 //String cover,
-                double[] prices,
-                double[] squares,
+                Double[] prices,
+                Double[] squares,
                 String location,
-                boolean hasHouseRes,
+                Boolean hasHouseRes,
                 String[] images,
                 String introduce,
                 String postDate,
                 String requirement,
                 int unitType,
-                boolean status,
+                Boolean status,
                 int unionNum,
-                String ownerId) {
+                String ownerId,
+                Double[] coordinates,
+                Integer hasApplied) {
             this.cardId = cardId;
             this.type = type;
             this.title = title;
@@ -68,6 +71,8 @@ public class DetailCardResponse extends DefaultResponse {
             this.status = status;
             this.unionNum = unionNum;
             this.ownerId = ownerId;
+            this.coordinates = coordinates;
+            this.setHasApplied(hasApplied);
         }
 
         public String getCardId() {
@@ -102,19 +107,19 @@ public class DetailCardResponse extends DefaultResponse {
         //     this.cover = cover;
         // }
 
-        public double[] getPrices() {
+        public Double[] getPrices() {
             return this.prices;
         }
 
-        public void setPrices(double[] prices) {
+        public void setPrices(Double[] prices) {
             this.prices = prices;
         }
 
-        public double[] getSquares() {
+        public Double[] getSquares() {
             return this.squares;
         }
 
-        public void setSquares(double[] squares) {
+        public void setSquares(Double[] squares) {
             this.squares = squares;
         }
 
@@ -126,11 +131,11 @@ public class DetailCardResponse extends DefaultResponse {
             this.location = location;
         }
 
-        public boolean getHasHouseRes() {
+        public Boolean getHasHouseRes() {
             return this.hasHouseRes;
         }
 
-        public void setHasHouseRes(boolean hasHouseRes) {
+        public void setHasHouseRes(Boolean hasHouseRes) {
             this.hasHouseRes = hasHouseRes;
         }
 
@@ -174,11 +179,11 @@ public class DetailCardResponse extends DefaultResponse {
             this.unitType = unitType;
         }
 
-        public boolean getStatus() {
+        public Boolean getStatus() {
             return this.status;
         }
 
-        public void setStatus(boolean status) {
+        public void setStatus(Boolean status) {
             this.status = status;
         }
 
@@ -196,6 +201,22 @@ public class DetailCardResponse extends DefaultResponse {
 
         public void setOwnerId(String ownerId) {
             this.ownerId = ownerId;
+        }
+
+        public Double[] getCoordinates() {
+            return this.coordinates;
+        }
+
+        public void setCoordinates(Double[] coordinates) {
+            this.coordinates = coordinates;
+        }
+
+        public Integer getHasApplied() {
+            return hasApplied;
+        }
+
+        public void setHasApplied(Integer hasApplied) {
+            this.hasApplied = hasApplied;
         }
     }
     private Data data;

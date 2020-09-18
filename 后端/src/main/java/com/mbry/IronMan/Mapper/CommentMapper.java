@@ -23,6 +23,12 @@ public interface CommentMapper {
 				@Param("belongToId")String belongToId
 				);
 	
+				/**
+				 * 
+				 * @param cardId
+				 */
+	public void deleteByCardId(String cardId);
+
 	/**
 	 * 返回指定页的指定帖子的评论
 	 * @param cardId

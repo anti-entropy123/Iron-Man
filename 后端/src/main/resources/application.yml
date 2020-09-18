@@ -2,7 +2,15 @@
 # Server configuration
 server:
   port: 1314
-  contextPath:
+  servlet:
+    context-path:
+  ssl:
+    key-store: classpath:tjuyjn.top.jks
+    key-store-password: vi80m2f3p5262
+    key-store-type: JKS
+
+http:
+  port: 1315
 
 # Spring configuration
 spring:
@@ -28,7 +36,7 @@ spring:
   
 spring.thymeleaf.cache: false
 server.tomcat.access_log_enabled: true  
-server.tomcat.basedir: target/tomcat 
+server.tomcat.basedir: target/tomcat
 
  
 # JWT
@@ -59,6 +67,9 @@ tencent:
     secretKey: "3pNCk11kDPL4uU6RSGo58uQebeqlSu5D"
     region: "ap-beijing"
     bucket:  "iron-man-1303131952"
+  wx:
+    appid: "wx41443c3caff6ac73"
+    secret: "a60e5a537d06c742310228e5f9cacc19"
 
 #Mybatis
 mybatis:

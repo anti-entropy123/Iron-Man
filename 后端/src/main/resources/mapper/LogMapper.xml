@@ -33,7 +33,7 @@
         )
     </insert>
 
-    <delete id="deleteLog" parameterType="java.lang.String">
+    <delete id="deleteByCardId" parameterType="java.lang.String">
         DELETE FROM log
         WHERE log_id = #{logId}
     </delete>
@@ -42,10 +42,14 @@
         DELETE FROM log
         WHERE apply_id = #{applyId}
     </delete>
-
+    <delete id="delelteByCardId" parameterType="java.lang.String">
+        DELETE FROM log
+        WHERE card_id = #{cardId}
+    </delete>
     <select id="queryLogEntityByAimUserId" parameterType="java.lang.String" resultMap="LogMap">
         SELECT * FROM log
-        WHERE aim_user_id = #{aimUserId}
+        WHERE aim_user_id = #{aimUserId} 
+        ORDER BY log_id DESC
     </select>
 
     <update id="setTrueByApplyId" parameterType="java.lang.String">

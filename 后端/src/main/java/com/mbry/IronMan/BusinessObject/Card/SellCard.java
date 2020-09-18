@@ -1,9 +1,11 @@
 package com.mbry.IronMan.BusinessObject.Card;
 
 public class SellCard extends Card{
-    private double price;
-    private double square;
+    private Double price;
+    private Double square;
     // private String requirement;
+    private Double longitude; // 经度 
+    private Double latitude;  // 纬度
     
     public SellCard(){}
     public SellCard(
@@ -15,10 +17,12 @@ public class SellCard extends Card{
         String introduction,
         String location,
         int unitType,
-        double price,
-        double square,
+        Double price,
+        Double square,
         //String requirement,
-        String[] images
+        String[] images,
+        Double longitude,
+        Double latitude 
     ){
         super(cardId, userId, status, date, title, introduction, location, unitType, images);
         this.setPrice(price);
@@ -26,19 +30,19 @@ public class SellCard extends Card{
         //this.setRequirement(requirement);
     }
     
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 	
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
-	public double getSquare() {
+	public Double getSquare() {
 		return square;
 	}
 	
-	public void setSquare(double square) {
+	public void setSquare(Double square) {
 		this.square = square;
 	}
 	
@@ -50,4 +54,19 @@ public class SellCard extends Card{
 	// 	this.requirement = requirement;
 	// }
     
+    public Double getLongitude() {
+		return longitude;
+	}
+	
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+    }
+    
+    public Double getLatitude() {
+		return this.latitude;
+	}
+	
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+    }
 }

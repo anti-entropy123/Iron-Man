@@ -19,6 +19,12 @@ public interface TeamApplicationMapper {
 	 * @param applicationId
 	 */
 	public void deleteTeamApplicationById(String applicationId);
+
+	/**
+	 * 
+	 * @param teamId
+	 */
+	public void deleteByTeamId(String teamId);
 	
 	/**
 	 * 查询发送给指定用户的组队申请
@@ -53,6 +59,6 @@ public interface TeamApplicationMapper {
 	 * @param teamApplicationId
 	 * @param status
 	 */
-	public void updateStatusByTeamApplicationId(@Param("applicationId")String applicationId, @Param("status")boolean status);
+	public void updateStatusByTeamApplicationId(@Param("applicationId")String applicationId, @Param("status")Boolean status);
 
 }

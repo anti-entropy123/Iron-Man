@@ -38,7 +38,7 @@ public class GetRepliesResponse extends DefaultResponse{
                 this.replyId = reply.getCommentId();
                 this.content = reply.getContent();
                 this.createDate = reply.getDate();
-                this.replyToUserId = reply.getReplyToId();
+                this.replyToUserId = replyToUser.getUserId();
                 this.replyToUserName = replyToUser.getNickname();
                 this.userId = user.getUserId(); 
             }
