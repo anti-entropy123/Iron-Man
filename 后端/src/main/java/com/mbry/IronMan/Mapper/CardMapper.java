@@ -68,6 +68,7 @@ public interface CardMapper {
 	public String queryUserIdById(String cardId);
 
 	public CardEntity[] queryCardsForAdm(
+		@Param("type")int type, 
 		@Param("startIndex")int startIndex, 
 		@Param("pageSize")int pageSize, 
 		@Param("userId")String userId, 

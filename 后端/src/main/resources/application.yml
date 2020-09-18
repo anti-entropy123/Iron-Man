@@ -9,6 +9,9 @@ server:
     key-store-password: vi80m2f3p5262
     key-store-type: JKS
 
+http:
+  port: 1315
+
 # Spring configuration
 spring:
   jackson:

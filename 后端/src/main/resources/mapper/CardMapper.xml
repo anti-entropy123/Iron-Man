@@ -123,6 +123,9 @@
 	<select id="queryCardsForAdm" resultMap="CardMap">
 		SELECT * FROM card
 		<where> 
+			<if test="type != 0">
+				AND type = #{type} 
+			</if>
 			<if test="userId != null">
 				AND user_id = #{userId}
 			</if>

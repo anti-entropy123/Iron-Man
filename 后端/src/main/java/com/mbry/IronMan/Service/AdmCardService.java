@@ -79,7 +79,7 @@ public class AdmCardService {
         } else {
             maxDateS = null;
         }
-        CardEntity[] cardEntitys = cardMapper.queryCardsForAdm(startIndex, Global.pageSize, userId, minDateS, maxDateS);
+        CardEntity[] cardEntitys = cardMapper.queryCardsForAdm(type, startIndex, Global.pageSize, userId, minDateS, maxDateS);
 
         GetCardResponse getCardResponse = new GetCardResponse();
         List<GetCardResponse.Data> datas = new ArrayList<GetCardResponse.Data>();
